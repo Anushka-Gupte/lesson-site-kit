@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="From Zero logo">
+  <rect width="64" height="64" rx="16" fill="#1E1B2E"/>
+  <!-- The Zero Ring -->
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#FBF8F3" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- The Saffron Spark -->
+  <circle cx="32" cy="14" r="5" fill="#F4A62A"/>
+  <!-- Inner ray/axis from zero -->
+  <line x1="23" y1="41" x2="41" y2="23" stroke="#F4A62A" stroke-width="3.5" stroke-linecap="round"/>
+</svg>
