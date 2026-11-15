@@ -1,0 +1,38 @@
+== phase1-done ==
+2026-11-15T20:35:39+05:30
+
+== agent branches: commits ahead of main ==
+agent/shell            0 commits
+
+== worktrees ==
+C:/Users/Anushka/Downloads/lesson-site-kit/lesson-site-kit  cf9aa14 [main]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-shell         3527e4b [agent/shell]
+
+== ownership guard (did any agent leave its lane?) ==
+agent=shell branch=agent/shell: 0 files changed, 0 outside its lane
+
+== history ==
+*   cf9aa14 (HEAD -> main) Merge shell agent: design system and home page
+|\  
+| * 3527e4b (agent/shell) shell: document simplified card thumbnails in handoff
+| * 732c62e shell: simplify card thumbnails to bold shape-and-icon art with single readable title
+| * 89fc29d shell: document SVG XML entity compliance in handoff
+| * ed1fa46 shell: fix XML entity in thumb-transformer.svg and sanitize comments
+| * d4a0f34 shell: add Phase 1 handoff documentation in docs/HANDOFF-shell.md
+| * f6ef368 shell: ensure card grid and run blocks flex cleanly down to 360px without overflow
+| * 04332b8 shell: create self-contained 404.html
+| * 79de18f shell: build home page with hero, three lesson cards, and how-to-use strip
+| * 473bfe7 shell: create design system gallery in docs/design-system.html
+| * 0b1ace2 shell: implement site.js with stepper, copy, theme toggle, and scrollspy
+| * cc75138 shell: implement design system tokens and component css
+| * a340913 shell: add brand assets, favicon, and lesson card thumbnails
+* | 6c0c6eb kit: svg validator and svg-is-xml rule
+* | 6da6c25 windows python fix
+|/  
+* d248398 phase 0: spec, rules, prompts, content
+
+== what exists on main ==
+html pages:  3
+svg images:  5
+css/js files: 2
+total lines (html+css+js): 2432
