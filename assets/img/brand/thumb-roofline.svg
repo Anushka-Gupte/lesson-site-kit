@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" role="img" aria-label="Dhaba kitchen counter and vegetable market road beneath an algorithmic roofline boundary">
+  <defs>
+    <pattern id="rf-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="2" fill="#9A5205" opacity="0.12"/>
+      <circle cx="0" cy="0" r="1.5" fill="#9A5205" opacity="0.08"/>
+      <circle cx="40" cy="0" r="1.5" fill="#9A5205" opacity="0.08"/>
+      <circle cx="0" cy="40" r="1.5" fill="#9A5205" opacity="0.08"/>
+      <circle cx="40" cy="40" r="1.5" fill="#9A5205" opacity="0.08"/>
+    </pattern>
+    <linearGradient id="rf-glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9A5205" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#9A5205" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="960" height="640" fill="#FDFBF7"/>
+  <rect width="960" height="640" fill="url(#rf-glow)"/>
+  <rect width="960" height="640" fill="url(#rf-grid)"/>
+
+  <!-- Accent bar top -->
+  <rect x="0" y="0" width="960" height="10" fill="#9A5205"/>
+
+  <!-- Outer Frame -->
+  <rect x="36" y="36" width="888" height="568" rx="24" fill="none" stroke="#EFE6D8" stroke-width="3"/>
+
+  <!-- Single prominent label: font-size 44, centered in clear open space -->
+  <text x="480" y="115" font-family="Fraunces, ui-serif, Georgia, serif" font-size="44" font-weight="600" fill="#9A5205" text-anchor="middle" letter-spacing="-0.01em">ROOFLINE</text>
+
+  <!-- THE ROOFLINE CANOPY (Iconic Profile) -->
+  <!-- Shaded Region under the Roofline -->
+  <polygon points="120,380 480,180 840,180 840,380" fill="#F4A62A" opacity="0.09"/>
+
+  <!-- Sloped Memory-Bound Ceiling -->
+  <line x1="120" y1="380" x2="480" y2="180" stroke="#9A5205" stroke-width="8" stroke-linecap="round"/>
+  <!-- Flat Compute-Bound Ceiling -->
+  <line x1="480" y1="180" x2="840" y2="180" stroke="#9A5205" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- The Ridge Point Node -->
+  <circle cx="480" cy="180" r="16" fill="#F4A62A" stroke="#9A5205" stroke-width="5"/>
+  <circle cx="480" cy="180" r="6" fill="#FFFFFF"/>
+
+  <!-- Left: Sabzi Mandi Storehouse (Memory) - Bold Clean Shapes, Zero Labels -->
+  <g transform="translate(180, 470)">
+    <!-- Building outline -->
+    <rect x="-90" y="-80" width="180" height="130" rx="16" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="5"/>
+    <polygon points="-100,-80 0,-125 100,-80" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="5" stroke-linejoin="round"/>
+
+    <!-- Arch Doorway -->
+    <path d="M -35 50 L -35 0 A 35 35 0 0 1 35 0 L 35 50 Z" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="4"/>
+
+    <!-- Two Sacks of Vegetables inside arch -->
+    <ellipse cx="-15" cy="25" rx="18" ry="22" fill="#FFFFFF" stroke="#9A5205" stroke-width="3.5"/>
+    <ellipse cx="15" cy="25" rx="18" ry="22" fill="#FFFFFF" stroke="#9A5205" stroke-width="3.5"/>
+    <circle cx="-15" cy="8" r="4" fill="#F4A62A"/>
+    <circle cx="15" cy="8" r="4" fill="#F4A62A"/>
+  </g>
+
+  <!-- Middle: Road & Delivery Bicycle (Memory Bandwidth Bus) -->
+  <g transform="translate(480, 500)">
+    <!-- Road Surface Line -->
+    <line x1="-190" y1="20" x2="190" y2="20" stroke="#E7E1D6" stroke-width="14" stroke-linecap="round"/>
+    <line x1="-170" y1="20" x2="170" y2="20" stroke="#9A5205" stroke-width="3.5" stroke-dasharray="14,12"/>
+
+    <!-- Delivery Bicycle -->
+    <!-- Rear Wheel -->
+    <circle cx="-32" cy="0" r="22" fill="none" stroke="#9A5205" stroke-width="4"/>
+    <!-- Front Wheel -->
+    <circle cx="32" cy="0" r="22" fill="none" stroke="#9A5205" stroke-width="4"/>
+    <!-- Frame Tubes -->
+    <path d="M -32 0 L -8 0 L 16 -18 L -14 -18 Z" fill="none" stroke="#1E1B2E" stroke-width="4" stroke-linejoin="round"/>
+    <line x1="-8" y1="0" x2="-14" y2="-18" stroke="#1E1B2E" stroke-width="4"/>
+    <line x1="16" y1="-18" x2="32" y2="0" stroke="#1E1B2E" stroke-width="4"/>
+    <!-- Handlebar & Seat -->
+    <line x1="10" y1="-26" x2="22" y2="-26" stroke="#1E1B2E" stroke-width="4" stroke-linecap="round"/>
+    <line x1="-20" y1="-24" x2="-8" y2="-24" stroke="#1E1B2E" stroke-width="4" stroke-linecap="round"/>
+    <!-- Delivery Cargo Box -->
+    <rect x="-42" y="-30" width="22" height="18" rx="4" fill="#F4A62A" stroke="#9A5205" stroke-width="3"/>
+  </g>
+
+  <!-- Right: Dhaba Kitchen (Compute Unit) - Bold Clean Shapes, Zero Labels -->
+  <g transform="translate(760, 470)">
+    <!-- Kitchen Building -->
+    <rect x="-90" y="-80" width="180" height="130" rx="16" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="5"/>
+    <polygon points="-100,-80 0,-125 100,-80" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="5" stroke-linejoin="round"/>
+
+    <!-- Counter Window Arch -->
+    <path d="M -50 50 L -50 -10 A 50 50 0 0 1 50 -10 L 50 50 Z" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="4"/>
+
+    <!-- Copper Handi / Cooking Pot -->
+    <path d="M -32 15 Q -38 42, 0 42 Q 38 42, 32 15 Z" fill="#F4A62A" stroke="#9A5205" stroke-width="4"/>
+    <ellipse cx="0" cy="15" rx="32" ry="8" fill="#FFFFFF" stroke="#9A5205" stroke-width="3.5"/>
+    <!-- Cooking Steam Arcs -->
+    <path d="M -12 -2 Q -18 -14, -12 -24" fill="none" stroke="#9A5205" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 0 -6 Q -6 -18, 0 -28" fill="none" stroke="#9A5205" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 12 -2 Q 6 -14, 12 -24" fill="none" stroke="#9A5205" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

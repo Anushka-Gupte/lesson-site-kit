@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" role="img" aria-label="Transformer architecture showing tokens and attention arcs connecting words">
+  <defs>
+    <pattern id="tr-dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="2" fill="#4338CA" opacity="0.12"/>
+      <circle cx="0" cy="0" r="1.5" fill="#4338CA" opacity="0.08"/>
+      <circle cx="40" cy="0" r="1.5" fill="#4338CA" opacity="0.08"/>
+      <circle cx="0" cy="40" r="1.5" fill="#4338CA" opacity="0.08"/>
+      <circle cx="40" cy="40" r="1.5" fill="#4338CA" opacity="0.08"/>
+    </pattern>
+    <linearGradient id="tr-glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4338CA" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#4338CA" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="960" height="640" fill="#F6F3ED"/>
+  <rect width="960" height="640" fill="url(#tr-glow)"/>
+  <rect width="960" height="640" fill="url(#tr-dots)"/>
+
+  <!-- Accent bar top -->
+  <rect x="0" y="0" width="960" height="10" fill="#4338CA"/>
+
+  <!-- Outer Frame -->
+  <rect x="36" y="36" width="888" height="568" rx="24" fill="none" stroke="#E2DBD0" stroke-width="3"/>
+
+  <!-- Single prominent label: font-size 44, centered in clear open space -->
+  <text x="480" y="115" font-family="Fraunces, ui-serif, Georgia, serif" font-size="44" font-weight="600" fill="#4338CA" text-anchor="middle" letter-spacing="-0.01em">ATTENTION</text>
+
+  <!-- Top Stage: Output Prediction Tile -->
+  <g transform="translate(480, 185)">
+    <rect x="-180" y="-36" width="360" height="72" rx="18" fill="#FFFFFF" stroke="#4338CA" stroke-width="4"/>
+    <!-- Probability indicator bar (iconic) -->
+    <rect x="-140" y="-12" width="280" height="24" rx="12" fill="#EEF2FF"/>
+    <rect x="-140" y="-12" width="180" height="24" rx="12" fill="#4338CA"/>
+    <circle cx="40" cy="0" r="18" fill="#F4A62A" stroke="#FFFFFF" stroke-width="3"/>
+  </g>
+
+  <!-- Vertical Trunk Connector -->
+  <line x1="480" y1="221" x2="480" y2="265" stroke="#4338CA" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Stacked Tile: Feed-Forward (MLP) -->
+  <g transform="translate(480, 310)">
+    <rect x="-240" y="-40" width="480" height="80" rx="20" fill="#FFFFFF" stroke="#4338CA" stroke-width="4"/>
+    <!-- Iconic processing glyphs: 3 nodes connected -->
+    <line x1="-120" y1="0" x2="120" y2="0" stroke="#EEF2FF" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="-120" cy="0" r="14" fill="#8B83FF"/>
+    <circle cx="0" cy="0" r="18" fill="#4338CA"/>
+    <circle cx="120" cy="0" r="14" fill="#8B83FF"/>
+  </g>
+
+  <!-- Residual bypass curve on left -->
+  <path d="M 220 490 C 130 400, 130 310, 240 310" fill="none" stroke="#4338CA" stroke-width="4" stroke-dasharray="10,8" stroke-linecap="round"/>
+  <circle cx="148" cy="380" r="16" fill="#FFFFFF" stroke="#4338CA" stroke-width="3.5"/>
+  <path d="M 140 380 L 156 380 M 148 372 L 148 388" stroke="#4338CA" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Vertical Trunk Connector -->
+  <line x1="480" y1="350" x2="480" y2="395" stroke="#4338CA" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Stacked Tile: Self-Attention Matrix -->
+  <g transform="translate(480, 435)">
+    <rect x="-280" y="-36" width="560" height="72" rx="20" fill="#EEF2FF" stroke="#4338CA" stroke-width="4"/>
+    <!-- Pattern of matrix grid cells inside attention -->
+    <rect x="-180" y="-18" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#4338CA" stroke-width="2.5"/>
+    <rect x="-120" y="-18" width="36" height="36" rx="8" fill="#4338CA"/>
+    <rect x="-60" y="-18" width="36" height="36" rx="8" fill="#8B83FF"/>
+    <rect x="0" y="-18" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#4338CA" stroke-width="2.5"/>
+    <rect x="60" y="-18" width="36" height="36" rx="8" fill="#4338CA"/>
+    <rect x="120" y="-18" width="36" height="36" rx="8" fill="#8B83FF"/>
+  </g>
+
+  <!-- Big Bold Attention Arcs Linking Token Positions -->
+  <!-- Arc 1: from token 4 (right) to token 2 -->
+  <path d="M 690 535 C 690 460, 420 460, 420 535" fill="none" stroke="#4338CA" stroke-width="6" stroke-linecap="round"/>
+  <!-- Arc 2: from token 4 (right) to token 1 (far left) -->
+  <path d="M 690 535 C 690 430, 240 430, 240 535" fill="none" stroke="#8B83FF" stroke-width="5" stroke-dasharray="10,8" stroke-linecap="round"/>
+
+  <!-- Bottom Row: 4 Bold Token Blocks -->
+  <g transform="translate(0, 545)">
+    <!-- Token 1 -->
+    <g transform="translate(240, 0)">
+      <rect x="-55" y="-28" width="110" height="56" rx="14" fill="#FFFFFF" stroke="#4338CA" stroke-width="4"/>
+      <circle cx="0" cy="0" r="10" fill="#8B83FF"/>
+      <circle cx="0" cy="-28" r="7" fill="#8B83FF"/>
+    </g>
+
+    <!-- Token 2 -->
+    <g transform="translate(420, 0)">
+      <rect x="-55" y="-28" width="110" height="56" rx="14" fill="#FFFFFF" stroke="#4338CA" stroke-width="4"/>
+      <circle cx="0" cy="0" r="10" fill="#4338CA"/>
+      <circle cx="0" cy="-28" r="7" fill="#4338CA"/>
+    </g>
+
+    <!-- Token 3 -->
+    <g transform="translate(560, 0)">
+      <rect x="-45" y="-28" width="90" height="56" rx="14" fill="#FFFFFF" stroke="#D3C9BC" stroke-width="3"/>
+      <circle cx="0" cy="0" r="8" fill="#D3C9BC"/>
+    </g>
+
+    <!-- Token 4 (Target) -->
+    <g transform="translate(690, 0)">
+      <rect x="-55" y="-28" width="110" height="56" rx="14" fill="#4338CA" stroke="#4338CA" stroke-width="4"/>
+      <circle cx="0" cy="0" r="12" fill="#F4A62A"/>
+      <circle cx="0" cy="-28" r="8" fill="#F4A62A"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From Zero — Three First-Principles Lessons</title>
+  <meta name="description" content="Three interactive, first-principles lessons on AI and systems: the Transformer, Agent Harnesses, and the GPU Roofline plot. No prerequisites assumed.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon.svg">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+  <!-- Accessible Skip Link -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Global Header -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-brand" href="index.html" aria-label="From Zero home">
+        <svg viewBox="0 0 64 64" width="32" height="32" role="img" aria-hidden="true">
+          <rect width="64" height="64" rx="16" fill="#1E1B2E"/>
+          <circle cx="32" cy="32" r="18" fill="none" stroke="#FBF8F3" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="32" cy="14" r="5" fill="#F4A62A"/>
+          <line x1="23" y1="41" x2="41" y2="23" stroke="#F4A62A" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+        <span>From Zero</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="index.html" aria-current="page">Home</a></li>
+          <li><a class="site-nav__link" href="lessons/transformer/">Transformer</a></li>
+          <li><a class="site-nav__link" href="lessons/harness/">Harness</a></li>
+          <li><a class="site-nav__link" href="lessons/roofline/">Roofline</a></li>
+        </ul>
+        <button type="button" class="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- Hero Section -->
+    <section class="home-hero">
+      <div class="home-hero__badge">
+        <span class="home-hero__badge-dot" aria-hidden="true"></span>
+        <span>First-Principles Architecture</span>
+      </div>
+      <h1>Three lessons to understand modern AI from scratch.</h1>
+      <p class="home-hero__lead">
+        No hype, no black boxes, and no mathematical barrier. Concrete metaphors, interactive step-by-step machines, and code you can run yourself.
+      </p>
+
+      <!-- Small decorative SVG accent -->
+      <div style="display: flex; justify-content: center; margin-bottom: var(--space-6);">
+        <svg width="120" height="24" viewBox="0 0 120 24" fill="none" role="img" aria-hidden="true">
+          <line x1="0" y1="12" x2="44" y2="12" stroke="var(--border)" stroke-width="2"/>
+          <circle cx="60" cy="12" r="5" fill="var(--saffron)"/>
+          <line x1="76" y1="12" x2="120" y2="12" stroke="var(--border)" stroke-width="2"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Three Lesson Cards Grid (SPEC Section 4 & 5) -->
+    <section aria-label="Course Lessons">
+      <div class="card-grid">
+        <!-- Lesson 1: Transformer -->
+        <a class="card card--transformer" href="lessons/transformer/">
+          <div class="card__media">
+            <img src="assets/img/brand/thumb-transformer.svg" alt="Transformer architecture diagram showing token blocks and attention arcs" width="960" height="640" loading="lazy">
+          </div>
+          <div class="card__body">
+            <p class="card__eyebrow">Lesson 1 &bull; 25 min &bull; Beginner</p>
+            <h2 class="card__title">The Transformer, from Scratch</h2>
+            <p class="card__text">
+              How does a machine look across long text to predict the next word? Build the complete decoder machine bottom-to-top with zero maths assumed.
+            </p>
+            <ul class="tags">
+              <li>NLP</li>
+              <li>Attention</li>
+              <li>Decoder</li>
+            </ul>
+            <span class="card__cta">Start the lesson &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Lesson 2: Harness -->
+        <a class="card card--harness" href="lessons/harness/">
+          <div class="card__media">
+            <img src="assets/img/brand/thumb-harness.svg" alt="Motorcycle frame with engine being fitted representing harness and AI model" width="960" height="640" loading="lazy">
+          </div>
+          <div class="card__body">
+            <p class="card__eyebrow">Lesson 2 &bull; 25 min &bull; Beginner</p>
+            <h2 class="card__title">What Is a Harness? Pi vs Hermes</h2>
+            <p class="card__text">
+              An engine cannot ride to Leh without handlebars, brakes and a frame. Learn how a harness turns raw text models into autonomous agents.
+            </p>
+            <ul class="tags">
+              <li>AI Agents</li>
+              <li>Runtime</li>
+              <li>Brakes</li>
+            </ul>
+            <span class="card__cta">Start the lesson &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Lesson 3: Roofline -->
+        <a class="card card--roofline" href="lessons/roofline/">
+          <div class="card__media">
+            <img src="assets/img/brand/thumb-roofline.svg" alt="Dhaba kitchen counter and vegetable market road beneath an algorithmic roofline ceiling" width="960" height="640" loading="lazy">
+          </div>
+          <div class="card__body">
+            <p class="card__eyebrow">Lesson 3 &bull; 25 min &bull; Beginner</p>
+            <h2 class="card__title">The GPU Roofline Plot, from Scratch</h2>
+            <p class="card__text">
+              Why does a 1,307 TFLOP/s MI300X slow down to 0.9 on simple addition? Master arithmetic intensity, bandwidth limits, and kitchen bottlenecks.
+            </p>
+            <ul class="tags">
+              <li>GPU Hardware</li>
+              <li>Bandwidth</li>
+              <li>Roofline</li>
+            </ul>
+            <span class="card__cta">Start the lesson &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- "How to use this site" Strip -->
+    <section class="feature-strip" aria-labelledby="how-to-use-heading">
+      <span class="kicker">How to read</span>
+      <h2 id="how-to-use-heading" style="margin-top: var(--space-2); margin-bottom: var(--space-3); font-size: var(--step-3);">
+        How to use this site
+      </h2>
+      <p class="prose" style="color: var(--muted); margin-bottom: var(--space-5);">
+        These three lessons are self-contained and assume zero previous experience in deep learning or hardware systems.
+      </p>
+
+      <div class="feature-strip__grid">
+        <div class="feature-item">
+          <span class="kicker" style="color: var(--saffron);">01 &bull; Intuition First</span>
+          <h3>Concrete Metaphors</h3>
+          <p>
+            Complex equations are replaced with real-world analogies: Mumbai local trains, Royal Enfield motorcycle mechanics, and busy highway dhaba kitchens.
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <span class="kicker" style="color: var(--teal);">02 &bull; Interactive Exploration</span>
+          <h3>Step-by-Step Figures</h3>
+          <p>
+            Every key concept is built visually piece by piece. Click through steppers or use your arrow keys to watch architectures assemble in real time.
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <span class="kicker" style="color: var(--indigo);">03 &bull; Honest Numbers</span>
+          <h3>Reproduce Every Claim</h3>
+          <p>
+            All figures are rigorously labeled as <em>measured</em>, <em>reasoned</em>, or from <em>spec sheets</em>. Copy small Python snippets to verify the numbers on your own machine.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__col">
+        <p class="site-footer__title">From Zero</p>
+        <p>Three first-principles lessons on AI &amp; systems architecture. Built with pure HTML, CSS, and vanilla JS. No tracking, no external CDN.</p>
+        <p style="margin-top: var(--space-3);"><a href="docs/design-system.html">View Component Design System &rarr;</a></p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Accessibility &amp; Standards</p>
+        <p>Tested for WCAG AA contrast, keyboard navigation, and reduced motion. Designed for curious beginners everywhere.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Navigation</p>
+        <p><a href="index.html">Home</a> &bull; <a href="lessons/transformer/">Transformer</a> &bull; <a href="lessons/harness/">Harness</a> &bull; <a href="lessons/roofline/">Roofline</a> &bull; <a href="#main">Back to top &uarr;</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
