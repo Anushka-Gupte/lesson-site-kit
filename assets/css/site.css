@@ -494,14 +494,14 @@ p {
    -------------------------------------------------------------------------- */
 .card-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
   margin-bottom: var(--space-8);
 }
 
 @media (min-width: 960px) {
   .card-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -511,6 +511,8 @@ p {
 
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
@@ -561,6 +563,8 @@ p {
 }
 
 .card__media {
+  width: 100%;
+  max-width: 100%;
   aspect-ratio: 3 / 2;
   background-color: var(--card-tint);
   overflow: hidden;
@@ -568,6 +572,7 @@ p {
 }
 .card__media img, .card__media svg {
   width: 100%;
+  max-width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 200ms ease;
@@ -859,6 +864,8 @@ p {
    -------------------------------------------------------------------------- */
 .run {
   position: relative;
+  min-width: 0;
+  max-width: 100%;
   background-color: #161424;
   color: #F3EFE8;
   border-radius: var(--radius-card);
@@ -891,6 +898,7 @@ p {
   font-family: var(--font-code);
   font-size: 0.9375rem;
   line-height: 1.6;
+  max-width: 100%;
   overflow-x: auto;
   padding: var(--space-2) 0;
   margin: 0;
