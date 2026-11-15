@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design System &amp; Component Gallery — From Zero</title>
+  <meta name="description" content="Living component gallery and design system reference for the From Zero static lesson website.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <script src="../assets/js/site.js" defer></script>
+</head>
+<body>
+  <!-- Accessible Skip Link -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Global Header (Copied verbatim by lesson pages, updating relative links & aria-current) -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-brand" href="../index.html" aria-label="From Zero home">
+        <svg viewBox="0 0 64 64" width="32" height="32" role="img" aria-hidden="true">
+          <rect width="64" height="64" rx="16" fill="#1E1B2E"/>
+          <circle cx="32" cy="32" r="18" fill="none" stroke="#FBF8F3" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="32" cy="14" r="5" fill="#F4A62A"/>
+          <line x1="23" y1="41" x2="41" y2="23" stroke="#F4A62A" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+        <span>From Zero</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="../index.html">Home</a></li>
+          <li><a class="site-nav__link" href="../lessons/transformer/">Transformer</a></li>
+          <li><a class="site-nav__link" href="../lessons/harness/">Harness</a></li>
+          <li><a class="site-nav__link" href="../lessons/roofline/">Roofline</a></li>
+        </ul>
+        <button type="button" class="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container" style="padding-top: var(--space-7); padding-bottom: var(--space-8);">
+    <header style="margin-bottom: var(--space-7);">
+      <span class="kicker">Reference Guide</span>
+      <h1>Design System &amp; Component Gallery</h1>
+      <p class="prose" style="font-size: var(--step-2); color: var(--muted);">
+        Every component defined in the SPEC contract, styled and wired. Lesson authors can copy markup directly from this page.
+      </p>
+    </header>
+
+    <!-- Table of Contents for the Gallery -->
+    <nav class="toc" aria-label="Gallery Sections" style="margin-bottom: var(--space-7);">
+      <p class="toc__title">Components on this page</p>
+      <ul>
+        <li><a href="#tokens">1. Color Tokens &amp; Contrast</a></li>
+        <li><a href="#cards">2. Lesson Cards &amp; Grid</a></li>
+        <li><a href="#callouts">3. Callouts (Idea, Measured, Reasoned, Caution)</a></li>
+        <li><a href="#stepper">4. Step-by-Step Interactive Stepper</a></li>
+        <li><a href="#run">5. Runnable Code &amp; Copy Button</a></li>
+        <li><a href="#deepdives">6. Deep Dives &amp; Q&amp;A Disclosures</a></li>
+        <li><a href="#tables">7. Data Tables</a></li>
+        <li><a href="#prevnext">8. Prev / Next Navigation Strip</a></li>
+      </ul>
+    </nav>
+
+    <!-- SECTION 1: TOKENS -->
+    <section id="tokens" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Foundations</span>
+      <h2>1. Color Tokens &amp; Contrast</h2>
+      <p class="prose">
+        Editorial palette: warm paper, ink, and a saffron spark. All text pairs have been rigorously checked to pass WCAG AA (&gt; 4.5:1) in both light and dark themes.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); margin-top: var(--space-5);">
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-4);">
+          <strong style="color: var(--ink);">--bg</strong>
+          <p style="color: var(--muted); font-size: var(--step--1); margin: 0;">Base page background</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-4);">
+          <strong style="color: var(--ink);">--surface</strong>
+          <p style="color: var(--muted); font-size: var(--step--1); margin: 0;">Cards &amp; containers</p>
+        </div>
+        <div style="background: var(--ink); border-radius: var(--radius-sm); padding: var(--space-4);">
+          <strong style="color: var(--surface);">--ink</strong>
+          <p style="color: var(--muted); font-size: var(--step--1); margin: 0;">Primary body text</p>
+        </div>
+        <div style="background: var(--surface); border: 2px solid var(--indigo); border-radius: var(--radius-sm); padding: var(--space-4);">
+          <strong style="color: var(--indigo);">--indigo</strong>
+          <p style="color: var(--muted); font-size: var(--step--1); margin: 0;">Transformer accent</p>
+        </div>
+        <div style="background: var(--surface); border: 2px solid var(--teal); border-radius: var(--radius-sm); padding: var(--space-4);">
+          <strong style="color: var(--teal);">--teal</strong>
+          <p style="color: var(--muted); font-size: var(--step--1); margin: 0;">Harness accent</p>
+        </div>
+        <div style="background: var(--surface); border: 2px solid var(--saffron); border-radius: var(--radius-sm); padding: var(--space-4);">
+          <strong style="color: var(--saffron);">--saffron</strong>
+          <p style="color: var(--muted); font-size: var(--step--1); margin: 0;">Roofline accent</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CARDS -->
+    <section id="cards" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Home Page</span>
+      <h2>2. Lesson Cards &amp; Grid</h2>
+      <p class="prose">
+        Each card is an accessible block link (<code>&lt;a class="card card--slug"&gt;</code>) with top accent strip, 3:2 media, eyebrow kicker, Fraunces 28px title, 2-line description, tags, and animated text CTA.
+      </p>
+
+      <div class="card-grid" style="margin-top: var(--space-5);">
+        <!-- Card 1: Transformer -->
+        <a class="card card--transformer" href="../lessons/transformer/">
+          <div class="card__media">
+            <img src="../assets/img/brand/thumb-transformer.svg" alt="Transformer architecture diagram showing token blocks and attention arcs" width="960" height="640" loading="lazy">
+          </div>
+          <div class="card__body">
+            <p class="card__eyebrow">Lesson 1 &bull; 25 min &bull; Beginner</p>
+            <h3 class="card__title">The Transformer, from Scratch</h3>
+            <p class="card__text">
+              How does a machine look across long text to guess the next word? Build the complete decoder bottom-to-top with zero maths assumed.
+            </p>
+            <ul class="tags">
+              <li>NLP</li>
+              <li>Attention</li>
+              <li>Decoder</li>
+            </ul>
+            <span class="card__cta">Start the lesson &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Card 2: Harness -->
+        <a class="card card--harness" href="../lessons/harness/">
+          <div class="card__media">
+            <img src="../assets/img/brand/thumb-harness.svg" alt="Motorcycle frame with engine being fitted representing harness and AI model" width="960" height="640" loading="lazy">
+          </div>
+          <div class="card__body">
+            <p class="card__eyebrow">Lesson 2 &bull; 25 min &bull; Beginner</p>
+            <h3 class="card__title">What Is a Harness? Pi vs Hermes</h3>
+            <p class="card__text">
+              An engine cannot ride to Leh without handlebars, brakes and a frame. Learn how a harness turns raw text models into autonomous agents.
+            </p>
+            <ul class="tags">
+              <li>Agents</li>
+              <li>Runtime</li>
+              <li>Brakes</li>
+            </ul>
+            <span class="card__cta">Start the lesson &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Card 3: Roofline -->
+        <a class="card card--roofline" href="../lessons/roofline/">
+          <div class="card__media">
+            <img src="../assets/img/brand/thumb-roofline.svg" alt="Dhaba kitchen counter and vegetable market road beneath an algorithmic roofline ceiling" width="960" height="640" loading="lazy">
+          </div>
+          <div class="card__body">
+            <p class="card__eyebrow">Lesson 3 &bull; 25 min &bull; Beginner</p>
+            <h3 class="card__title">The GPU Roofline Plot, from Scratch</h3>
+            <p class="card__text">
+              Why does a 1,300 TFLOP/s MI300X slow down to 0.9 on simple addition? Master arithmetic intensity, bandwidth limits, and kitchen bottlenecks.
+            </p>
+            <ul class="tags">
+              <li>GPU Hardware</li>
+              <li>Bandwidth</li>
+              <li>Roofline</li>
+            </ul>
+            <span class="card__cta">Start the lesson &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CALLOUTS -->
+    <section id="callouts" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Editorial Notes</span>
+      <h2>3. Callouts (SPEC Section 5)</h2>
+      <p class="prose">
+        Four distinct variants for different pedagogical intentions. 10% accent tint on surface, solid 4px accent left border.
+      </p>
+
+      <aside class="callout callout--idea">
+        <p class="callout__label">Idea</p>
+        <p>A GPU is a very fast cook with a helper fetching ingredients from a far-away sabzi mandi. Which one limits you depends on the recipe.</p>
+      </aside>
+
+      <aside class="callout callout--measured">
+        <p class="callout__label">Measured</p>
+        <p>Measured on 13 November 2026: Pi 1.5.2 fixed cost was 5,231 characters per turn, whereas Hermes Agent 0.19.0 sent 54,120 characters before its first tool call.</p>
+      </aside>
+
+      <aside class="callout callout--reasoned">
+        <p class="callout__label">Reasoned</p>
+        <p>For BF16 operations on AMD MI300X: Peak compute (1,307 TFLOP/s) divided by Memory bandwidth (5.3 TB/s) equals an arithmetic intensity ridge of 247 FLOPs/byte.</p>
+      </aside>
+
+      <aside class="callout callout--caution">
+        <p class="callout__label">Caution</p>
+        <p>Never run untrusted autonomous agent commands without a safety sandbox or brake permission policy active on your file system.</p>
+      </aside>
+    </section>
+
+    <!-- SECTION 4: STEPPER -->
+    <section id="stepper" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Interactive Figure</span>
+      <h2>4. Step-by-Step Interactive Stepper</h2>
+      <p class="prose">
+        Wired automatically by <code>assets/js/site.js</code> on <code>[data-stepper]</code>. Steps are cumulative, with keyboard arrow support and polite ARIA announcements.
+      </p>
+
+      <!-- Working Sample Stepper -->
+      <figure class="stepper" data-stepper aria-label="Four stages of a machine learning model">
+        <div class="stepper__stage">
+          <svg viewBox="0 0 680 260" role="img" aria-label="Model stages illustration">
+            <!-- Step 1: Input -->
+            <g data-step="1">
+              <rect x="40" y="80" width="120" height="80" rx="12" fill="#FFFFFF" stroke="#4338CA" stroke-width="3"/>
+              <text x="100" y="125" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#1E1B2E" text-anchor="middle">1. Tokens</text>
+            </g>
+            <!-- Step 2: Attention -->
+            <g data-step="2">
+              <line x1="160" y1="120" x2="200" y2="120" stroke="#4338CA" stroke-width="3" stroke-linecap="round"/>
+              <polygon points="200,120 190,114 190,126" fill="#4338CA"/>
+              <rect x="200" y="80" width="130" height="80" rx="12" fill="#EEF2FF" stroke="#4338CA" stroke-width="3"/>
+              <text x="265" y="125" font-family="Fraunces, serif" font-size="14" font-weight="600" fill="#4338CA" text-anchor="middle">2. Attention</text>
+            </g>
+            <!-- Step 3: MLP -->
+            <g data-step="3">
+              <line x1="330" y1="120" x2="370" y2="120" stroke="#4338CA" stroke-width="3" stroke-linecap="round"/>
+              <polygon points="370,120 360,114 360,126" fill="#4338CA"/>
+              <rect x="370" y="80" width="120" height="80" rx="12" fill="#FFFFFF" stroke="#4338CA" stroke-width="3"/>
+              <text x="430" y="125" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#1E1B2E" text-anchor="middle">3. MLP</text>
+            </g>
+            <!-- Step 4: Output -->
+            <g data-step="4">
+              <line x1="490" y1="120" x2="530" y2="120" stroke="#4338CA" stroke-width="3" stroke-linecap="round"/>
+              <polygon points="530,120 520,114 520,126" fill="#4338CA"/>
+              <rect x="530" y="80" width="110" height="80" rx="12" fill="#4338CA" stroke="#4338CA" stroke-width="3"/>
+              <text x="585" y="125" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">4. Word</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="stepper__panel" aria-live="polite">
+          <p class="stepper__count">Step 1 of 4</p>
+          <h3 class="stepper__title">1. Words Turn into Token Embeddings</h3>
+          <p class="stepper__text">The input text is sliced into numbers that represent meanings in a vector lookup table.</p>
+        </div>
+
+        <div class="stepper__controls">
+          <button type="button" data-prev disabled>&larr; Back</button>
+          <button type="button" data-next>Next &rarr;</button>
+        </div>
+
+        <script type="application/json" class="stepper__data">
+          [
+            {
+              "title": "1. Words Turn into Token Embeddings",
+              "text": "The sentence is split into tokens. Each token pulls its starting meaning vector from an embedding lookup table."
+            },
+            {
+              "title": "2. Masked Self-Attention Looks Back",
+              "text": "Each token reaches backwards to inspect preceding tokens, gathering clues and computing weighted sums."
+            },
+            {
+              "title": "3. Feed-Forward Network Considers Facts",
+              "text": "An MLP layer processes the accumulated clues independently for each position, remembering patterns learned during training."
+            },
+            {
+              "title": "4. Final Scores Predict the Next Word",
+              "text": "A linear projection followed by softmax gives every vocabulary word a percentage chance. The highest score wins."
+            }
+          ]
+        </script>
+      </figure>
+    </section>
+
+    <!-- SECTION 5: RUN BLOCK -->
+    <section id="run" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Code Reproducibility</span>
+      <h2>5. Runnable Code &amp; Copy Button</h2>
+      <p class="prose">
+        Dark code block styling with <code>JetBrains Mono</code> and one-click copy button wired by <code>[data-copy]</code>.
+      </p>
+
+      <div class="run">
+        <div class="run__header">
+          <p class="run__label">Run it in Python</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>import numpy as np
+
+# A simple dot-product attention score
+q = np.array([1.2, -0.5, 0.8])
+k = np.array([0.9, -0.4, 0.7])
+score = np.dot(q, k) / np.sqrt(len(q))
+print(f"Attention score: {score:.3f}")</code></pre>
+      </div>
+    </section>
+
+    <!-- SECTION 6: DEEP DIVES & Q&A -->
+    <section id="deepdives" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Disclosures</span>
+      <h2>6. Deep Dives &amp; Q&amp;A Disclosures</h2>
+      <p class="prose">
+        Math and presenter questions stay folded inside accessible <code>&lt;details&gt;</code> elements so total beginners aren't overwhelmed.
+      </p>
+
+      <details class="deepdive">
+        <summary>Under the hood: why divide by &radic;d in attention?</summary>
+        <div class="deepdive__content">
+          <p>
+            When vectors have dimension <em>d</em>, multiplying <em>d</em> independent random numbers causes their sum's variance to scale with <em>d</em>. Without dividing by <em>&radic;d</em>, large dimensions push the softmax into regions with vanishingly small gradients.
+          </p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Question: Does a language model remember my earlier questions?</summary>
+        <div class="qa__content">
+          <p>
+            No. The language model itself is stateless. The harness re-sends the prior conversation log on every single round.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <!-- SECTION 7: TABLES -->
+    <section id="tables" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Data Presentation</span>
+      <h2>7. Responsive Data Tables</h2>
+      <p class="prose">
+        Wrapped in <code>.table-wrap</code> to guarantee zero horizontal overflow on small mobile screens (down to 360px).
+      </p>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Processor / Benchmark</th>
+              <th scope="col">Peak Compute</th>
+              <th scope="col">Memory Bandwidth</th>
+              <th scope="col">Ridge Point</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>AMD Instinct MI300X (BF16)</strong></td>
+              <td>1,307 TFLOP/s</td>
+              <td>5.3 TB/s</td>
+              <td>247 FLOP/byte</td>
+              <td><span class="chip">Spec Sheet</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tesla T4 (FP32)</strong></td>
+              <td>8.1 TFLOP/s</td>
+              <td>320 GB/s</td>
+              <td>25 FLOP/byte</td>
+              <td><span class="chip">Measured</span></td>
+            </tr>
+            <tr>
+              <td><strong>Intel Core i7 (AVX-512)</strong></td>
+              <td>0.45 TFLOP/s</td>
+              <td>42 GB/s</td>
+              <td>11 FLOP/byte</td>
+              <td><span class="chip">Measured</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 8: PREV/NEXT -->
+    <section id="prevnext" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Lesson Navigation</span>
+      <h2>8. Prev / Next Navigation Strip</h2>
+      <p class="prose">
+        Placed at the bottom of every lesson page for natural reading flow.
+      </p>
+
+      <nav class="prevnext" aria-label="Lesson progression">
+        <a class="prevnext__link" href="../lessons/transformer/">
+          <span class="prevnext__label">&larr; Previous Lesson</span>
+          <span class="prevnext__title">The Transformer, from Scratch</span>
+        </a>
+        <a class="prevnext__link prevnext__link--next" href="../lessons/roofline/">
+          <span class="prevnext__label">Next Lesson &rarr;</span>
+          <span class="prevnext__title">The GPU Roofline Plot, from Scratch</span>
+        </a>
+      </nav>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__col">
+        <p class="site-footer__title">From Zero</p>
+        <p>Three first-principles lessons on AI &amp; systems architecture. Built with pure HTML, CSS, and vanilla JS. No tracking, no external CDN.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Accessibility &amp; Standards</p>
+        <p>Tested for WCAG AA compliance, keyboard navigation, and reduced motion. Designed for curious beginners everywhere.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Navigation</p>
+        <p><a href="../index.html">Home</a> &bull; <a href="../lessons/transformer/">Transformer</a> &bull; <a href="../lessons/harness/">Harness</a> &bull; <a href="../lessons/roofline/">Roofline</a> &bull; <a href="#main">Back to top &uarr;</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
