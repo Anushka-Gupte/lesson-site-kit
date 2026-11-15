@@ -32,7 +32,7 @@
     <line x1="0" y1="-80" x2="0" y2="80" stroke="#0F766E" stroke-width="2" opacity="0.3"/>
     <line x1="-56" y1="-56" x2="56" y2="56" stroke="#0F766E" stroke-width="2" opacity="0.3"/>
     <line x1="-56" y1="56" x2="56" y2="-56" stroke="#0F766E" stroke-width="2" opacity="0.3"/>
-    <!-- Brake disc & caliper (Brakes = Permissions) -->
+    <!-- Brake disc and caliper (Brakes = Permissions) -->
     <circle cx="0" cy="0" r="50" fill="none" stroke="#0F766E" stroke-width="3" stroke-dasharray="8,6"/>
     <rect x="25" y="-35" width="28" height="38" rx="6" fill="#0F766E"/>
     <text x="39" y="-12" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">BRAKE</text>

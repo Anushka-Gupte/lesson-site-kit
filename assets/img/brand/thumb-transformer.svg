@@ -57,7 +57,7 @@
   <g transform="translate(480, 335)">
     <rect x="-210" y="-40" width="420" height="80" rx="16" fill="#EEF2FF" stroke="#4338CA" stroke-width="3.5"/>
     <text x="0" y="-8" font-family="Fraunces, serif" font-size="22" font-weight="600" fill="#4338CA" text-anchor="middle">Masked Self-Attention</text>
-    <text x="0" y="18" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#5B5870" text-anchor="middle">Queries &bull; Keys &bull; Values &bull; Attention Scores</text>
+    <text x="0" y="18" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#5B5870" text-anchor="middle">Queries &#8226; Keys &#8226; Values &#8226; Attention Scores</text>
   </g>
 
   <!-- Attention Arcs -->

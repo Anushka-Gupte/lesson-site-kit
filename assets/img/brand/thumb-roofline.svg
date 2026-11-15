@@ -61,7 +61,7 @@
     <text x="0" y="25" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#5B5870" text-anchor="middle">5.3 TB/s Bandwidth</text>
   </g>
 
-  <!-- Middle: Road & Delivery Cycle (Memory Bus) -->
+  <!-- Middle: Road and Delivery Cycle (Memory Bus) -->
   <g transform="translate(450, 485)">
     <!-- Road Line -->
     <line x1="-180" y1="25" x2="180" y2="25" stroke="#E7E1D6" stroke-width="12" stroke-linecap="round"/>
