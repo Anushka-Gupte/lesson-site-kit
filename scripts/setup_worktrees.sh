@@ -6,7 +6,7 @@
 set -e
 make() { name="$1"; port="$2"
   git worktree add "../wt-$name" -b "agent/$name" main
-  echo "  ../wt-$name  (branch agent/$name)  preview:  cd ../wt-$name && python3 -m http.server $port"
+  echo "  ../wt-$name  (branch agent/$name)  preview:  cd ../wt-$name && python -m http.server $port   (or: py -m http.server $port)"
 }
 case "${1:-}" in
   phase1) make shell 3101 ;;
