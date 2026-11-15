@@ -34,9 +34,10 @@
 3. **Brand & Lesson Card Imagery (`assets/img/brand/`):**
    - `assets/img/brand/favicon.svg`: Brand zero ring with saffron spark.
    - `assets/img/brand/logo.svg`: Brand icon and Fraunces wordmark.
-   - `assets/img/brand/thumb-transformer.svg` (960×640): Stacked decoder tiles, attention arcs, and rangoli dot motif in indigo.
-   - `assets/img/brand/thumb-harness.svg` (960×640): Motorcycle frame with engine block being fitted in teal (the Royal Enfield metaphor).
-   - `assets/img/brand/thumb-roofline.svg` (960×640): Dhaba kitchen counter with sabzi mandi road beneath the roofline plot in saffron.
+   - `assets/img/brand/thumb-transformer.svg` (960×640): Bold shape-and-icon art of stacked decoder tiles and attention arcs in indigo, with a single high-legibility title `ATTENTION` (font-size 44).
+   - `assets/img/brand/thumb-harness.svg` (960×640): Motorcycle frame with engine block being fitted in teal (the Royal Enfield metaphor), disc brake caliper, and single title `HARNESS` (font-size 44), with all small overlapping wheel labels removed.
+   - `assets/img/brand/thumb-roofline.svg` (960×640): Dhaba kitchen counter with sabzi mandi road beneath the roofline plot in saffron, with single title `ROOFLINE` (font-size 44) and all small annotations removed to prevent clutter.
+   - Fully validated against `scripts/check_svg.py` with 0 broken files and verified readable at 530px desktop card size and 312px mobile card size.
 
 4. **Home Page (`index.html`):**
    - Fully semantic boilerplate with skip link, header, hero section with one-line promise and decorative SVG, 3 lesson cards grid with accurate copy derived from `content/*.md`, and a "How to use this site" strip.
