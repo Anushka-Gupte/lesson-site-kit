@@ -1,0 +1,45 @@
+{
+  "shell": [
+    "assets/css/**",
+    "assets/js/site.js",
+    "assets/img/brand/**",
+    "index.html",
+    "404.html",
+    "docs/design-system.html",
+    "docs/HANDOFF-shell.md",
+    "assets/fonts/**"
+  ],
+  "transformer": [
+    "lessons/transformer/**",
+    "assets/img/transformer/**"
+  ],
+  "harness": [
+    "lessons/harness/**",
+    "assets/img/harness/**"
+  ],
+  "roofline": [
+    "lessons/roofline/**",
+    "assets/img/roofline/**"
+  ],
+  "qa": [
+    "tests/**",
+    "scripts/qa_*",
+    ".github/**",
+    "README.md",
+    "docs/QA-REPORT.md",
+    "docs/HANDOFF-qa.md"
+  ],
+  "_human_only": [
+    "SPEC.md",
+    "AGENTS.md",
+    "ownership.json",
+    "content/**",
+    "provided/**",
+    "prompts/**",
+    ".gitignore",
+    "evidence/**",
+    "scripts/setup_worktrees.sh",
+    "scripts/check_ownership.py",
+    "scripts/evidence.sh"
+  ]
+}
