@@ -75,6 +75,7 @@ Ownership check:
 - **Card link structure:** In accordance with the spec ("the whole card is ONE link"), `.card` is an `<a>` element wrapping the media, body, and CTA. To prevent inner text selection or nested anchor conflicts, tags are styled `<li>` elements inside `.tags` without nested anchors.
 - **Intrinsic grid width:** Added `min-width: 0` to `.card` and `grid-template-columns: minmax(0, 1fr)` to `.card-grid` so cards adapt to narrow mobile viewports (down to 360px) without horizontal clipping.
 - **Self-contained 404:** Inline CSS and inline SVGs were used so GitHub Pages can serve `404.html` from any directory depth without broken relative links.
+- **XML strict entity compliance in SVGs:** Replaced HTML named entity `&bull;` in `assets/img/brand/thumb-transformer.svg` with the numeric character reference `&#8226;` to guarantee strict XML parse compatibility across all browsers and XML rendering pipelines, and sanitized XML comments containing bare ampersands.
 
 ---
 
