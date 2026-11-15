@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" role="img" aria-label="Dhaba kitchen counter and vegetable market road beneath an algorithmic roofline boundary">
   <defs>
-    <pattern id="rf-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <circle cx="16" cy="16" r="1.5" fill="#9A5205" opacity="0.12"/>
-      <circle cx="0" cy="0" r="1" fill="#9A5205" opacity="0.08"/>
-      <circle cx="32" cy="0" r="1" fill="#9A5205" opacity="0.08"/>
-      <circle cx="0" cy="32" r="1" fill="#9A5205" opacity="0.08"/>
-      <circle cx="32" cy="32" r="1" fill="#9A5205" opacity="0.08"/>
+    <pattern id="rf-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="2" fill="#9A5205" opacity="0.12"/>
+      <circle cx="0" cy="0" r="1.5" fill="#9A5205" opacity="0.08"/>
+      <circle cx="40" cy="0" r="1.5" fill="#9A5205" opacity="0.08"/>
+      <circle cx="0" cy="40" r="1.5" fill="#9A5205" opacity="0.08"/>
+      <circle cx="40" cy="40" r="1.5" fill="#9A5205" opacity="0.08"/>
     </pattern>
     <linearGradient id="rf-glow" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#9A5205" stop-opacity="0.08"/>
@@ -18,80 +18,81 @@
   <rect width="960" height="640" fill="url(#rf-glow)"/>
   <rect width="960" height="640" fill="url(#rf-grid)"/>
 
-  <!-- Outer Blueprint Frame -->
-  <rect x="32" y="32" width="896" height="576" rx="20" fill="none" stroke="#EFE6D8" stroke-width="2"/>
+  <!-- Accent bar top -->
+  <rect x="0" y="0" width="960" height="10" fill="#9A5205"/>
 
-  <!-- THE ROOFLINE (Dhaba Canopy) -->
-  <!-- Roof shaded fill underneath the ceiling -->
-  <polygon points="120,410 490,140 840,140 840,410" fill="#F4A62A" opacity="0.08"/>
+  <!-- Outer Frame -->
+  <rect x="36" y="36" width="888" height="568" rx="24" fill="none" stroke="#EFE6D8" stroke-width="3"/>
 
-  <!-- Sloped roofline (Memory-bound zone) -->
-  <line x1="120" y1="410" x2="490" y2="140" stroke="#9A5205" stroke-width="6" stroke-linecap="round"/>
-  <!-- Flat ceiling roofline (Compute-bound zone) -->
-  <line x1="490" y1="140" x2="840" y2="140" stroke="#9A5205" stroke-width="6" stroke-linecap="round"/>
+  <!-- Single prominent label: font-size 44, centered in clear open space -->
+  <text x="480" y="115" font-family="Fraunces, ui-serif, Georgia, serif" font-size="44" font-weight="600" fill="#9A5205" text-anchor="middle" letter-spacing="-0.01em">ROOFLINE</text>
 
-  <!-- Ridge Point (The Elbow where memory meets compute) -->
-  <circle cx="490" cy="140" r="12" fill="#F4A62A" stroke="#9A5205" stroke-width="4"/>
-  <rect x="420" y="85" width="140" height="34" rx="8" fill="#FFFFFF" stroke="#9A5205" stroke-width="2.5"/>
-  <text x="490" y="107" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#9A5205" text-anchor="middle">Ridge = 247</text>
+  <!-- THE ROOFLINE CANOPY (Iconic Profile) -->
+  <!-- Shaded Region under the Roofline -->
+  <polygon points="120,380 480,180 840,180 840,380" fill="#F4A62A" opacity="0.09"/>
 
-  <!-- Roof labels -->
-  <!-- Memory Bound label -->
-  <g transform="translate(250, 230) rotate(-36)">
-    <rect x="-85" y="-18" width="170" height="32" rx="6" fill="#FFFFFF" stroke="#9A5205" stroke-width="2"/>
-    <text x="0" y="4" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#9A5205" text-anchor="middle">Memory-Bound (Salad)</text>
-  </g>
-  <!-- Compute Bound label -->
-  <g transform="translate(670, 105)">
-    <rect x="-95" y="-18" width="190" height="32" rx="6" fill="#FFFFFF" stroke="#9A5205" stroke-width="2"/>
-    <text x="0" y="4" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#9A5205" text-anchor="middle">Compute-Bound (Biryani)</text>
-  </g>
+  <!-- Sloped Memory-Bound Ceiling -->
+  <line x1="120" y1="380" x2="480" y2="180" stroke="#9A5205" stroke-width="8" stroke-linecap="round"/>
+  <!-- Flat Compute-Bound Ceiling -->
+  <line x1="480" y1="180" x2="840" y2="180" stroke="#9A5205" stroke-width="8" stroke-linecap="round"/>
 
-  <!-- Left: Sabzi Mandi (DRAM Memory Store) -->
+  <!-- The Ridge Point Node -->
+  <circle cx="480" cy="180" r="16" fill="#F4A62A" stroke="#9A5205" stroke-width="5"/>
+  <circle cx="480" cy="180" r="6" fill="#FFFFFF"/>
+
+  <!-- Left: Sabzi Mandi Storehouse (Memory) - Bold Clean Shapes, Zero Labels -->
   <g transform="translate(180, 470)">
-    <rect x="-80" y="-80" width="160" height="120" rx="14" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3.5"/>
-    <!-- Veg Sacks -->
-    <ellipse cx="-35" cy="0" rx="28" ry="32" fill="#FAF5ED" stroke="#9A5205" stroke-width="3"/>
-    <ellipse cx="35" cy="0" rx="28" ry="32" fill="#FAF5ED" stroke="#9A5205" stroke-width="3"/>
-    <line x1="-35" y1="-28" x2="-35" y2="-20" stroke="#9A5205" stroke-width="3"/>
-    <line x1="35" y1="-28" x2="35" y2="-20" stroke="#9A5205" stroke-width="3"/>
-    <!-- Mandi Signboard -->
-    <rect x="-70" y="-105" width="140" height="32" rx="8" fill="#1E1B2E"/>
-    <text x="0" y="-84" font-family="Fraunces, serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">Mandi (DRAM)</text>
-    <text x="0" y="25" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#5B5870" text-anchor="middle">5.3 TB/s Bandwidth</text>
+    <!-- Building outline -->
+    <rect x="-90" y="-80" width="180" height="130" rx="16" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="5"/>
+    <polygon points="-100,-80 0,-125 100,-80" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="5" stroke-linejoin="round"/>
+
+    <!-- Arch Doorway -->
+    <path d="M -35 50 L -35 0 A 35 35 0 0 1 35 0 L 35 50 Z" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="4"/>
+
+    <!-- Two Sacks of Vegetables inside arch -->
+    <ellipse cx="-15" cy="25" rx="18" ry="22" fill="#FFFFFF" stroke="#9A5205" stroke-width="3.5"/>
+    <ellipse cx="15" cy="25" rx="18" ry="22" fill="#FFFFFF" stroke="#9A5205" stroke-width="3.5"/>
+    <circle cx="-15" cy="8" r="4" fill="#F4A62A"/>
+    <circle cx="15" cy="8" r="4" fill="#F4A62A"/>
   </g>
 
-  <!-- Middle: Road and Delivery Cycle (Memory Bus) -->
-  <g transform="translate(450, 485)">
-    <!-- Road Line -->
-    <line x1="-180" y1="25" x2="180" y2="25" stroke="#E7E1D6" stroke-width="12" stroke-linecap="round"/>
-    <line x1="-160" y1="25" x2="160" y2="25" stroke="#9A5205" stroke-width="3" stroke-dasharray="14,10"/>
-    <!-- Helper Cycle -->
-    <circle cx="-25" cy="10" r="16" fill="none" stroke="#9A5205" stroke-width="3"/>
-    <circle cx="25" cy="10" r="16" fill="none" stroke="#9A5205" stroke-width="3"/>
-    <line x1="-25" y1="10" x2="0" y2="0" stroke="#1E1B2E" stroke-width="3"/>
-    <line x1="0" y1="0" x2="25" y2="10" stroke="#1E1B2E" stroke-width="3"/>
-    <line x1="0" y1="0" x2="-8" y2="-15" stroke="#1E1B2E" stroke-width="3"/>
-    <line x1="-15" y1="-15" x2="0" y2="-15" stroke="#1E1B2E" stroke-width="3"/>
-    <rect x="5" y="-14" width="22" height="16" rx="3" fill="#F4A62A"/>
-    <text x="0" y="-28" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#9A5205" text-anchor="middle">Bytes Moved / sec</text>
+  <!-- Middle: Road & Delivery Bicycle (Memory Bandwidth Bus) -->
+  <g transform="translate(480, 500)">
+    <!-- Road Surface Line -->
+    <line x1="-190" y1="20" x2="190" y2="20" stroke="#E7E1D6" stroke-width="14" stroke-linecap="round"/>
+    <line x1="-170" y1="20" x2="170" y2="20" stroke="#9A5205" stroke-width="3.5" stroke-dasharray="14,12"/>
+
+    <!-- Delivery Bicycle -->
+    <!-- Rear Wheel -->
+    <circle cx="-32" cy="0" r="22" fill="none" stroke="#9A5205" stroke-width="4"/>
+    <!-- Front Wheel -->
+    <circle cx="32" cy="0" r="22" fill="none" stroke="#9A5205" stroke-width="4"/>
+    <!-- Frame Tubes -->
+    <path d="M -32 0 L -8 0 L 16 -18 L -14 -18 Z" fill="none" stroke="#1E1B2E" stroke-width="4" stroke-linejoin="round"/>
+    <line x1="-8" y1="0" x2="-14" y2="-18" stroke="#1E1B2E" stroke-width="4"/>
+    <line x1="16" y1="-18" x2="32" y2="0" stroke="#1E1B2E" stroke-width="4"/>
+    <!-- Handlebar & Seat -->
+    <line x1="10" y1="-26" x2="22" y2="-26" stroke="#1E1B2E" stroke-width="4" stroke-linecap="round"/>
+    <line x1="-20" y1="-24" x2="-8" y2="-24" stroke="#1E1B2E" stroke-width="4" stroke-linecap="round"/>
+    <!-- Delivery Cargo Box -->
+    <rect x="-42" y="-30" width="22" height="18" rx="4" fill="#F4A62A" stroke="#9A5205" stroke-width="3"/>
   </g>
 
-  <!-- Right: Dhaba Kitchen (Compute Units) -->
-  <g transform="translate(730, 470)">
-    <rect x="-95" y="-80" width="190" height="120" rx="14" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="3.5"/>
-    <!-- Handi / Copper Pot -->
-    <path d="M-40 10 Q -45 35, 0 35 Q 45 35, 40 10 Z" fill="#F4A62A" stroke="#9A5205" stroke-width="3"/>
-    <ellipse cx="0" cy="10" rx="40" ry="10" fill="#FFFFFF" stroke="#9A5205" stroke-width="3"/>
-    <!-- Cook Cutting Knife -->
-    <path d="M -20 -35 L 25 -25 L 20 -15 L -20 -25 Z" fill="#5B5870"/>
-    <circle cx="0" cy="-45" r="14" fill="#FAF5ED" stroke="#9A5205" stroke-width="2.5"/>
-    <!-- Signboard -->
-    <rect x="-85" y="-105" width="170" height="32" rx="8" fill="#1E1B2E"/>
-    <text x="0" y="-84" font-family="Fraunces, serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">Kitchen (Compute)</text>
-    <text x="0" y="25" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#5B5870" text-anchor="middle">1,307 TFLOP/s Peak</text>
-  </g>
+  <!-- Right: Dhaba Kitchen (Compute Unit) - Bold Clean Shapes, Zero Labels -->
+  <g transform="translate(760, 470)">
+    <!-- Kitchen Building -->
+    <rect x="-90" y="-80" width="180" height="130" rx="16" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="5"/>
+    <polygon points="-100,-80 0,-125 100,-80" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="5" stroke-linejoin="round"/>
 
-  <!-- Accent Bar Top -->
-  <rect x="0" y="0" width="960" height="8" fill="#9A5205"/>
+    <!-- Counter Window Arch -->
+    <path d="M -50 50 L -50 -10 A 50 50 0 0 1 50 -10 L 50 50 Z" fill="#FAF5ED" stroke="#1E1B2E" stroke-width="4"/>
+
+    <!-- Copper Handi / Cooking Pot -->
+    <path d="M -32 15 Q -38 42, 0 42 Q 38 42, 32 15 Z" fill="#F4A62A" stroke="#9A5205" stroke-width="4"/>
+    <ellipse cx="0" cy="15" rx="32" ry="8" fill="#FFFFFF" stroke="#9A5205" stroke-width="3.5"/>
+    <!-- Cooking Steam Arcs -->
+    <path d="M -12 -2 Q -18 -14, -12 -24" fill="none" stroke="#9A5205" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 0 -6 Q -6 -18, 0 -28" fill="none" stroke="#9A5205" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 12 -2 Q 6 -14, 12 -24" fill="none" stroke="#9A5205" stroke-width="3" stroke-linecap="round"/>
+  </g>
 </svg>
