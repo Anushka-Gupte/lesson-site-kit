@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Anatomy of an AI Agent Harness: Turning a raw model engine into an autonomous vehicle with hands, dashboard, brakes and memory">
+  <defs>
+    <pattern id="hero-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="2" fill="#0F766E" opacity="0.12"/>
+      <circle cx="0" cy="0" r="1.5" fill="#0F766E" opacity="0.08"/>
+      <circle cx="40" cy="0" r="1.5" fill="#0F766E" opacity="0.08"/>
+      <circle cx="0" cy="40" r="1.5" fill="#0F766E" opacity="0.08"/>
+      <circle cx="40" cy="40" r="1.5" fill="#0F766E" opacity="0.08"/>
+    </pattern>
+    <linearGradient id="hero-bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4F8F7"/>
+      <stop offset="100%" stop-color="#E9F2F0"/>
+    </linearGradient>
+    <filter id="hero-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F766E" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#hero-bg-grad)"/>
+  <rect width="1600" height="900" fill="url(#hero-grid)"/>
+
+  <!-- Top Accent Bar -->
+  <rect x="0" y="0" width="1600" height="12" fill="#0F766E"/>
+
+  <!-- Outer Blueprint Border -->
+  <rect x="40" y="40" width="1520" height="820" rx="28" fill="none" stroke="#D3E5E3" stroke-width="3"/>
+
+  <!-- Heading Block inside Hero SVG -->
+  <g transform="translate(100, 110)">
+    <rect x="0" y="0" width="140" height="32" rx="16" fill="#0F766E" opacity="0.1"/>
+    <text x="70" y="21" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#0F766E" text-anchor="middle">FROM ZERO</text>
+    <text x="0" y="70" font-family="Fraunces, ui-serif, Georgia, serif" font-size="44" font-weight="600" fill="#1E1B2E">The Agent Harness Blueprint</text>
+    <text x="0" y="105" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#5B5870">The Royal Enfield engine is the model. Everything around it is the harness.</text>
+  </g>
+
+  <!-- Central Motorcycle & Harness Diagram (Hero Scale) -->
+  <g id="motorcycle-schematic" transform="translate(140, 160)">
+    <!-- Rear Wheel Assembly -->
+    <g transform="translate(240, 470)">
+      <circle cx="0" cy="0" r="140" fill="none" stroke="#1E1B2E" stroke-width="14"/>
+      <circle cx="0" cy="0" r="110" fill="none" stroke="#0F766E" stroke-width="3.5" opacity="0.4"/>
+      <circle cx="0" cy="0" r="38" fill="#FFFFFF" stroke="#0F766E" stroke-width="6"/>
+      <!-- Spokes -->
+      <line x1="-105" y1="0" x2="105" y2="0" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+      <line x1="0" y1="-105" x2="0" y2="105" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+      <line x1="-75" y1="-75" x2="75" y2="75" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+      <line x1="-75" y1="75" x2="75" y2="-75" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+      <!-- Brake Rotor & Disc Caliper -->
+      <circle cx="0" cy="0" r="72" fill="none" stroke="#0F766E" stroke-width="5" stroke-dasharray="14,8"/>
+      <rect x="42" y="-48" width="36" height="54" rx="10" fill="#0F766E"/>
+    </g>
+
+    <!-- Front Wheel Assembly -->
+    <g transform="translate(1040, 470)">
+      <circle cx="0" cy="0" r="140" fill="none" stroke="#1E1B2E" stroke-width="14"/>
+      <circle cx="0" cy="0" r="110" fill="none" stroke="#0F766E" stroke-width="3.5" opacity="0.4"/>
+      <circle cx="0" cy="0" r="38" fill="#FFFFFF" stroke="#0F766E" stroke-width="6"/>
+      <!-- Spokes -->
+      <line x1="-105" y1="0" x2="105" y2="0" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+      <line x1="0" y1="-105" x2="0" y2="105" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+      <line x1="-75" y1="-75" x2="75" y2="75" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+      <line x1="-75" y1="75" x2="75" y2="-75" stroke="#0F766E" stroke-width="3" opacity="0.35"/>
+    </g>
+
+    <!-- Motorcycle Frame Chassis (The Harness Frame) -->
+    <g stroke-linecap="round" stroke-linejoin="round">
+      <line x1="240" y1="470" x2="440" y2="450" stroke="#1E1B2E" stroke-width="12"/>
+      <path d="M 240 470 L 380 300 L 640 210 L 920 190 L 1040 470" fill="none" stroke="#1E1B2E" stroke-width="12"/>
+      <path d="M 380 300 L 440 500 L 820 500 L 920 190" fill="none" stroke="#1E1B2E" stroke-width="10"/>
+      <line x1="440" y1="450" x2="640" y2="210" stroke="#1E1B2E" stroke-width="9"/>
+      <!-- Front Fork in Teal -->
+      <line x1="920" y1="190" x2="1040" y2="470" stroke="#0F766E" stroke-width="12"/>
+    </g>
+
+    <!-- The Engine (The Model) - Heart of the vehicle -->
+    <g transform="translate(630, 370)" filter="url(#hero-glow)">
+      <!-- Cylinder Head -->
+      <rect x="-110" y="-100" width="220" height="60" rx="14" fill="#FFFFFF" stroke="#0F766E" stroke-width="5"/>
+      <!-- Cooling Fins -->
+      <line x1="-90" y1="-80" x2="90" y2="-80" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+      <line x1="-90" y1="-60" x2="90" y2="-60" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+      <!-- Crankcase Block -->
+      <rect x="-130" y="-40" width="260" height="150" rx="20" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="6"/>
+      <!-- Central Model Core -->
+      <circle cx="0" cy="35" r="46" fill="#0F766E" opacity="0.1"/>
+      <circle cx="0" cy="35" r="32" fill="#0F766E"/>
+      <polygon points="0,17 14,46 -14,46" fill="#FFFFFF"/>
+      <text x="0" y="-15" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="600" fill="#0F766E" text-anchor="middle">MODEL ENGINE</text>
+      <text x="0" y="100" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#5B5870" text-anchor="middle">Text In &#8594; Decisions Out</text>
+    </g>
+
+    <!-- Callout 1: Handlebars (Tools) -->
+    <g transform="translate(930, 90)">
+      <path d="M 0 100 L 0 50 L 50 10" fill="none" stroke="#0F766E" stroke-width="4" stroke-linecap="round" stroke-dasharray="6,4"/>
+      <rect x="50" y="-20" width="210" height="64" rx="12" fill="#FFFFFF" stroke="#0F766E" stroke-width="3"/>
+      <text x="70" y="6" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="#0F766E">1. Tools (Hands)</text>
+      <text x="70" y="28" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B5870">read, write, bash</text>
+    </g>
+
+    <!-- Callout 2: Dashboard (Context) -->
+    <g transform="translate(710, 80)">
+      <path d="M 0 110 L 0 30" fill="none" stroke="#0F766E" stroke-width="4" stroke-linecap="round" stroke-dasharray="6,4"/>
+      <rect x="-105" y="-30" width="210" height="64" rx="12" fill="#FFFFFF" stroke="#0F766E" stroke-width="3"/>
+      <text x="0" y="-4" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="#0F766E" text-anchor="middle">2. Context (Dashboard)</text>
+      <text x="0" y="18" font-family="Inter, sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">What the model sees now</text>
+    </g>
+
+    <!-- Callout 3: Brakes (Permissions & Sandbox) -->
+    <g transform="translate(180, 580)">
+      <path d="M 100 -50 L 50 0 L -10 0" fill="none" stroke="#0F766E" stroke-width="4" stroke-linecap="round" stroke-dasharray="6,4"/>
+      <rect x="-230" y="-32" width="220" height="64" rx="12" fill="#FFFFFF" stroke="#0F766E" stroke-width="3"/>
+      <text x="-210" y="-6" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="#0F766E">3. Brakes (Permissions)</text>
+      <text x="-210" y="16" font-family="Inter, sans-serif" font-size="14" fill="#5B5870">Stop dangerous actions</text>
+    </g>
+
+    <!-- Callout 4: Service Book (Memory) -->
+    <g transform="translate(370, 160)">
+      <path d="M 0 140 L 0 50 L -40 20" fill="none" stroke="#0F766E" stroke-width="4" stroke-linecap="round" stroke-dasharray="6,4"/>
+      <rect x="-240" y="-12" width="200" height="64" rx="12" fill="#FFFFFF" stroke="#0F766E" stroke-width="3"/>
+      <text x="-220" y="14" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="#0F766E">4. Memory (Service Book)</text>
+      <text x="-220" y="36" font-family="Inter, sans-serif" font-size="14" fill="#5B5870">Remembers past sessions</text>
+    </g>
+
+    <!-- Callout 5: The Loop Banner -->
+    <g transform="translate(630, 570)">
+      <rect x="-190" y="-16" width="380" height="50" rx="14" fill="#1E1B2E"/>
+      <text x="0" y="15" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#4FD1C5" text-anchor="middle">THE AGENT LOOP: ASK &#8594; DO &#8594; LOOK &#8594; REPEAT</text>
+    </g>
+  </g>
+</svg>

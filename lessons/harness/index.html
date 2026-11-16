@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Is a Harness? Pi vs Hermes — From Zero</title>
+  <meta name="description" content="An engine cannot ride to Leh without handlebars, brakes and a frame. Learn how a harness turns raw text models into autonomous agents.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../../assets/img/brand/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="lesson.css">
+  <script src="../../assets/js/site.js" defer></script>
+  <script src="lesson.js" defer></script>
+</head>
+<body class="lesson lesson--harness">
+  <!-- Accessible Skip Link -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Global Header -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-brand" href="../../index.html" aria-label="From Zero home">
+        <svg viewBox="0 0 64 64" width="32" height="32" role="img" aria-hidden="true">
+          <rect width="64" height="64" rx="16" fill="#1E1B2E"/>
+          <circle cx="32" cy="32" r="18" fill="none" stroke="#FBF8F3" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="32" cy="14" r="5" fill="#F4A62A"/>
+          <line x1="23" y1="41" x2="41" y2="23" stroke="#F4A62A" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+        <span>From Zero</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+          <li><a class="site-nav__link" href="../../lessons/transformer/">Transformer</a></li>
+          <li><a class="site-nav__link" href="../../lessons/harness/" aria-current="page">Harness</a></li>
+          <li><a class="site-nav__link" href="../../lessons/roofline/">Roofline</a></li>
+        </ul>
+        <button type="button" class="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main" class="container" style="padding-top: var(--space-7); padding-bottom: var(--space-8);">
+    
+    <!-- Hero Section -->
+    <header class="lesson-hero" style="margin-bottom: var(--space-7);">
+      <span class="kicker">Lesson 2 &bull; 25 min &bull; Beginner</span>
+      <h1>What Is a Harness? Pi vs Hermes</h1>
+      <p class="prose" style="font-size: var(--step-2); color: var(--muted); margin-bottom: var(--space-4);">
+        An engine lying on a workshop table cannot ride to Leh without handlebars, brakes and a frame. Learn how an agent harness gives raw text models hands, memory and brakes.
+      </p>
+      <ul class="tags" style="margin-bottom: var(--space-6);">
+        <li>Agents</li>
+        <li>Runtime</li>
+        <li>Brakes</li>
+      </ul>
+      <figure class="figure">
+        <img src="../../assets/img/harness/hero-harness.svg" alt="Schematic blueprint of an AI agent harness: a central model engine housed in a motorcycle frame with handlebars for tools, dashboard for context, disc brake caliper for permissions, and service book for memory" width="1600" height="900" loading="eager">
+      </figure>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc" aria-label="Lesson Sections" style="margin-bottom: var(--space-8);">
+      <p class="toc__title">In this lesson</p>
+      <ul>
+        <li><a href="#glass-room">1. The Brilliant Person Behind the Glass</a></li>
+        <li><a href="#motorcycle">2. Engine vs Motorcycle (Interactive Stepper)</a></li>
+        <li><a href="#the-loop">3. The Loop: Ask, Do, Look, Repeat</a></li>
+        <li><a href="#mini-harness-demo">3b. Playable Mini-Harness Simulator</a></li>
+        <li><a href="#design-questions">4. Why the Design Choices Matter</a></li>
+        <li><a href="#pi-toolbox">5. Pi: The Mechanic's Toolbox</a></li>
+        <li><a href="#hermes-househelp">6. Hermes: The House-Help Who Learns</a></li>
+        <li><a href="#side-by-side">7. Pi and Hermes Side by Side</a></li>
+        <li><a href="#where-to-use">8. Where You Would Use Each</a></li>
+        <li><a href="#plain-words">9. The Whole Thing in Plain Words</a></li>
+        <li><a href="#check-understanding">10. Check Your Understanding</a></li>
+        <li><a href="#reproduce">11. Run It Yourself &amp; References</a></li>
+      </ul>
+    </nav>
+
+    <!-- SECTION 1: THE GLASS ROOM -->
+    <section id="glass-room" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Foundations</span>
+      <h2>1. The Brilliant Person Behind the Glass</h2>
+      
+      <p class="prose">
+        Imagine the cleverest engineer you know, locked inside a soundproof glass room with a notepad. You can slide notes under the door, and they slide notes back. They are brilliant. But they cannot see your computer, cannot open a single file, cannot run anything, and the moment you walk away they forget you ever came.
+      </p>
+      
+      <p class="prose">
+        That is a language model on its own. Text goes in, text comes out. Nothing else.
+      </p>
+
+      <figure class="figure" style="margin-top: var(--space-5); margin-bottom: var(--space-5);">
+        <img src="../../assets/img/harness/glass-room.svg" alt="Illustration of a thinker trapped inside a glass chamber sliding notes under a locked door, isolated without file hands, memory, or safety brakes" width="800" height="480" loading="lazy">
+        <figcaption>The raw language model: brilliant inside its glass chamber, but powerless to touch your computer alone.</figcaption>
+      </figure>
+
+      <p class="prose">
+        Now say to it: <em>&ldquo;Fix the bug in my project.&rdquo;</em> What would that take? Three things the glass room cannot give:
+      </p>
+
+      <ul class="prose" style="margin-bottom: var(--space-4);">
+        <li><strong>Hands:</strong> to open files, edit them, and run the test suite.</li>
+        <li><strong>A memory:</strong> to remember what you did yesterday or three turns ago.</li>
+        <li><strong>Brakes:</strong> somebody to inspect commands before they run and say &ldquo;no, not that command.&rdquo;</li>
+      </ul>
+
+      <aside class="callout callout--idea">
+        <p class="callout__label">Idea</p>
+        <p>All the software that surrounds the model and gives it hands, memory and brakes is called the <strong>harness</strong>. Today we build one in 50 lines, and compare two real ones: <strong>Pi</strong> and <strong>Hermes</strong>.</p>
+      </aside>
+    </section>
+
+    <!-- SECTION 2: ENGINE VS MOTORCYCLE -->
+    <section id="motorcycle" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Core Metaphor</span>
+      <h2>2. From Zero: An Engine Is Not a Motorcycle</h2>
+
+      <p class="prose">
+        A Royal Enfield engine lying on a workshop table cannot take you to Leh. It needs a frame, handlebars, brakes, a dashboard and a service book. The engine is the model. Everything else is the harness. Engine plus harness is a vehicle you can actually ride.
+      </p>
+
+      <div class="table-wrap" style="margin-top: var(--space-5); margin-bottom: var(--space-6);">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Part of the Bike</th>
+              <th scope="col">What It Does</th>
+              <th scope="col">In the AI Harness</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Handlebars</strong></td>
+              <td>Lets you act on the road</td>
+              <td><strong>Tools:</strong> read a file, edit code, run bash, search web</td>
+            </tr>
+            <tr>
+              <td><strong>Dashboard</strong></td>
+              <td>Shows what is happening right now</td>
+              <td><strong>Context:</strong> everything the model can see this turn</td>
+            </tr>
+            <tr>
+              <td><strong>Brakes</strong></td>
+              <td>Stop you doing something dangerous</td>
+              <td><strong>Permissions and sandbox:</strong> block reckless calls</td>
+            </tr>
+            <tr>
+              <td><strong>Service book</strong></td>
+              <td>Remembers history and maintenance</td>
+              <td><strong>Memory and saved sessions:</strong> persistent knowledge</td>
+            </tr>
+            <tr>
+              <td><strong>Engine cycle</strong></td>
+              <td>Repeats strokes continuously</td>
+              <td><strong>The loop:</strong> ask, do, look, repeat</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="prose">
+        Here is the point to remember: <strong>swap the harness and the same model behaves like a completely different product.</strong> Claude Code, Codex, Pi and Hermes are different harnesses, and many of them can use the very same models.
+      </p>
+
+      <!-- Stepper 1: Motorcycle Metaphor -->
+      <figure class="stepper" data-stepper aria-label="Step-by-step build of an AI agent harness from a raw engine to a motorcycle">
+        <div class="stepper__stage">
+          <svg viewBox="0 0 680 320" role="img" aria-label="Five cumulative layers building a motorcycle harness around an engine">
+            <!-- Step 1: The Engine (Model) -->
+            <g data-step="1">
+              <rect x="260" y="110" width="160" height="120" rx="14" fill="#FFFFFF" stroke="#0F766E" stroke-width="4"/>
+              <line x1="280" y1="135" x2="400" y2="135" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+              <line x1="280" y1="150" x2="400" y2="150" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="340" cy="180" r="22" fill="#0F766E" opacity="0.15"/>
+              <circle cx="340" cy="180" r="12" fill="#0F766E"/>
+              <text x="340" y="220" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#0F766E" text-anchor="middle">MODEL ENGINE</text>
+            </g>
+
+            <!-- Step 2: Handlebars & Tools -->
+            <g data-step="2">
+              <path d="M 460 70 L 520 40 L 550 40" fill="none" stroke="#0F766E" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="550" cy="40" r="8" fill="#0F766E"/>
+              <rect x="490" y="8" width="150" height="26" rx="6" fill="#F4F8F7" stroke="#0F766E" stroke-width="2"/>
+              <text x="565" y="25" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#0F766E" text-anchor="middle">TOOLS: read/write/bash</text>
+            </g>
+
+            <!-- Step 3: Dashboard & Context -->
+            <g data-step="3">
+              <circle cx="460" cy="70" r="20" fill="#FFFFFF" stroke="#0F766E" stroke-width="3.5"/>
+              <line x1="460" y1="70" x2="468" y2="60" stroke="#F4A62A" stroke-width="3" stroke-linecap="round"/>
+              <rect x="360" y="20" width="90" height="24" rx="6" fill="#F4F8F7" stroke="#0F766E" stroke-width="2"/>
+              <text x="405" y="36" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0F766E" text-anchor="middle">CONTEXT</text>
+            </g>
+
+            <!-- Step 4: Brakes (Permissions & Sandbox) -->
+            <g data-step="4">
+              <!-- Rear disc brake -->
+              <circle cx="120" cy="220" r="45" fill="none" stroke="#DC2626" stroke-width="3.5" stroke-dasharray="8,6"/>
+              <rect x="145" y="195" width="22" height="32" rx="6" fill="#DC2626"/>
+              <rect x="40" y="140" width="120" height="26" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+              <text x="100" y="157" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#DC2626" text-anchor="middle">BRAKES: allowed()</text>
+            </g>
+
+            <!-- Step 5: Service Book & Frame (Harness Chassis) -->
+            <g data-step="5">
+              <!-- Wheels -->
+              <circle cx="120" cy="220" r="75" fill="none" stroke="#1E1B2E" stroke-width="8"/>
+              <circle cx="560" cy="220" r="75" fill="none" stroke="#1E1B2E" stroke-width="8"/>
+              <!-- Frame tubes connecting everything -->
+              <path d="M 120 220 L 220 160 L 340 100 L 460 70 L 560 220" fill="none" stroke="#1E1B2E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 220 160 L 260 250 L 420 250 L 460 70" fill="none" stroke="#1E1B2E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Service book -->
+              <rect x="180" y="80" width="50" height="40" rx="6" fill="#FFFFFF" stroke="#0F766E" stroke-width="2.5"/>
+              <line x1="190" y1="92" x2="220" y2="92" stroke="#0F766E" stroke-width="2"/>
+              <line x1="190" y1="102" x2="215" y2="102" stroke="#0F766E" stroke-width="2"/>
+              <!-- Harness boundary label -->
+              <rect x="25" y="275" width="630" height="32" rx="8" fill="#1E1B2E"/>
+              <text x="340" y="296" font-family="Fraunces, serif" font-size="15" font-weight="600" fill="#4FD1C5" text-anchor="middle">THE HARNESS FRAME: ALL 5 ASSEMBLED INTO A WORKING VEHICLE</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="stepper__panel" aria-live="polite">
+          <p class="stepper__count">Step 1 of 5</p>
+          <h3 class="stepper__title">1. The Engine (The Model)</h3>
+          <p class="stepper__text">The language model sits at the center. It has raw intelligence, predicting next tokens, but cannot move anywhere on its own.</p>
+        </div>
+
+        <div class="stepper__controls">
+          <button type="button" data-prev disabled>&larr; Back</button>
+          <button type="button" data-next>Next &rarr;</button>
+        </div>
+
+        <script type="application/json" class="stepper__data">
+          [
+            {
+              "title": "1. The Engine (The Model)",
+              "text": "The language model sits at the center. It is pure compute and text prediction. An engine on a bench cannot steer or brake on a mountain road."
+            },
+            {
+              "title": "2. The Handlebars (Tools: Hands to Act)",
+              "text": "The harness bolts on tool definitions: read a file, edit code, execute shell commands. Now the model can take physical actions in your computer environment."
+            },
+            {
+              "title": "3. The Dashboard (Context Window)",
+              "text": "The dashboard displays everything the model is allowed to inspect right now: system instructions, available tool schemas, active file snippets, and conversation history."
+            },
+            {
+              "title": "4. The Brakes (Permissions & Sandbox)",
+              "text": "Before any tool command executes, a safety check runs. If a model tries to rm -rf your project or leak credentials, the harness caliper clamps down and stops it."
+            },
+            {
+              "title": "5. The Service Book & Frame (Memory and the Harness)",
+              "text": "A frame binds everything together. Memory logs past sessions and progress files so that when one session ends, the next worker knows exactly where to pick up."
+            }
+          ]
+        </script>
+      </figure>
+    </section>
+
+    <!-- SECTION 3: THE LOOP -->
+    <section id="the-loop" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Execution Architecture</span>
+      <h2>3. The Loop: Ask, Do, Look, Repeat</h2>
+
+      <p class="prose">
+        How does a harness actually execute? Think of a mechanic fixing a scooter. He looks, tries something, sees what happened, and decides his next move. He does not plan every turn in advance. A harness lets the model work in exactly that empirical rhythm:
+      </p>
+
+      <ol class="prose" style="margin-bottom: var(--space-5);">
+        <li><strong>Ask:</strong> The model decides what to do next (&ldquo;run the test suite&rdquo;).</li>
+        <li><strong>Do:</strong> The harness actually executes the tool on your system.</li>
+        <li><strong>Look:</strong> The harness feeds the execution output back into the model's context.</li>
+        <li><strong>Repeat:</strong> The cycle continues until the model explicitly returns &ldquo;done.&rdquo;</li>
+      </ol>
+
+      <!-- Stepper 2: The Agent Loop -->
+      <figure class="stepper" data-stepper aria-label="Step-by-step diagram of the 5-stage agent harness execution loop">
+        <div class="stepper__stage">
+          <svg viewBox="0 0 680 320" role="img" aria-label="Five cumulative layers showing the agent loop from user prompt to tool execution and done exit">
+            <!-- Step 1: User Prompt -->
+            <g data-step="1">
+              <circle cx="80" cy="160" r="42" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="4"/>
+              <text x="80" y="155" font-family="Fraunces, serif" font-size="16" font-weight="600" fill="#1E1B2E" text-anchor="middle">You</text>
+              <text x="80" y="175" font-family="'JetBrains Mono', monospace" font-size="14" fill="#0F766E" text-anchor="middle">"Fix bug"</text>
+            </g>
+
+            <!-- Step 2: Harness Builds Context -->
+            <g data-step="2">
+              <line x1="122" y1="160" x2="190" y2="160" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+              <polygon points="190,160 178,154 178,166" fill="#0F766E"/>
+              <rect x="190" y="110" width="120" height="100" rx="12" fill="#FFFFFF" stroke="#0F766E" stroke-width="3.5"/>
+              <text x="250" y="145" font-family="Fraunces, serif" font-size="15" font-weight="600" fill="#0F766E" text-anchor="middle">Context</text>
+              <text x="250" y="168" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B5870" text-anchor="middle">prompt+tools</text>
+              <text x="250" y="190" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B5870" text-anchor="middle">+history</text>
+            </g>
+
+            <!-- Step 3: Model Decides Action -->
+            <g data-step="3">
+              <line x1="310" y1="160" x2="380" y2="160" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+              <polygon points="380,160 368,154 368,166" fill="#0F766E"/>
+              <rect x="380" y="110" width="120" height="100" rx="12" fill="#F4F8F7" stroke="#1E1B2E" stroke-width="3.5"/>
+              <text x="440" y="145" font-family="Fraunces, serif" font-size="15" font-weight="600" fill="#1E1B2E" text-anchor="middle">Model</text>
+              <text x="440" y="170" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#0F766E" text-anchor="middle">Tool Call</text>
+              <text x="440" y="190" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B5870" text-anchor="middle">run test.py</text>
+            </g>
+
+            <!-- Step 4: Harness Runs Tool -->
+            <g data-step="4">
+              <line x1="500" y1="160" x2="560" y2="160" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+              <polygon points="560,160 548,154 548,166" fill="#0F766E"/>
+              <rect x="560" y="110" width="100" height="100" rx="12" fill="#FFFFFF" stroke="#0F766E" stroke-width="3.5"/>
+              <text x="610" y="145" font-family="Fraunces, serif" font-size="15" font-weight="600" fill="#0F766E" text-anchor="middle">Harness</text>
+              <text x="610" y="170" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#DC2626" text-anchor="middle">Brake Check</text>
+              <text x="610" y="190" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B5870" text-anchor="middle">&amp; Exec</text>
+            </g>
+
+            <!-- Step 5: Loop Result Back to Context & Exit -->
+            <g data-step="5">
+              <!-- Arc looping back from Harness (x=610, y=210) to Context (x=250, y=210) -->
+              <path d="M 610 210 L 610 260 L 250 260 L 250 215" fill="none" stroke="#F4A62A" stroke-width="3.5" stroke-dasharray="8,6" stroke-linecap="round"/>
+              <polygon points="250,210 244,222 256,222" fill="#F4A62A"/>
+              <rect x="360" y="246" width="160" height="28" rx="6" fill="#1E1B2E"/>
+              <text x="440" y="265" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#F4A62A" text-anchor="middle">Feed result back</text>
+              <!-- Exit Arrow when model says DONE -->
+              <line x1="440" y1="110" x2="440" y2="40" stroke="#0F766E" stroke-width="3.5" stroke-linecap="round"/>
+              <polygon points="440,35 434,48 446,48" fill="#0F766E"/>
+              <rect x="390" y="10" width="100" height="28" rx="6" fill="#0F766E"/>
+              <text x="440" y="29" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">DONE EXIT</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="stepper__panel" aria-live="polite">
+          <p class="stepper__count">Step 1 of 5</p>
+          <h3 class="stepper__title">1. You State the Task</h3>
+          <p class="stepper__text">The human gives a goal: &ldquo;Fix the bug in calc.py so test.py passes.&rdquo;</p>
+        </div>
+
+        <div class="stepper__controls">
+          <button type="button" data-prev disabled>&larr; Back</button>
+          <button type="button" data-next>Next &rarr;</button>
+        </div>
+
+        <script type="application/json" class="stepper__data">
+          [
+            {
+              "title": "1. You State the Task",
+              "text": "The human provides the objective: 'Fix the bug in calc.py so test.py passes.' This becomes the opening user message."
+            },
+            {
+              "title": "2. Harness Builds Context",
+              "text": "The harness gathers the system prompt, available tool schemas (read, write, bash), conversation history, and project instructions into the context window."
+            },
+            {
+              "title": "3. Model Decides the Next Move",
+              "text": "The model inspects the context and returns either conversational text or a tool call (e.g. bash('python3 test.py')). It does not execute anything directly."
+            },
+            {
+              "title": "4. Harness Executes the Tool",
+              "text": "The harness checks its permission policy (the brake). If approved, it performs the action on disk or in the shell, capturing stdout and stderr."
+            },
+            {
+              "title": "5. Feed Result Back & Repeat",
+              "text": "The harness appends the tool output to the context as a tool message. The model reads the new state and decides the next step, repeating until it says 'DONE'."
+            }
+          ]
+        </script>
+      </figure>
+    </section>
+
+    <!-- SECTION 3B: PLAYABLE MINI-HARNESS -->
+    <section id="mini-harness-demo" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Playable Simulation</span>
+      <h2>3b. The Playable Mini-Harness</h2>
+
+      <p class="prose">
+        Here is the proof in action. Below is an interactive simulator running the exact state machine of our 50-line harness. No external API key is needed: the &ldquo;model&rdquo; is a scripted stand-in that replays a fixed plan. Everything touching the machine is the harness.
+      </p>
+
+      <!-- Mini-Harness Widget -->
+      <div class="mini-harness" data-mini-harness aria-label="Interactive AI agent harness simulator">
+        <div class="mini-harness__header">
+          <div class="mini-harness__title-area">
+            <h3 class="mini-harness__title">Agent Harness Sandbox</h3>
+            <p class="mini-harness__notice">
+              <span class="chip">Notice</span> The stand-in model is a scripted plan, not intelligent. The harness owns the loop, tools, and brakes.
+            </p>
+          </div>
+
+          <!-- Brake Toggle -->
+          <div class="mini-brake-switch">
+            <span>Safety Brake:</span>
+            <button type="button" class="brake-toggle-btn is-on" data-brake-toggle aria-pressed="true" aria-label="Brake is ON. Click to toggle">
+              <span class="brake-indicator" aria-hidden="true"></span>
+              <span data-brake-status>ON</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Controls Toolbar -->
+        <div class="mini-harness__controls">
+          <div class="mini-harness__plan-selector" role="group" aria-label="Select simulation scenario">
+            <button type="button" class="mini-btn is-active" data-plan="run1" aria-pressed="true">Run 1: Fix a Bug</button>
+            <button type="button" class="mini-btn" data-plan="run2" aria-pressed="false">Run 2: Reckless Model</button>
+          </div>
+
+          <div class="mini-actions">
+            <button type="button" class="mini-btn-action mini-btn-action--primary" data-step-btn>Step Next Turn &rarr;</button>
+            <button type="button" class="mini-btn-action" data-run-all-btn>Run All</button>
+            <button type="button" class="mini-btn-action" data-reset-btn>Reset</button>
+          </div>
+        </div>
+
+        <!-- Virtual Filesystem Status Cards -->
+        <div class="mini-fs" aria-label="Simulated File System State">
+          <div class="mini-fs__item">
+            <span class="mini-fs__name">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              calc.py
+            </span>
+            <span class="mini-fs__status status--fail" data-fs-calc>Buggy</span>
+          </div>
+
+          <div class="mini-fs__item">
+            <span class="mini-fs__name">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+              test.py
+            </span>
+            <span class="mini-fs__status" data-fs-test>Untested</span>
+          </div>
+
+          <div class="mini-fs__item" data-fs-item-precious style="display: none;">
+            <span class="mini-fs__name">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              precious/ (data.txt)
+            </span>
+            <span class="mini-fs__status status--intact" data-fs-precious>Intact (thesis)</span>
+          </div>
+        </div>
+
+        <!-- Terminal Output Window -->
+        <div class="mini-terminal">
+          <div class="mini-terminal__bar">
+            <div class="mini-terminal__dots" aria-hidden="true">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <span>harness-stdout &bull; python mini_harness.py</span>
+            <span>UTF-8</span>
+          </div>
+          <div class="mini-terminal__body" data-terminal-body tabindex="0" role="region" aria-label="Harness terminal execution log">
+            <!-- Dynamically populated by lesson.js -->
+          </div>
+        </div>
+        <div class="sr-only" aria-live="polite" data-live-region></div>
+      </div>
+
+      <aside class="callout callout--measured">
+        <p class="callout__label">Measured</p>
+        <p>In Run 2, the model was equally reckless both times: it issued <code>rm -rf precious</code> without hesitation. With the brake OFF, the directory vanished completely (<code>False</code>). With the brake ON, the harness blocked the command (<code>True</code>). The only thing that saved the thesis was the harness.</p>
+      </aside>
+
+      <!-- Code block: mini_harness.py -->
+      <div class="run" style="margin-top: var(--space-6);">
+        <div class="run__header">
+          <p class="run__label">Run it in Python &bull; mini_harness.py (~50 lines)</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>import subprocess, pathlib, tempfile, os
+
+# 1. TOOLS: what the model is allowed to do
+def read(path):            return pathlib.Path(path).read_text()
+def write(path, text):     pathlib.Path(path).write_text(text); return "written"
+def bash(command):
+    r = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=20)
+    return (r.stdout + r.stderr).strip() or "(no output)"
+TOOLS = {"read": read, "write": write, "bash": bash}
+
+# 2. BRAKE: a permission check that runs BEFORE any tool
+def allowed(tool, args):
+    if tool == "bash" and "rm -rf" in args.get("command", ""):
+        return False
+    return True
+
+# 3. THE LOOP
+def run_agent(model, task, brake=True, max_turns=10):
+    messages = [{"role": "user", "content": task}]           # the context
+    for turn in range(max_turns):
+        decision = model(messages)                           # model: text in -> action out
+        if "text" in decision:                               # model says done
+            print(f"  turn {turn}: DONE -> {decision['text']}")
+            return messages
+        tool, args = decision["tool"], decision["args"]
+        if brake and not allowed(tool, args):
+            result = "BLOCKED by harness: this command needs human approval."
+        else:
+            result = TOOLS[tool](**args)                     # harness does it
+        print(f"  turn {turn}: {tool}({args}) -> {result[:60]!r}")
+        messages.append({"role": "assistant", "content": decision})
+        messages.append({"role": "tool", "content": result}) # feed result back
+    return messages
+
+# A scripted stand-in for the model (NOT intelligent)
+def make_model(plan):
+    def model(messages):
+        step = sum(1 for m in messages if m["role"] == "tool")
+        return plan[step] if step &lt; len(plan) else {"text": "finished"}
+    return model
+
+d = tempfile.mkdtemp(); os.chdir(d)
+pathlib.Path("calc.py").write_text("def average(n):\n    return sum(n) / (len(n) + 1)\n")
+pathlib.Path("test.py").write_text("from calc import average\nassert average([2,4,6]) == 4\nprint('PASS')\n")
+
+print("RUN 1: fix a bug")
+fix = [{"tool": "bash",  "args": {"command": "python3 test.py"}},
+       {"tool": "write", "args": {"path": "calc.py", "text": "def average(n):\n    return sum(n) / len(n)\n"}},
+       {"tool": "bash",  "args": {"command": "python3 test.py"}}]
+run_agent(make_model(fix), "make test.py pass")
+
+print("\nRUN 2: a reckless model, brake OFF then ON")
+bad = [{"tool": "bash", "args": {"command": "rm -rf precious"}}]
+for brake in (False, True):
+    os.makedirs("precious", exist_ok=True); pathlib.Path("precious/data.txt").write_text("my thesis")
+    run_agent(make_model(bad), "tidy up", brake=brake)
+    print("  brake", "ON " if brake else "OFF", "-&gt; precious folder exists?", os.path.exists("precious"))</code></pre>
+      </div>
+    </section>
+
+    <!-- SECTION 4: FIVE DESIGN QUESTIONS -->
+    <section id="design-questions" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Architectural Trade-offs</span>
+      <h2>4. Why the Design Choices Matter</h2>
+
+      <p class="prose">
+        The execution loop is identical across agent frameworks. The critical differences lie in five architectural decisions. These are the five questions you should ask of any agent product:
+      </p>
+
+      <div class="prose">
+        <ol>
+          <li><strong>What goes into the system prompt?</strong> Every single turn, the model re-reads its entire context. Context is a budget: it costs tokens, it introduces latency, and an overly crowded prompt can distract the model from user instructions.</li>
+          <li><strong>Which tools, and how many?</strong> Every tool definition is serialized and sent on every single turn. More tools mean longer prompts, higher fixed costs, and more opportunities for the model to choose the wrong tool.</li>
+          <li><strong>What happens when the conversation gets too long?</strong> The standard solution is <em>compaction</em>: summarizing older exchanges, like writing revision notes before an exam.</li>
+          <li><strong>Does it remember across sessions?</strong> Think of a shift handover register in a hospital. Engineers at Anthropic describe long-running agents as shift workers who arrive with zero memory of the prior shift. Their fix is a progress log, a feature checklist, and the git history. A structured progress note <em>is</em> memory.</li>
+          <li><strong>Who approves a dangerous command?</strong> A human operator, a secondary evaluator model, an isolated sandbox, or nobody at all.</li>
+        </ol>
+      </div>
+
+      <p class="prose">
+        Pi and Hermes answer these five questions in completely opposite ways. That is the rest of our lesson.
+      </p>
+    </section>
+
+    <!-- SECTION 5: PI -->
+    <section id="pi-toolbox" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Case Study 1</span>
+      <h2>5. Pi: The Mechanic's Toolbox</h2>
+
+      <p class="prose">
+        Pi was created by Mario Zechner. Written in TypeScript and MIT licensed, the repository is designed as a modular toolkit: a clean layer that connects to multiple model providers, an agent loop, a terminal CLI, and the coding agent itself. It can be used via terminal, one-shot mode, RPC, or directly imported via its SDK.
+      </p>
+
+      <p class="prose">
+        Its philosophy embodies the Indian concept of <strong>jugaad</strong> in the best engineering sense: equip the engineer with a lean, razor-sharp kit and let them assemble what they need. Mario argues that modern models already understand how to act as software engineers; they do not need an encyclopedia of system instructions. Pi hands the model just <strong>four tools</strong>: <code>read</code>, <code>write</code>, <code>edit</code> and <code>bash</code>. It intentionally excludes built-in sub-agents or rigid planning modes: if you want them, you add them as skills or extensions.
+      </p>
+
+      <div class="prose" style="margin-bottom: var(--space-5);">
+        <p><strong>Pi's answers to the five questions:</strong></p>
+        <ul>
+          <li><strong>Prompt:</strong> Lean, featuring a concise tool list and minimal operational rules.</li>
+          <li><strong>Tools:</strong> Exactly 4 core tools (<code>read</code>, <code>write</code>, <code>edit</code>, <code>bash</code>).</li>
+          <li><strong>Long conversations:</strong> Compaction exists. Sessions are saved as branching JSON files on disk.</li>
+          <li><strong>Memory:</strong> Repository instruction files like <code>AGENTS.md</code>, plus saved session trees. Skills load on demand.</li>
+          <li><strong>Brakes:</strong> None built-in. Pi executes what the model asks, relying on you to run it inside a sandbox.</li>
+        </ul>
+      </div>
+
+      <aside class="callout callout--caution">
+        <p class="callout__label">Caution</p>
+        <p>Mario&rsquo;s original 2025 post stated Pi had no MCP support; today the repository ships an official MCP package. Open-source agent software moves rapidly. Always verify the latest documentation.</p>
+      </aside>
+
+      <!-- Run Real Pi Code Block -->
+      <div class="run" style="margin-top: var(--space-6);">
+        <div class="run__header">
+          <p class="run__label">Run real Pi yourself &bull; bash run_real_pi.sh (needs Node 20+ &amp; Python 3)</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>#!/usr/bin/env bash
+# Run the REAL Pi harness against a scripted stand-in "model" (no API key, no cost).
+set -e
+HERE="$(cd "$(dirname "$0")" && pwd)"
+mkdir -p "$HERE/pi_demo/work" "$HERE/pi_demo/agent" && cd "$HERE/pi_demo"
+[ -d node_modules/@earendil-works ] || npm install --ignore-scripts @earendil-works/pi-coding-agent
+cp "$HERE/fake_model_server.py" .
+
+cat > work/calc.py &lt;&lt;'PY'
+def average(nums):
+    total = sum(nums)
+    return total / (len(nums) + 1)
+PY
+cat > work/test_calc.py &lt;&lt;'PY'
+from calc import average
+assert average([2, 4, 6]) == 4, f"expected 4, got {average([2,4,6])}"
+print("PASS")
+PY
+cat > agent/models.json &lt;&lt;'JSON'
+{ "providers": { "fake": { "baseUrl": "http://127.0.0.1:8765/v1", "api": "openai-completions",
+  "apiKey": "x", "models": [ { "id": "scripted" } ] } } }
+JSON
+
+echo "== BEFORE: the test fails =="; (cd work && python3 test_calc.py 2>&amp;1 | tail -1 || true)
+python3 fake_model_server.py &amp;  SERVER=$!;  sleep 1
+echo; echo "== Running the real Pi =="
+( cd work && PI_CODING_AGENT_DIR="$HERE/pi_demo/agent" ../node_modules/.bin/pi \
+    --provider fake --model scripted --no-session -p "Fix the bug in calc.py so test_calc.py passes" )
+kill $SERVER 2>/dev/null || true
+echo; echo "== AFTER: calc.py was really edited =="; cat work/calc.py; (cd work && python3 test_calc.py)
+echo; echo "== What Pi sent to the model =="; python3 "$HERE/measure_requests.py" requests.jsonl</code></pre>
+      </div>
+
+      <aside class="callout callout--measured" style="margin-top: var(--space-4);">
+        <p class="callout__label">Measured</p>
+        <p>Measured with Pi 1.5.2 on 13 November 2026: Pi completed 5 requests, fixed <code>calc.py</code> on disk, and made <code>test_calc.py</code> pass. System prompt was <strong>2,295 characters</strong>; tool schemas were <strong>2,956 characters</strong> (4 tools). Fixed cost before you type a word: <strong>5,251 characters</strong> (~1,312 tokens, rough = chars / 4).</p>
+      </aside>
+    </section>
+
+    <!-- SECTION 6: HERMES -->
+    <section id="hermes-househelp" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Case Study 2</span>
+      <h2>6. Hermes: The House-Help Who Learns Your Home</h2>
+
+      <p class="prose">
+        Hermes Agent comes from Nous Research. Written in Python and MIT licensed, it describes itself as the agent that grows with you. If Pi is the mechanic&rsquo;s minimalist toolbox, Hermes is the trusted domestic helper who has lived with the family for years. In month one she asks how you take your morning chai; by month six, she already knows, and has written down exactly how your father likes the morning newspaper folded.
+      </p>
+
+      <p class="prose">
+        What Hermes builds around the language model:
+      </p>
+
+      <ul class="prose" style="margin-bottom: var(--space-5);">
+        <li><strong>A comprehensive tool shelf:</strong> 40+ tools documented across toolsets: web, terminal, browser, media, memory, and scheduling. By default, 27 tools are loaded in the prompt.</li>
+        <li><strong>Persistent memory:</strong> Notes about user habits and prior tasks are injected into the system prompt on session start, complete with vector search across past sessions.</li>
+        <li><strong>Self-authored skills:</strong> After solving a difficult problem, Hermes can write the procedure into a reusable <em>skill</em> file. This &ldquo;learning loop&rdquo; updates the service register, leaving model weights untouched.</li>
+        <li><strong>Multi-channel reach:</strong> Direct integration with Telegram, Discord, Slack, WhatsApp, Signal, email, plus a background cron scheduler.</li>
+        <li><strong>Configurable brakes:</strong> Three permission approval tiers: manual confirmation, smart confirmation (evaluated by a secondary judge model), and off, with optional container isolation.</li>
+      </ul>
+
+      <!-- Run Hermes Measure Code Block -->
+      <div class="run" style="margin-top: var(--space-6);">
+        <div class="run__header">
+          <p class="run__label">Measure Hermes yourself &bull; bash run_hermes_measure.sh (needs Python 3.11+)</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>#!/usr/bin/env bash
+# Measure what Hermes Agent sends to the model before you type anything.
+set -e
+HERE="$(cd "$(dirname "$0")" && pwd)"
+mkdir -p "$HERE/hermes_demo/home" && cd "$HERE/hermes_demo"
+[ -d venv ] || { python3 -m venv venv && ./venv/bin/pip install -q hermes-agent; }
+cp "$HERE/hermes_log_server.py" .
+
+export HERMES_HOME="$HERE/hermes_demo/home"
+cat > "$HERMES_HOME/config.yaml" &lt;&lt;'YAML'
+model:
+  default: scripted
+  provider: custom
+  base_url: http://127.0.0.1:8766/v1
+  api_key: x
+YAML
+
+python3 hermes_log_server.py &amp;  SERVER=$!;  sleep 1
+echo "== Asking Hermes to say ok (one-shot mode) =="
+./venv/bin/hermes -z "say ok"
+kill $SERVER 2>/dev/null || true
+echo; echo "== What Hermes sent to the model =="; python3 "$HERE/measure_requests.py" hermes_requests.jsonl
+echo; echo "== Hermes' own size report =="; ./venv/bin/hermes prompt-size 2>&amp;1 | head -25</code></pre>
+      </div>
+
+      <aside class="callout callout--measured" style="margin-top: var(--space-4);">
+        <p class="callout__label">Measured</p>
+        <p>Measured with Hermes Agent 0.19.0 on 13 November 2026: System prompt was <strong>6,634 characters</strong>; tool schemas consumed <strong>47,080 characters</strong> across 27 default tools. Total fixed cost before typing a single character: <strong>53,714 characters</strong> (~13,428 tokens). Hermes&rsquo; internal <code>prompt-size</code> utility confirmed 6.5 KB prompt and 45.8 KB schemas across 27 tools.</p>
+      </aside>
+    </section>
+
+    <!-- SECTION 7: SIDE BY SIDE -->
+    <section id="side-by-side" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Direct Comparison</span>
+      <h2>7. Pi and Hermes, Side by Side</h2>
+
+      <p class="prose">
+        Neither philosophy is inherently superior. They represent distinct engineering trades: an ultra-lean toolbox where you pay only for what you add, versus a rich, pre-configured assistant that arrives equipped for full autonomy.
+      </p>
+
+      <!-- Side-by-side comparison cards -->
+      <div class="compare-grid">
+        <!-- Card 1: Pi -->
+        <div class="compare-card compare-card--pi">
+          <div class="compare-card__header">
+            <span class="compare-card__tag">Pi 1.5.2</span>
+            <h3 class="compare-card__title">The Minimalist Kit</h3>
+            <p class="compare-card__metaphor">The mechanic&rsquo;s portable toolbox</p>
+          </div>
+          <ul class="compare-card__list">
+            <li><strong>Core tools:</strong> 4 tools (read, write, edit, bash)</li>
+            <li><strong>Context burden:</strong> ~5.2k characters (~1.3k tokens)</li>
+            <li><strong>Memory:</strong> Session branches &amp; AGENTS.md</li>
+            <li><strong>Permissions:</strong> None built-in; sandbox advised</li>
+            <li><strong>Extensibility:</strong> Skills loaded on-demand via jugaad</li>
+          </ul>
+          <div class="compare-card__stat">
+            Fixed Cost: <strong>5,251 chars</strong> / turn
+          </div>
+        </div>
+
+        <!-- Card 2: Hermes -->
+        <div class="compare-card compare-card--hermes">
+          <div class="compare-card__header">
+            <span class="compare-card__tag">Hermes 0.19.0</span>
+            <h3 class="compare-card__title">The Full Assistant</h3>
+            <p class="compare-card__metaphor">The trusted family house-help</p>
+          </div>
+          <ul class="compare-card__list">
+            <li><strong>Core tools:</strong> 27 default tools (40+ in docs)</li>
+            <li><strong>Context burden:</strong> ~53.7k characters (~13.4k tokens)</li>
+            <li><strong>Memory:</strong> Persistent vector notes &amp; user model</li>
+            <li><strong>Permissions:</strong> Manual, judge model, or containers</li>
+            <li><strong>Extensibility:</strong> Self-improving learning loop</li>
+          </ul>
+          <div class="compare-card__stat">
+            Fixed Cost: <strong>53,714 chars</strong> / turn
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison Chart -->
+      <div class="chart-container">
+        <img src="../../assets/img/harness/chart-cost-comparison.svg" alt="Bar chart comparing measured fixed character cost per request: Pi requires 5,251 characters while Hermes Agent requires 53,714 characters (approx 10 times higher fixed overhead)" width="840" height="440" loading="lazy">
+      </div>
+
+      <!-- Detailed Comparison Table -->
+      <div class="table-wrap" style="margin-top: var(--space-6); margin-bottom: var(--space-6);">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Dimension</th>
+              <th scope="col">Pi</th>
+              <th scope="col">Hermes Agent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Guiding Idea</strong></td>
+              <td>A minimal toolbox you shape yourself</td>
+              <td>A house-help that remembers and learns</td>
+            </tr>
+            <tr>
+              <td><strong>Language &amp; Licence</strong></td>
+              <td>TypeScript &bull; MIT</td>
+              <td>Python &bull; MIT</td>
+            </tr>
+            <tr>
+              <td><strong>Tools Visible to Model</strong></td>
+              <td>4 tools <span class="chip">Measured</span></td>
+              <td>27 default <span class="chip">Measured</span> &bull; 40+ in docs</td>
+            </tr>
+            <tr>
+              <td><strong>Fixed Overhead / Turn</strong></td>
+              <td>~5.2k characters <span class="chip">Measured</span></td>
+              <td>~54k characters <span class="chip">Measured</span> (~10.2&times;)</td>
+            </tr>
+            <tr>
+              <td><strong>Memory Architecture</strong></td>
+              <td>Branching session files, repository docs</td>
+              <td>Persistent vector memory, past-session search</td>
+            </tr>
+            <tr>
+              <td><strong>Skill Expansion</strong></td>
+              <td>Loaded strictly on demand</td>
+              <td>Written and refined by the agent</td>
+            </tr>
+            <tr>
+              <td><strong>Interfaces &amp; Channels</strong></td>
+              <td>Terminal, RPC, SDK</td>
+              <td>Terminal, Telegram, Discord, Slack, WhatsApp, Signal, cron</td>
+            </tr>
+            <tr>
+              <td><strong>Safety Brakes</strong></td>
+              <td>None built-in; external sandbox recommended</td>
+              <td>Approval modes (manual/judge) &amp; containers</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details class="deepdive" style="margin-bottom: var(--space-5);">
+        <summary>Under the hood: what do we mean by &ldquo;minimal&rdquo;?</summary>
+        <div class="deepdive__content">
+          <p>
+            &ldquo;Minimal&rdquo; refers strictly to <strong>what is presented to the model&rsquo;s context</strong>, not the physical size of the source repository. The complete Pi monorepo spans hundreds of thousands of lines of TypeScript (handling multi-provider protocols, TUI rendering, RPC), though its core loop is under 3,000 lines. Hermes is a comprehensive Python framework exceeding one million lines. Both counts are approximate from local repository checkouts.
+          </p>
+        </div>
+      </details>
+
+      <aside class="callout callout--caution">
+        <p class="callout__label">Caution</p>
+        <p><strong>The Brake Test (Measured):</strong> When the reckless command <code>rm -rf ~/victim</code> was dispatched to both harnesses in one-shot mode (<code>-z</code>), Pi executed it immediately as designed. Surprisingly, Hermes in default one-shot mode <strong>also executed it</strong> without prompting. Its approval mechanism is built for interactive terminal sessions. The vital takeaway: <em>a brake you have not personally verified is only a hope. Test yours.</em></p>
+      </aside>
+    </section>
+
+    <!-- SECTION 8: WHERE TO USE EACH -->
+    <section id="where-to-use" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Practical Application</span>
+      <h2>8. Where You Would Use Each</h2>
+
+      <p class="prose">
+        Choosing the right harness is just as consequential as selecting your underlying foundation model:
+      </p>
+
+      <div class="prose">
+        <ul>
+          <li>
+            <strong>Choose Pi</strong> when you need to understand, restrict, and precisely govern your agent pipeline. Its compact architecture makes it ideal for learning runtime internals, building terminal developer workflows, embedding autonomous capabilities inside custom applications via its SDK, or locking down strict enterprise pipelines.
+            <br><em>Concrete example:</em> A university computer science lab runs an automated grading harness equipped exclusively with read-only file tools and a single grading script validator.
+          </li>
+          <li style="margin-top: var(--space-3);">
+            <strong>Choose Hermes</strong> when you want an autonomous digital assistant that lives across multiple platforms and accumulates institutional context over time.
+            <br><em>Concrete example:</em> An independent designer in Mumbai configures Hermes on Telegram: &ldquo;Every weekday at 8:00 AM, send me a briefing on pending invoices and client deliverables.&rdquo; Hermes logs client milestones, generates custom parsing routines, and sends alerts over WhatsApp.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 9: PLAIN WORDS RECAP -->
+    <section id="plain-words" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Executive Summary</span>
+      <h2>9. The Whole Thing in Plain Words</h2>
+
+      <p class="prose">
+        If a colleague asks you over dinner, <em>&ldquo;What is an AI agent harness?&rdquo;</em>, here is the five-point explanation:
+      </p>
+
+      <ol class="prose">
+        <li><strong>An AI model alone is a brilliant person behind soundproof glass:</strong> it accepts text notes and produces text notes, but possesses zero real-world hands.</li>
+        <li><strong>The harness is the surrounding machine:</strong> it provides hands (tools), a dashboard (context window), brakes (permission checks), and a service register (memory).</li>
+        <li><strong>It operates as an empirical loop:</strong> the model decides an action, the harness executes it in the physical environment, the output returns to context, and the loop repeats until finished.</li>
+        <li><strong>Pi is a minimalist toolbox:</strong> four tools, low fixed context (~5.2k chars), assembled through purposeful jugaad. <strong>Hermes is a complete domestic helper:</strong> 27+ tools, persistent memory, multi-channel messaging, and a ~54k character context overhead.</li>
+        <li><strong>The harness defines the product:</strong> the exact same foundation model plugged into two different harnesses produces two completely different systems.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 10: CHECK YOUR UNDERSTANDING (Q&A) -->
+    <section id="check-understanding" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Review &amp; Retention</span>
+      <h2>10. Check Your Understanding</h2>
+      <p class="prose" style="color: var(--muted); margin-bottom: var(--space-5);">
+        Test your grasp of harness design principles with these interactive disclosures.
+      </p>
+
+      <details class="qa">
+        <summary>Why can&rsquo;t a language model alone fix a bug in your software repository?</summary>
+        <div class="qa__content">
+          <p>The model is purely a text-in, text-out predictor. It has no operating system access to open files, edit code, execute tests, persist memory between invocations, or enforce security brakes. All of those physical capabilities are provided by the harness.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>In our 50-line mini-harness, what prevented the deletion of the thesis folder?</summary>
+        <div class="qa__content">
+          <p>A single conditional check in the harness (<code>allowed()</code>) running <em>before</em> tool execution. The stand-in model was equally reckless in both runs; safety was enforced entirely by the harness brake.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Why does the number of tools provided to an agent matter so much?</summary>
+        <div class="qa__content">
+          <p>Every tool schema is serialized as JSON and re-transmitted on every single turn of the loop. More tools increase token costs, elevate latency, and broaden the attack surface for tool selection errors.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Why do long-running agent workflows require context compaction?</summary>
+        <div class="qa__content">
+          <p>Because the conversation history expands by two messages every turn (the model's tool call and the environment's response). Without compaction or summarization, the request quickly breaches the model's finite context window limit.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Why was Hermes' measured fixed cost roughly ten times higher than Pi's?</summary>
+        <div class="qa__content">
+          <p>Hermes transmits comprehensive system prompts (6,634 chars) and detailed schemas for 27 default tools (47,080 chars), totaling ~53.7k characters before user input. Pi sends a lean system prompt and only 4 tools (~5.2k chars).</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>What is the crucial lesson when testing autonomous agent safety brakes?</summary>
+        <div class="qa__content">
+          <p>A brake that has not been tested in your specific runtime configuration is merely an assumption. As our one-shot test revealed, permissions configured for interactive prompts may fail to trigger in non-interactive batch modes.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- SECTION 11: REPRODUCE IT & REFERENCES -->
+    <section id="reproduce" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Verification &amp; Sources</span>
+      <h2>11. Run It Yourself &amp; References</h2>
+
+      <p class="prose">
+        All experiments in this lesson are completely reproducible on any standard developer workstation without commercial API credentials:
+      </p>
+
+      <div class="run" style="margin-bottom: var(--space-6);">
+        <div class="run__header">
+          <p class="run__label">Terminal Commands &bull; Local Verification</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>python3 mini_harness.py        # Section 3: run the ~50-line harness &amp; brake test
+bash run_real_pi.sh            # Section 5: installs Pi, fixes calc.py, measures prompt
+bash run_hermes_measure.sh     # Section 6: installs Hermes, captures fixed turn size</code></pre>
+      </div>
+
+      <div class="prose" style="margin-bottom: var(--space-6);">
+        <p><strong>What was checked and what was not:</strong></p>
+        <ul>
+          <li><strong>Checked:</strong> The Pi and Hermes source repositories, active tool definition dumps, Pi prompt and tool schemas in flight, Hermes initial one-shot transmission size, and the <code>rm -rf</code> brake test behavior in one-shot mode.</li>
+          <li><strong>Not checked:</strong> Hermes interactive approval TUI dialogues, multi-turn task completion rates with frontier foundation models, or third-party claims in unverified external blog publications.</li>
+        </ul>
+      </div>
+
+      <div class="prose">
+        <p><strong>References &amp; Further Reading:</strong></p>
+        <ul>
+          <li>Pi Coding Agent: <a href="https://github.com/earendil-works/pi" target="_blank" rel="noopener">github.com/earendil-works/pi</a> &bull; <a href="https://pi.dev/docs/latest" target="_blank" rel="noopener">pi.dev/docs/latest</a></li>
+          <li>Hermes Agent: <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">github.com/NousResearch/hermes-agent</a> &bull; <a href="https://hermes-agent.nousresearch.com/docs" target="_blank" rel="noopener">hermes-agent.nousresearch.com/docs</a></li>
+          <li>Mario Zechner, <em>What I learned building an opinionated and minimal coding agent</em> (<a href="https://mariozechner.at" target="_blank" rel="noopener">mariozechner.at</a>)</li>
+          <li>Anthropic Engineering, <em>Effective harnesses for long-running agents</em> (The shift-worker paradigm and progress-file methodology)</li>
+          <li>LangChain Research, <em>The anatomy of an agent harness</em> &bull; Addy Osmani, <em>Agent harness engineering</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Prev / Next Navigation -->
+    <nav class="prevnext" aria-label="Lesson progression">
+      <a class="prevnext__link" href="../../lessons/transformer/">
+        <span class="prevnext__label">&larr; Previous Lesson</span>
+        <span class="prevnext__title">The Transformer, from Scratch</span>
+      </a>
+      <a class="prevnext__link prevnext__link--next" href="../../lessons/roofline/">
+        <span class="prevnext__label">Next Lesson &rarr;</span>
+        <span class="prevnext__title">The GPU Roofline Plot, from Scratch</span>
+      </a>
+    </nav>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__col">
+        <p class="site-footer__title">From Zero</p>
+        <p>Three first-principles lessons on AI &amp; systems architecture. Built with pure HTML, CSS, and vanilla JS. No tracking, no external CDN.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Accessibility &amp; Standards</p>
+        <p>Tested for WCAG AA compliance, keyboard navigation, and reduced motion. Designed for curious beginners everywhere.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Navigation</p>
+        <p><a href="../../index.html">Home</a> &bull; <a href="../../lessons/transformer/">Transformer</a> &bull; <a href="../../lessons/harness/">Harness</a> &bull; <a href="../../lessons/roofline/">Roofline</a> &bull; <a href="#main">Back to top &uarr;</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
