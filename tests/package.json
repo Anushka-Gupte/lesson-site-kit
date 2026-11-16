@@ -1,0 +1,16 @@
+{
+  "name": "from-zero-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QA test suite for From Zero: axe-core, lighthouse, responsive & screenshot audits",
+  "scripts": {
+    "test:axe": "node run_axe.js",
+    "test:responsive": "node run_responsive.js",
+    "test:lighthouse": "node run_lighthouse.js"
+  },
+  "dependencies": {
+    "axe-core": "^4.10.2",
+    "puppeteer-core": "^23.8.0",
+    "lighthouse": "^12.3.0"
+  }
+}

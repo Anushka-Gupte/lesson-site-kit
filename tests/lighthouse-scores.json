@@ -1,0 +1,52 @@
+{
+  "404": {
+    "name": "404 Page (404.html)",
+    "url": "http://127.0.0.1:3105/404.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 96,
+      "seo": 100
+    }
+  },
+  "home": {
+    "name": "Home (index.html)",
+    "url": "http://127.0.0.1:3105/index.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100
+    }
+  },
+  "transformer": {
+    "name": "Transformer Lesson",
+    "url": "http://127.0.0.1:3105/lessons/transformer/index.html",
+    "scores": {
+      "performance": 98,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100
+    }
+  },
+  "harness": {
+    "name": "Harness Lesson",
+    "url": "http://127.0.0.1:3105/lessons/harness/index.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100
+    }
+  },
+  "roofline": {
+    "name": "Roofline Lesson",
+    "url": "http://127.0.0.1:3105/lessons/roofline/index.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100
+    }
+  }
+}
