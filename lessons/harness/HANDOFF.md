@@ -98,6 +98,7 @@ Ownership check:
 - **Strict adherence to measured content:** All numbers match `content/What Is a Harness Pi vs Hermes.md` exactly (Pi: 2,295 char system prompt, 2,956 char tool definitions, 5,251 total chars; Hermes: 6,634 char prompt, 47,080 char schemas, 53,714 total chars). No figures or capabilities were invented.
 - **The Brake Test caveat preserved:** Highlighted the surprising measurement where `rm -rf ~/victim` executed in Hermes one-shot mode (`-z`), emphasizing the core lesson: *"a brake you have not tested is only a hope."*
 - **Mobile overflow isolation:** Added `overflow-x: auto`, `min-width: 0`, and `max-width: 100%` on code containers and pre blocks so code scrolls cleanly inside its container rather than expanding the page layout at 360px.
+- **Box Containment & Contrast in Stepper SVGs:** Redesigned Stepper 1 and Stepper 2 SVGs so that every single text label has wide bounding boxes with generous padding (15px to 50px margins), preventing text from spilling outside boxes. Repositioned the `BRAKES: allowed()` box cleanly above the rear wheel arc, and positioned the bottom chassis banner below the wheels with theme-adaptive CSS variables (`var(--surface)`, `var(--teal)`, `var(--ink)`) ensuring high contrast in both light and dark themes.
 - **Strict XML entity adherence:** Used numeric entities (`&#8226;`, `&#8594;`, `&#10005;`) and UTF-8 characters across all `.svg` files to prevent XML parse failures.
 
 ---
