@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 90" width="800" height="90" role="img" aria-label="Decorative rangoli attention divider pattern">
+  <defs>
+    <linearGradient id="div-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4338CA" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#4338CA" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#4338CA" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Horizontal Axis -->
+  <line x1="40" y1="45" x2="760" y2="45" stroke="url(#div-grad)" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Center Motif -->
+  <g transform="translate(400, 45)">
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#4338CA" stroke-width="2"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#F4A62A" stroke-width="2" stroke-dasharray="4,3"/>
+    <circle cx="0" cy="0" r="7" fill="#4338CA"/>
+
+    <!-- Diagonal petaled arcs -->
+    <path d="M -20 -20 Q 0 -35 20 -20 Q 35 0 20 20 Q 0 35 -20 20 Q -35 0 -20 -20 Z" fill="none" stroke="#4338CA" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <!-- Left Symmetrical Elements -->
+  <g transform="translate(260, 45)">
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#4338CA" stroke-width="2"/>
+    <circle cx="0" cy="0" r="4" fill="#F4A62A"/>
+    <path d="M -10 -10 Q 0 -18 10 -10 Q 18 0 10 10 Q 0 18 -10 10 Q -18 0 -10 -10 Z" fill="none" stroke="#4338CA" stroke-width="1.2" opacity="0.5"/>
+  </g>
+  <g transform="translate(140, 45)">
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#4338CA" stroke-width="1.8"/>
+    <circle cx="0" cy="0" r="2.5" fill="#4338CA"/>
+  </g>
+
+  <!-- Right Symmetrical Elements -->
+  <g transform="translate(540, 45)">
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#4338CA" stroke-width="2"/>
+    <circle cx="0" cy="0" r="4" fill="#F4A62A"/>
+    <path d="M -10 -10 Q 0 -18 10 -10 Q 18 0 10 10 Q 0 18 -10 10 Q -18 0 -10 -10 Z" fill="none" stroke="#4338CA" stroke-width="1.2" opacity="0.5"/>
+  </g>
+  <g transform="translate(660, 45)">
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#4338CA" stroke-width="1.8"/>
+    <circle cx="0" cy="0" r="2.5" fill="#4338CA"/>
+  </g>
+</svg>

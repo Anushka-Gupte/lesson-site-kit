@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480" role="img" aria-label="Crawford Market analogy for attention: Query is the shopper's shout, Keys are stall signboards, and Values are the warehouse stock">
+  <defs>
+    <filter id="mandi-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#14121F" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="480" fill="#FBF8F3"/>
+  <rect x="20" y="20" width="760" height="440" rx="20" fill="none" stroke="#E7E1D6" stroke-width="2"/>
+
+  <!-- Title Banner -->
+  <rect x="50" y="38" width="700" height="46" rx="10" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+  <text x="75" y="67" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="600" fill="#4338CA">CRAWFORD MARKET ANALOGY: QUERY, KEY, &amp; VALUE</text>
+
+  <!-- Main Market Scene Container -->
+  <g transform="translate(50, 96)" filter="url(#mandi-shadow)">
+    <rect x="0" y="0" width="700" height="348" rx="16" fill="#FFFFFF" stroke="#E7E1D6" stroke-width="2.5"/>
+
+    <!-- Shopper / Query on Left (x=30) -->
+    <g transform="translate(30, 26)">
+      <rect x="0" y="0" width="170" height="195" rx="14" fill="#EEF2FF" stroke="#4338CA" stroke-width="2.5"/>
+      <circle cx="85" cy="42" r="22" fill="#4338CA"/>
+      <path d="M 50 88 C 50 70, 120 70, 120 88 Z" fill="#4338CA"/>
+      <text x="85" y="118" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="#4338CA" text-anchor="middle">QUERY (Q)</text>
+      <text x="85" y="144" font-family="'Inter', sans-serif" font-size="15" font-weight="700" fill="#1E1B2E" text-anchor="middle">&#8220;The Shout&#8221;</text>
+      <text x="85" y="170" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">Sour for chutney!</text>
+    </g>
+
+    <!-- Center Market Stalls: Signboards (Keys) & Stock (Values) -->
+    <!-- Stall 1: Raw Mangoes (~70%) -->
+    <g transform="translate(235, 18)">
+      <!-- Signboard: Key -->
+      <rect x="0" y="0" width="135" height="60" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+      <text x="67" y="24" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#92400E" text-anchor="middle">KEY: Signboard</text>
+      <text x="67" y="47" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#B45309" text-anchor="middle">&#8220;Raw Mangoes&#8221;</text>
+
+      <!-- Match Score -->
+      <line x1="67" y1="62" x2="67" y2="82" stroke="#4338CA" stroke-width="2"/>
+      <rect x="12" y="82" width="111" height="28" rx="6" fill="#4338CA"/>
+      <text x="67" y="101" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Match: ~70%</text>
+
+      <!-- Stock: Value -->
+      <line x1="67" y1="112" x2="67" y2="130" stroke="#0F766E" stroke-width="2"/>
+      <rect x="0" y="130" width="135" height="60" rx="8" fill="#CCFBF1" stroke="#0F766E" stroke-width="2"/>
+      <text x="67" y="154" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#0F766E" text-anchor="middle">VALUE: Stock</text>
+      <text x="67" y="177" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#115E59" text-anchor="middle">Mango Pulp</text>
+    </g>
+
+    <!-- Stall 2: Ripe Tomatoes (~20%) -->
+    <g transform="translate(390, 18)">
+      <!-- Signboard: Key -->
+      <rect x="0" y="0" width="135" height="60" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+      <text x="67" y="24" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#991B1B" text-anchor="middle">KEY: Signboard</text>
+      <text x="67" y="47" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#DC2626" text-anchor="middle">&#8220;Ripe Tomatoes&#8221;</text>
+
+      <!-- Match Score -->
+      <line x1="67" y1="62" x2="67" y2="82" stroke="#4338CA" stroke-width="2"/>
+      <rect x="12" y="82" width="111" height="28" rx="6" fill="#EEF2FF" stroke="#4338CA" stroke-width="1.8"/>
+      <text x="67" y="101" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold" fill="#4338CA" text-anchor="middle">Match: ~20%</text>
+
+      <!-- Stock: Value -->
+      <line x1="67" y1="112" x2="67" y2="130" stroke="#0F766E" stroke-width="2"/>
+      <rect x="0" y="130" width="135" height="60" rx="8" fill="#CCFBF1" stroke="#0F766E" stroke-width="2"/>
+      <text x="67" y="154" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#0F766E" text-anchor="middle">VALUE: Stock</text>
+      <text x="67" y="177" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#115E59" text-anchor="middle">Tomato Puree</text>
+    </g>
+
+    <!-- Stall 3: Sweet Bananas (~10% rest) -->
+    <g transform="translate(545, 18)">
+      <!-- Signboard: Key -->
+      <rect x="0" y="0" width="130" height="60" rx="8" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2"/>
+      <text x="65" y="24" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#64748B" text-anchor="middle">KEY: Signboard</text>
+      <text x="65" y="47" font-family="'Inter', sans-serif" font-size="15" fill="#64748B" text-anchor="middle">&#8220;Sweet Bananas&#8221;</text>
+
+      <!-- Match Score -->
+      <line x1="65" y1="62" x2="65" y2="82" stroke="#94A3B8" stroke-width="1.5"/>
+      <rect x="10" y="82" width="110" height="28" rx="6" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+      <text x="65" y="101" font-family="'JetBrains Mono', monospace" font-size="14" fill="#64748B" text-anchor="middle">Match: ~10%</text>
+
+      <!-- Stock: Value -->
+      <line x1="65" y1="112" x2="65" y2="130" stroke="#94A3B8" stroke-width="1.5"/>
+      <rect x="0" y="130" width="130" height="60" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+      <text x="65" y="154" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#64748B" text-anchor="middle">VALUE: Stock</text>
+      <text x="65" y="177" font-family="'Inter', sans-serif" font-size="15" fill="#64748B" text-anchor="middle">Sweet Fruit</text>
+    </g>
+
+    <!-- Bottom Result Container (Generously padded, lines wrapped, no overflow) -->
+    <g transform="translate(25, 235)">
+      <rect x="0" y="0" width="650" height="96" rx="10" fill="#FBF8F3" stroke="#4338CA" stroke-width="2"/>
+      <text x="25" y="28" font-family="Fraunces, serif" font-size="16" font-weight="600" fill="#4338CA">THE BLEND:</text>
+      <text x="135" y="28" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#1E1B2E">
+        Shopper leaves with about 70% mangoes, 20% tomatoes,
+      </text>
+      <text x="135" y="52" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#1E1B2E">
+        and a little of the rest (illustrative weights).
+      </text>
+      <text x="25" y="80" font-family="'Inter', sans-serif" font-size="14" font-style="italic" fill="#5B5870">
+        Each word absorbs a context blend from the best matching stalls.
+      </text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480" role="img" aria-label="Bank passbook analogy for LSTM: memory carries forward like a bank balance, regulated by forget, deposit, and output dials">
+  <defs>
+    <filter id="passbook-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#14121F" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="480" fill="#FBF8F3"/>
+  <rect x="20" y="20" width="760" height="440" rx="20" fill="none" stroke="#E7E1D6" stroke-width="2"/>
+
+  <!-- Passbook Header Bar -->
+  <rect x="50" y="36" width="700" height="44" rx="10" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+  <text x="75" y="64" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="600" fill="#4338CA">BANK PASSBOOK ANALOGY: THE LSTM MEMORY CELL</text>
+
+  <!-- Central Passbook Ledger Card -->
+  <g transform="translate(50, 94)" filter="url(#passbook-shadow)">
+    <rect x="0" y="0" width="700" height="352" rx="16" fill="#FFFFFF" stroke="#E7E1D6" stroke-width="2.5"/>
+
+    <!-- Top Status Header inside Card -->
+    <rect x="0" y="0" width="700" height="38" rx="16" fill="#F8FAFC"/>
+    <text x="25" y="24" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#5B5870">RUNNING BALANCE (Cell State Conveyor Belt)</text>
+
+    <!-- Entrance: Yesterday's Balance C_{t-1} Label Box -->
+    <rect x="25" y="52" width="165" height="32" rx="6" fill="#EEF2FF" stroke="#4338CA" stroke-width="1.8"/>
+    <text x="107" y="73" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="#4338CA" text-anchor="middle">
+      Balance C<tspan dy="3" font-size="14">t-1</tspan><tspan dy="-3" font-size="15"></tspan>
+    </text>
+
+    <!-- Separate Position: Hidden state h_t Box (Branched UP from Output Gate) -->
+    <g transform="translate(435, 48)">
+      <rect x="0" y="0" width="170" height="36" rx="8" fill="#F1F5F9" stroke="#4338CA" stroke-width="2"/>
+      <text x="85" y="23" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="bold" fill="#4338CA" text-anchor="middle">
+        Hidden h<tspan dy="3" font-size="14">t</tspan><tspan dy="-3" font-size="15"></tspan> (revealed)
+      </text>
+    </g>
+
+    <!-- Main Memory Conveyor Belt (Horizontal Line) at y=120 -->
+    <line x1="30" y1="120" x2="570" y2="120" stroke="#4338CA" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="575,120 562,113 562,127" fill="#4338CA"/>
+
+    <!-- Exit Box: Today's Balance C_t (Placed cleanly at conveyor exit) -->
+    <g transform="translate(580, 102)">
+      <rect x="0" y="0" width="105" height="36" rx="8" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+      <text x="52" y="24" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#4338CA" text-anchor="middle">
+        Balance C<tspan dy="3" font-size="14">t</tspan><tspan dy="-3" font-size="15"></tspan>
+      </text>
+    </g>
+
+    <!-- 1. FORGET GATE [x] (cx=170, cy=120) -->
+    <g transform="translate(170, 120)">
+      <circle cx="0" cy="0" r="23" fill="#FFFFFF" stroke="#DC2626" stroke-width="3"/>
+      <text x="0" y="8" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="bold" fill="#DC2626" text-anchor="middle">&#215;</text>
+
+      <!-- Upward Arrow from Forget Dial into Gate -->
+      <line x1="0" y1="75" x2="0" y2="28" stroke="#DC2626" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="0,24 -6,35 6,35" fill="#DC2626"/>
+
+      <!-- Forget Dial Box (y=80) -->
+      <rect x="-70" y="80" width="140" height="46" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.8"/>
+      <text x="0" y="101" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#991B1B" text-anchor="middle">
+        Forget Dial f<tspan dy="3" font-size="14">t</tspan><tspan dy="-3" font-size="15"></tspan>
+      </text>
+      <text x="0" y="119" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">Shrink old balance</text>
+    </g>
+
+    <!-- 2. DEPOSIT GATE [+] (cx=345, cy=120) -->
+    <g transform="translate(345, 120)">
+      <circle cx="0" cy="0" r="23" fill="#FFFFFF" stroke="#0F766E" stroke-width="3"/>
+      <text x="0" y="8" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="bold" fill="#0F766E" text-anchor="middle">+</text>
+
+      <!-- Upward Arrow from Deposit Dial into Gate -->
+      <line x1="0" y1="75" x2="0" y2="28" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="0,24 -6,35 6,35" fill="#0F766E"/>
+
+      <!-- Deposit Dial Box (y=80) -->
+      <rect x="-70" y="80" width="140" height="46" rx="8" fill="#CCFBF1" stroke="#0F766E" stroke-width="1.8"/>
+      <text x="0" y="101" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#0F766E" text-anchor="middle">
+        Deposit Dial i<tspan dy="3" font-size="14">t</tspan><tspan dy="-3" font-size="15"></tspan>
+      </text>
+      <text x="0" y="119" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">Add today&#8217;s news</text>
+    </g>
+
+    <!-- 3. OUTPUT GATE [x] (cx=520, cy=120) -->
+    <g transform="translate(520, 120)">
+      <circle cx="0" cy="0" r="23" fill="#FFFFFF" stroke="#4338CA" stroke-width="3"/>
+      <text x="0" y="8" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="bold" fill="#4338CA" text-anchor="middle">&#215;</text>
+
+      <!-- Upward Arrow from Output Dial into Gate (Dial -> Gate) -->
+      <line x1="0" y1="75" x2="0" y2="28" stroke="#4338CA" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="0,24 -6,35 6,35" fill="#4338CA"/>
+
+      <!-- Output Dial Box (y=80) -->
+      <rect x="-75" y="80" width="150" height="46" rx="8" fill="#EEF2FF" stroke="#4338CA" stroke-width="1.8"/>
+      <text x="0" y="101" font-family="'Inter', sans-serif" font-size="15" font-weight="bold" fill="#4338CA" text-anchor="middle">
+        Output Dial o<tspan dy="3" font-size="14">t</tspan><tspan dy="-3" font-size="15"></tspan>
+      </text>
+      <text x="0" y="119" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">Reveal mini-statement</text>
+
+      <!-- Clean Upward Branch from Gate to Hidden State h_t Box (Zero overlap!) -->
+      <line x1="0" y1="-24" x2="0" y2="-34" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="0,-36 -5,-27 5,-27" fill="#4338CA"/>
+    </g>
+
+    <!-- Clean bottom summary bar -->
+    <rect x="25" y="280" width="650" height="50" rx="8" fill="#F8FAFC" stroke="#E7E1D6" stroke-width="1.5"/>
+    <text x="350" y="311" font-family="'Inter', sans-serif" font-size="15" fill="#1E1B2E" text-anchor="middle">
+      Memory carries forward and adds &#8212; but still reads one word at a time on a single-lane road.
+    </text>
+  </g>
+</svg>

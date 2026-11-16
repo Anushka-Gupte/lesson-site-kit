@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Transformer, from Scratch — From Zero</title>
+  <meta name="description" content="Build the complete decoder-only transformer bottom-to-top with zero maths assumed. Understand attention, tokens, embeddings, and next-word prediction.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../../assets/img/brand/favicon.svg">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="lesson.css">
+  <script src="../../assets/js/site.js" defer></script>
+  <script src="lesson.js" defer></script>
+</head>
+<body class="lesson lesson--transformer">
+  <!-- Accessible Skip Link -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Global Header (Copied verbatim from design system, updating relative paths & aria-current) -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-brand" href="../../index.html" aria-label="From Zero home">
+        <svg viewBox="0 0 64 64" width="32" height="32" role="img" aria-hidden="true">
+          <rect width="64" height="64" rx="16" fill="#1E1B2E"/>
+          <circle cx="32" cy="32" r="18" fill="none" stroke="#FBF8F3" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="32" cy="14" r="5" fill="#F4A62A"/>
+          <line x1="23" y1="41" x2="41" y2="23" stroke="#F4A62A" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+        <span>From Zero</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+          <li><a class="site-nav__link is-active" href="../../lessons/transformer/" aria-current="page">Transformer</a></li>
+          <li><a class="site-nav__link" href="../../lessons/harness/">Harness</a></li>
+          <li><a class="site-nav__link" href="../../lessons/roofline/">Roofline</a></li>
+        </ul>
+        <button type="button" class="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container" style="padding-top: var(--space-6); padding-bottom: var(--space-8);">
+    <!-- LESSON HERO -->
+    <header class="lesson-hero" style="margin-bottom: var(--space-7);">
+      <div style="margin-bottom: var(--space-3);">
+        <span class="kicker">Lesson 1 &bull; 25 min read &bull; Beginner</span>
+      </div>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.15; margin-bottom: var(--space-3); color: var(--ink);">
+        The Transformer, from Scratch
+      </h1>
+      <p class="prose" style="font-size: var(--step-2); color: var(--muted); margin-bottom: var(--space-4); max-width: 65ch;">
+        How does a machine look across long text to guess the next word? Build the complete decoder-only architecture bottom-to-top with zero maths assumed.
+      </p>
+      <ul class="tags" style="margin-bottom: var(--space-6);">
+        <li>NLP</li>
+        <li>Attention</li>
+        <li>Decoder</li>
+        <li>From First Principles</li>
+      </ul>
+
+      <!-- Hero Illustration -->
+      <figure class="figure" style="margin: 0 0 var(--space-6) 0;">
+        <img src="../../assets/img/transformer/hero-transformer.svg" alt="Complete diagram of the decoder-only transformer architecture showing token embeddings, self-attention, feed-forward layers, and output probabilities" width="1600" height="900" loading="eager" style="width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--border); box-shadow: var(--shadow-card);">
+        <figcaption style="font-size: var(--step--1); color: var(--muted); text-align: center; margin-top: var(--space-2);">
+          The decoder-only transformer machine: tokens enter at the bottom, absorb context through stacked attention and thinking layers, and produce probabilities at the top.
+        </figcaption>
+      </figure>
+    </header>
+
+    <!-- STICKY TABLE OF CONTENTS -->
+    <nav class="toc" aria-label="Table of contents" style="margin-bottom: var(--space-7);">
+      <p class="toc__title">In this lesson</p>
+      <ul>
+        <li><a href="#keyboard">1. Start with the keyboard in your pocket</a></li>
+        <li><a href="#pre-2017">2. How machines read before 2017 (RNN &amp; LSTM)</a></li>
+        <li><a href="#looking-back">3. The idea of looking back (Attention)</a></li>
+        <li><a href="#building-on-board">4. Building the transformer on the board (Interactive 9-Step Build)</a></li>
+        <li><a href="#plain-words">5. The whole thing in plain words &amp; honest costs</a></li>
+        <li><a href="#check-understanding">6. Check your understanding</a></li>
+        <li><a href="#reproduce-it">7. Reproduce it (Run the experiments)</a></li>
+        <li><a href="#references">8. References</a></li>
+      </ul>
+    </nav>
+
+    <!-- SECTION 1: START WITH THE KEYBOARD -->
+    <section id="keyboard" style="margin-bottom: var(--space-8);">
+      <span class="kicker">The Core Mechanism</span>
+      <h2>1. Start with the keyboard in your pocket</h2>
+
+      <p class="prose">
+        Let’s start with something every one of you has done today. You open WhatsApp, type <em>“I’ll reach in about ten”</em>, and before you finish, your phone offers a word. Have you ever wondered how it knew?
+      </p>
+
+      <p class="prose">
+        That small suggestion is the whole story of modern language models. ChatGPT, Gemini, Claude, Llama: underneath, each of them does exactly one job:
+      </p>
+
+      <aside class="callout callout--idea">
+        <p class="callout__label">The Core Job</p>
+        <p style="font-size: var(--step-1); font-weight: 500; color: var(--ink); margin: 0;">
+          <strong>Look at the words so far, and guess the next word.</strong>
+        </p>
+      </aside>
+
+      <p class="prose">
+        That’s all. When a model writes you an essay or a poem, it guesses a word, adds it to the text, and guesses the next one. Answering a question works the same way.
+      </p>
+
+      <p class="prose">
+        Try it yourself. Finish this sentence in your head:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--indigo); padding-left: var(--space-4); margin: var(--space-4) 0; font-style: italic; color: var(--ink);">
+        “In the Mumbai monsoon, local trains are often ___.”
+      </blockquote>
+
+      <p class="prose">
+        Most of you thought <strong>“late”</strong>. Nobody stopped to consciously calculate grammar. You used everything you know about Mumbai, trains, and monsoon rain. A machine has to do the same, and it does it by giving every possible word in its vocabulary a score, something like this:
+      </p>
+
+      <div class="table-wrap" style="max-width: 500px; margin: var(--space-4) 0;">
+        <table class="table">
+          <caption style="text-align: left; font-size: var(--step--1); color: var(--muted); margin-bottom: var(--space-2);">
+            Example Next-Word Chances (Made up for illustration)
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Next word</th>
+              <th scope="col" style="text-align: right;">Chance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>late</strong></td>
+              <td style="text-align: right;"><strong>40%</strong></td>
+            </tr>
+            <tr>
+              <td>delayed</td>
+              <td style="text-align: right;">25%</td>
+            </tr>
+            <tr>
+              <td>cancelled</td>
+              <td style="text-align: right;">10%</td>
+            </tr>
+            <tr>
+              <td>crowded</td>
+              <td style="text-align: right;">8%</td>
+            </tr>
+            <tr>
+              <td>&hellip; thousands of others</td>
+              <td style="text-align: right;">the rest</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="prose">
+        Now here is what makes it hard. Try this sentence:
+      </p>
+
+      <blockquote style="border-left: 3px solid var(--indigo); padding-left: var(--space-4); margin: var(--space-4) 0; font-style: italic; color: var(--ink);">
+        “I grew up in Chennai. I studied in Delhi, worked in Bangalore for ten years, and I have eaten in every city in India. But when I talk to my grandmother, I speak ___.”
+      </blockquote>
+
+      <p class="prose">
+        You said <strong>Tamil</strong>. But notice where the vital clue was: <em>Chennai</em> was twenty words back, with Delhi and Bangalore sitting in between to distract you. A machine needs a way to <strong>look back across a long stretch of text and pick out the one clue that matters</strong>.
+      </p>
+    </section>
+
+    <!-- SECTION 2: HOW MACHINES READ BEFORE 2017 -->
+    <section id="pre-2017" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Historical Context</span>
+      <h2>2. How machines read before 2017</h2>
+
+      <p class="prose">
+        If you had to build a machine that reads, where would you start? The earliest approach was simple n-gram counting: look at the last two or three words, and count what usually came next in a huge pile of text. That is fine for <em>“thank you very ___”</em>. But it is hopeless for our Chennai grandmother sentence, because to catch that clue the window would have to be twenty words wide, and the number of possible twenty-word combinations is far too astronomical to store. We needed a model that could carry memory forward.
+      </p>
+
+      <h3>The RNN: one clerk, one notebook page</h3>
+      <p class="prose">
+        That idea was the <strong>Recurrent Neural Network</strong> (RNN). An RNN reads a sentence one word at a time, keeping a small notebook—a short list of numbers—that summarises everything read so far. For every new word, it does the exact same three things: read the word, look at the notebook, and rewrite the notebook.
+      </p>
+
+      <p class="prose">
+        Picture a clerk reading a very long ledger, line by line. He is given only <em>one</em> page of notes, and after every line he must rub it out and rewrite it. By line twenty, how much of line one is still on that page?
+      </p>
+
+      <p class="prose">
+        That is the RNN’s fatal flaw: <strong>it forgets</strong>. Each rewrite blurs the older notes. It is like a game of WhatsApp forwards: by the fiftieth forward, the message barely resembles the original.
+      </p>
+
+      <!-- Measured RNN Experiment Table -->
+      <aside class="callout callout--measured" style="margin: var(--space-5) 0;">
+        <p class="callout__label">Measured Experiment: Does an RNN Forget?</p>
+        <p>
+          We build a random 64-unit RNN and measure how much the notebook at step 0 can still influence the notebook at step <em>t</em> (the norm of the Jacobian product \(\partial h_t / \partial h_0\)).
+        </p>
+
+        <div class="table-wrap" style="margin-top: var(--space-3);">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Notebook rewrite strength (\(\rho\))</th>
+                <th scope="col" style="text-align: right;">After 10 words</th>
+                <th scope="col" style="text-align: right;">After 20 words</th>
+                <th scope="col" style="text-align: right;">After 50 words</th>
+                <th scope="col" style="text-align: right;">After 100 words</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>0.8</strong> (fades things)</td>
+                <td style="text-align: right; font-family: var(--font-code);">1.1e-01</td>
+                <td style="text-align: right; font-family: var(--font-code);">9.5e-03</td>
+                <td style="text-align: right; font-family: var(--font-code);">6.2e-06</td>
+                <td style="text-align: right; font-family: var(--font-code); color: var(--caution); font-weight: bold;">2.8e-11</td>
+              </tr>
+              <tr>
+                <td><strong>1.0</strong> (balanced)</td>
+                <td style="text-align: right; font-family: var(--font-code);">5.6e-01</td>
+                <td style="text-align: right; font-family: var(--font-code);">3.2e-01</td>
+                <td style="text-align: right; font-family: var(--font-code);">5.2e-02</td>
+                <td style="text-align: right; font-family: var(--font-code);">3.2e-03</td>
+              </tr>
+              <tr>
+                <td><strong>1.2</strong> (boosts things)</td>
+                <td style="text-align: right; font-family: var(--font-code);">1.5</td>
+                <td style="text-align: right; font-family: var(--font-code);">1.9</td>
+                <td style="text-align: right; font-family: var(--font-code);">2.5</td>
+                <td style="text-align: right; font-family: var(--font-code);">1.6</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: var(--step--1); color: var(--muted); margin-top: var(--space-2);">
+          <em>Measured result from reproducible Python experiments (below).</em> After 100 words, the first word’s influence in the fading regime is \(0.000000000028\)—that is not memory, that is a rumour. In trained networks, Bengio et al. (1994) proved this vanishing gradient problem mathematically.
+        </p>
+      </aside>
+
+      <p class="prose">
+        There was a second big problem: <strong>speed</strong>. To read word 100, the RNN must have finished word 99, and before that word 98. You cannot hand different words to different processors. It is a single-lane road: it doesn’t matter if you own a thousand cars.
+      </p>
+
+      <h3>The LSTM: a notebook that works like a passbook</h3>
+      <p class="prose">
+        In 1997, Hochreiter and Schmidhuber asked: <em>what if the memory didn’t have to be rewritten at every step?</em>
+      </p>
+
+      <p class="prose">
+        Think of your bank passbook. Your balance is not recalculated from scratch every morning. Yesterday’s balance carries forward, and only two transactions happen: some money leaves, and some money is deposited. When you request a mini-statement, the bank reveals only the part you ask for.
+      </p>
+
+      <!-- LSTM Passbook Diagram -->
+      <figure class="figure" style="margin: var(--space-5) 0;">
+        <img src="../../assets/img/transformer/passbook-lstm.svg" alt="Diagram of an LSTM memory cell styled as a bank passbook with forget dial, deposit dial, and output dial" width="800" height="480" loading="lazy" style="width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+        <figcaption style="font-size: var(--step--1); color: var(--muted); text-align: center; margin-top: var(--space-2);">
+          The LSTM memory cell: memory flows along a conveyor belt, regulated by three learned dials (forget, deposit, and output).
+        </figcaption>
+      </figure>
+
+      <p class="prose">
+        An LSTM regulates its memory using three learned dials:
+      </p>
+      <ul class="prose" style="line-height: 1.7;">
+        <li><strong>The forget dial:</strong> decides what fraction of yesterday’s balance survives.</li>
+        <li><strong>The input dial:</strong> decides how much of today’s news gets deposited.</li>
+        <li><strong>The output dial:</strong> decides how much of the balance to reveal right now.</li>
+      </ul>
+
+      <p class="prose">
+        Because memory is mostly carried rather than rewritten, signals survive much longer. But LSTMs still read one word at a time, making them inherently slow on modern hardware.
+      </p>
+
+      <h3>The suitcase problem</h3>
+      <p class="prose">
+        In 2014, translation models used one LSTM to read an entire English sentence and squeeze everything into a single final vector, which a second LSTM used to generate Hindi. That is like packing three months of travel into a single cabin bag: short sentences fit, but for long sentences, essential details fall out.
+      </p>
+    </section>
+
+    <!-- SECTION 3: THE IDEA OF LOOKING BACK -->
+    <section id="looking-back" style="margin-bottom: var(--space-8);">
+      <span class="kicker">The Breakthrough</span>
+      <h2>3. The idea of looking back (Attention)</h2>
+
+      <p class="prose">
+        The fix, when it arrived, was delightfully natural: don’t pack one bag. <strong>Keep all the notes on the table, and let the writer flip back to whichever page matters, at the moment it matters.</strong> A closed-book exam forces you to compress everything into memory; an open-book exam lets you look things up, provided you know where to look.
+      </p>
+
+      <p class="prose">
+        In 2014, Bahdanau, Cho, and Bengio gave models that capability: while generating each word, the model looks back across all input words and scores their relevance. Say it is generating the Hindi word for “friend” in <em>“How are you doing today, my friend”</em>:
+      </p>
+
+      <div class="table-wrap" style="margin: var(--space-4) 0;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">How</th>
+              <th scope="col">are</th>
+              <th scope="col">you</th>
+              <th scope="col">doing</th>
+              <th scope="col">today</th>
+              <th scope="col">my</th>
+              <th scope="col" style="color: var(--indigo);">friend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2%</td>
+              <td>1%</td>
+              <td>3%</td>
+              <td>2%</td>
+              <td>4%</td>
+              <td>8%</td>
+              <td style="color: var(--indigo); font-weight: bold; background: var(--indigo-tint);">80%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="prose">
+        It focuses 80% of its attention on “friend”, glances at “my”, and ignores the rest. This mechanism is called <strong>attention</strong>.
+      </p>
+
+      <!-- INTERACTIVE ATTENTION DEMO: WHO DOES "THEY" LOOK AT? -->
+      <div class="attention-demo" aria-labelledby="demo-heading">
+        <h3 id="demo-heading" class="attention-demo__title">Interactive Demo: Who Does &ldquo;they&rdquo; Look At?</h3>
+        <p class="attention-demo__desc">
+          See how attention resolves pronoun ambiguity. In the sentence below, click different query tokens to inspect which words they attend to and see the blended content vector.
+        </p>
+
+        <div class="attention-demo__sentence" role="group" aria-label="Sentence tokens">
+          <span>&ldquo;Meena</span>
+          <button type="button" class="attention-demo__token" data-demo-mode="kept">kept</button>
+          <span>the</span>
+          <button type="button" class="attention-demo__token" data-demo-mode="mangoes">mangoes</button>
+          <span>in the</span>
+          <button type="button" class="attention-demo__token" data-demo-mode="fridge">fridge</button>
+          <span>because</span>
+          <button type="button" class="attention-demo__token is-active" data-demo-mode="they" aria-pressed="true">they</button>
+          <span>were</span>
+          <button type="button" class="attention-demo__token" data-demo-mode="ripe">ripe.&rdquo;</button>
+        </div>
+
+        <div class="attention-demo__bars">
+          <div class="attention-bar">
+            <span class="attention-bar__label">kept</span>
+            <div class="attention-bar__track">
+              <div class="attention-bar__fill" data-bar="kept" style="width: 10%;"></div>
+            </div>
+            <span class="attention-bar__val" data-val="kept">10%</span>
+          </div>
+
+          <div class="attention-bar">
+            <span class="attention-bar__label">mangoes</span>
+            <div class="attention-bar__track">
+              <div class="attention-bar__fill attention-bar__fill--mangoes" data-bar="mangoes" style="width: 72%;"></div>
+            </div>
+            <span class="attention-bar__val" data-val="mangoes">72%</span>
+          </div>
+
+          <div class="attention-bar">
+            <span class="attention-bar__label">fridge</span>
+            <div class="attention-bar__track">
+              <div class="attention-bar__fill" data-bar="fridge" style="width: 18%;"></div>
+            </div>
+            <span class="attention-bar__val" data-val="fridge">18%</span>
+          </div>
+        </div>
+
+        <div class="attention-demo__result" aria-live="polite">
+          <strong>Blended Content Vector:</strong> <code>[0.28, 1.62] (leans 72% towards mangoes [0, 2])</code><br>
+          The query word <strong>&ldquo;they&rdquo;</strong> looks back across all prior words. The key for <em>mangoes</em> matches best with the pronoun query, so 72% of the content comes from mangoes. After this step, &ldquo;they&rdquo; carries <em>the ripe mangoes</em> inside it.
+        </div>
+      </div>
+
+      <h3>The 2017 leap: Attention Is All You Need</h3>
+      <p class="prose">
+        In 2017, a team at Google asked: if attention can look at any word in a single step, why do we need the slow word-by-word RNN at all? Their paper answered: <strong>we don’t. Throw the RNN away. Let every word look at every other word, all at once.</strong>
+      </p>
+
+      <p class="prose">
+        Think of the Indian Railways map: an RNN is a passenger train that must stop at every intermediate station between Mumbai and Kolkata. Attention is a direct non-stop flight connecting every pair of cities. Two enormous advantages resulted:
+      </p>
+      <ul class="prose" style="line-height: 1.7;">
+        <li><strong>Distance became one hop:</strong> Clues 100 words away are reached directly with zero degradation.</li>
+        <li><strong>Everything runs in parallel:</strong> All positions are computed as large matrix multiplications on GPUs. The original base model trained in just 12 hours on 8 GPUs.</li>
+      </ul>
+
+      <!-- Mandi Metaphor Diagram -->
+      <figure class="figure" style="margin: var(--space-5) 0;">
+        <img src="../../assets/img/transformer/mandi-qkv.svg" alt="Crawford Market analogy illustrating Query as shopper shout, Key as stall signboard, and Value as merchant stock" width="800" height="480" loading="lazy" style="width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+        <figcaption style="font-size: var(--step--1); color: var(--muted); text-align: center; margin-top: var(--space-2);">
+          The Mandi metaphor: Query is what you shout, Keys are stall signboards, and Values are the warehouse stock you blend.
+        </figcaption>
+      </figure>
+
+      <p class="prose">
+        Every word plays three distinct roles simultaneously:
+      </p>
+      <ul class="prose" style="line-height: 1.7;">
+        <li><strong>Query (\(Q\)):</strong> What am I looking for? (Your shout in Crawford market)</li>
+        <li><strong>Key (\(K\)):</strong> What do I advertise? (The signboard above each stall)</li>
+        <li><strong>Value (\(V\)):</strong> What do I hand over if picked? (The actual stock on the shelves)</li>
+      </ul>
+
+      <!-- Deep Dive: Attention Formula -->
+      <details class="deepdive" style="margin: var(--space-4) 0;">
+        <summary>Under the hood: the mathematical formula with shapes</summary>
+        <div class="deepdive__content">
+          <p>
+            Stack the \(n\) word-vectors into a table \(X\) of shape \((n \times d)\). Three learned projection matrices produce queries, keys, and values:
+          </p>
+          <div class="math-display">
+            Q = X W_Q, &emsp; K = X W_K, &emsp; V = X W_V &emsp; (W_Q, W_K \in \mathbb{R}^{d \times d_k}, \; W_V \in \mathbb{R}^{d \times d_v})
+          </div>
+          <p>Then dot products score how strongly each word queries each key:</p>
+          <div class="math-display">
+            \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{Q K^\top}{\sqrt{d_k}}\right) V
+          </div>
+          <p>
+            The \(S = Q K^\top\) matrix has shape \((n \times n)\). Softmax normalises each row into percentages summing to 1. The output is a weighted sum of value vectors.
+          </p>
+        </div>
+      </details>
+
+      <!-- MEASURED ATTENTION SCALING TABLE -->
+      <aside class="callout callout--measured" style="margin: var(--space-5) 0;">
+        <p class="callout__label">Measured Experiment: Why Divide by \(\sqrt{d_k}\)?</p>
+        <p>
+          When you add \(d_k\) independent random numbers, the variance grows with \(d_k\) and spread grows as \(\sqrt{d_k}\). Without scaling by \(\sqrt{d_k}\), large dimensions cause the softmax to saturate, killing learning gradients.
+        </p>
+
+        <div class="table-wrap" style="margin-top: var(--space-3);">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Label dimension (\(d_k\))</th>
+                <th scope="col" style="text-align: right;">Spread of scores</th>
+                <th scope="col" style="text-align: right;">Max share (unscaled)</th>
+                <th scope="col" style="text-align: right;">Max share (scaled)</th>
+                <th scope="col" style="text-align: right;">Gradient (unscaled)</th>
+                <th scope="col" style="text-align: right;">Gradient (scaled)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>4</td>
+                <td style="text-align: right; font-family: var(--font-code);">1.73</td>
+                <td style="text-align: right; font-family: var(--font-code);">49%</td>
+                <td style="text-align: right; font-family: var(--font-code);">31%</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.34</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.34</td>
+              </tr>
+              <tr>
+                <td>16</td>
+                <td style="text-align: right; font-family: var(--font-code);">3.64</td>
+                <td style="text-align: right; font-family: var(--font-code);">73%</td>
+                <td style="text-align: right; font-family: var(--font-code);">32%</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.26</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.35</td>
+              </tr>
+              <tr>
+                <td>64</td>
+                <td style="text-align: right; font-family: var(--font-code);">7.33</td>
+                <td style="text-align: right; font-family: var(--font-code);">87%</td>
+                <td style="text-align: right; font-family: var(--font-code);">32%</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.16</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.35</td>
+              </tr>
+              <tr>
+                <td>256</td>
+                <td style="text-align: right; font-family: var(--font-code);">14.70</td>
+                <td style="text-align: right; font-family: var(--font-code);">93%</td>
+                <td style="text-align: right; font-family: var(--font-code);">32%</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.09</td>
+                <td style="text-align: right; font-family: var(--font-code);">0.35</td>
+              </tr>
+              <tr>
+                <td><strong>1024</strong></td>
+                <td style="text-align: right; font-family: var(--font-code);">29.70</td>
+                <td style="text-align: right; font-family: var(--font-code); color: var(--caution); font-weight: bold;">97%</td>
+                <td style="text-align: right; font-family: var(--font-code); font-weight: bold;">32%</td>
+                <td style="text-align: right; font-family: var(--font-code); color: var(--caution); font-weight: bold;">0.05</td>
+                <td style="text-align: right; font-family: var(--font-code); font-weight: bold;">0.35</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: var(--step--1); color: var(--muted); margin-top: var(--space-2);">
+          <em>Measured across 2,000 trials with 10 random keys.</em> At \(d=1024\), unscaled attention grabs 97% of weight on pure noise, crushing the gradient to 0.05. Scaling by \(\sqrt{d}\) keeps the gradient healthy at 0.35.
+        </p>
+      </aside>
+
+      <!-- Deep Dive: The Causal Mask -->
+      <details class="deepdive" style="margin: var(--space-4) 0;">
+        <summary>Under the hood: why block the future with a causal mask?</summary>
+        <div class="deepdive__content">
+          <p>
+            When training a model to predict the next word, allowing word 4 to look at word 5 is like a cricket commentator guessing the next ball while the final scorecard sits in front of him. It copies rather than predicts.
+          </p>
+          <p>
+            We add a mask matrix \(M\) where future positions are set to \(-\infty\):
+          </p>
+          <div class="math-display">
+            A = \text{softmax}(S + M), \quad M_{ij} = \begin{cases} 0 &amp; j \le i \\ -\infty &amp; j &gt; i \end{cases}
+          </div>
+          <p>
+            Since \(e^{-\infty} = 0\), future positions vanish from the denominator sum. A 10-word sentence provides 10 training examples in a single parallel pass!
+          </p>
+        </div>
+      </details>
+
+      <!-- Multi-Head Attention & Red Pen -->
+      <h3>Multiple heads &amp; the red-pen bypass</h3>
+      <p class="prose">
+        Rather than one attention calculation, models use a panel of smaller heads side-by-side (like cricket commentators: one for bowling, one for batting, one for pitch analysis).
+      </p>
+
+      <!-- Red-Pen Bypass Diagram -->
+      <figure class="figure" style="margin: var(--space-5) 0;">
+        <img src="../../assets/img/transformer/redpen-bypass.svg" alt="Diagram showing residual connection as a teacher writing red pen corrections on top of an answer sheet rather than rewriting it" width="800" height="450" loading="lazy" style="width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+        <figcaption style="font-size: var(--step--1); color: var(--muted); text-align: center; margin-top: var(--space-2);">
+          The red-pen bypass: each block adds a residual correction \(F(x)\) to the existing stream \(x\).
+        </figcaption>
+      </figure>
+
+      <details class="deepdive" style="margin: var(--space-4) 0;">
+        <summary>Under the hood: why residual connections prevent vanishing gradients</summary>
+        <div class="deepdive__content">
+          <p>
+            In a residual layer \(y = x + F(x)\), the gradient is \(\frac{\partial y}{\partial x} = I + \frac{\partial F}{\partial x}\). When chaining \(L\) layers together:
+          </p>
+          <div class="math-display">
+            \frac{\partial x_L}{\partial x_0} = \prod_{l=1}^{L} (I + J_l) = I + \sum_{l=1}^L J_l + \dots
+          </div>
+          <p>
+            The expansion retains the identity matrix \(I\)—an uninterrupted express lane ensuring learning signals travel down 100 layers without fading.
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <!-- SECTION 4: BUILDING ON THE BOARD (THE 9-STEP STEPPER) -->
+    <section id="building-on-board" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Interactive Architecture</span>
+      <h2>4. Building the transformer on the board</h2>
+
+      <p class="prose">
+        Let’s build the entire machine together from the ground up in nine cumulative steps, tracking our Mumbai sentence: <em>&ldquo;Local trains are often &hellip;&rdquo;</em>. Use the controls or arrow keys to advance through each layer.
+      </p>
+
+      <!-- THE 9-STEP STEPPER -->
+      <figure class="stepper" data-stepper aria-label="Interactive 9-step decoder build-up from text to next-word prediction">
+        <div class="stepper__stage">
+          <svg viewBox="0 0 780 660" role="img" aria-label="9-step transformer architecture diagram building bottom to top">
+            <defs>
+              <linearGradient id="step-bar-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#4338CA"/>
+                <stop offset="100%" stop-color="#F4A62A"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Background boundary -->
+            <rect x="10" y="8" width="760" height="644" rx="16" fill="#FFFFFF" stroke="#E7E1D6" stroke-width="2"/>
+
+            <!-- Central Data Connectors (broken cleanly between boxes) -->
+            <!-- Connector: Step 1 -> Step 2 -->
+            <line x1="390" y1="600" x2="390" y2="584" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,582 385,590 395,590" fill="#4338CA"/>
+
+            <!-- Connector: Step 2 -> Step 3 -->
+            <line x1="390" y1="546" x2="390" y2="530" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,528 385,536 395,536" fill="#4338CA"/>
+
+            <!-- Connector: Step 3 -> Step 4 -->
+            <line x1="390" y1="492" x2="390" y2="476" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,474 385,482 395,482" fill="#4338CA"/>
+
+            <!-- Connector: Step 4 -> Attention LayerNorm -->
+            <line x1="390" y1="438" x2="390" y2="402" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,400 385,408 395,408" fill="#4338CA"/>
+
+            <!-- Connector: Attention LayerNorm -> Masked Attention -->
+            <line x1="390" y1="376" x2="390" y2="358" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,356 385,364 395,364" fill="#4338CA"/>
+
+            <!-- Connector: Masked Attention -> Attention (+) -->
+            <line x1="390" y1="310" x2="390" y2="294" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,292 385,300 395,300" fill="#4338CA"/>
+
+            <!-- Connector: Attention (+) -> MLP LayerNorm -->
+            <line x1="390" y1="268" x2="390" y2="262" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,260 385,268 395,268" fill="#4338CA"/>
+
+            <!-- Connector: MLP LayerNorm -> MLP Feed-Forward -->
+            <line x1="390" y1="236" x2="390" y2="218" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,216 385,224 395,224" fill="#4338CA"/>
+
+            <!-- Connector: MLP Feed-Forward -> Top (+) -->
+            <line x1="390" y1="170" x2="390" y2="158" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,156 385,164 395,164" fill="#4338CA"/>
+
+            <!-- Connector: Top (+) -> Final LayerNorm -->
+            <line x1="390" y1="132" x2="390" y2="100" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,98 385,106 395,106" fill="#4338CA"/>
+
+            <!-- Connector: Final LayerNorm -> Linear Projection (small gap) -->
+            <line x1="390" y1="76" x2="390" y2="70" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,68 385,74 395,74" fill="#4338CA"/>
+
+            <!-- Connector: Linear Projection -> Softmax -->
+            <line x1="390" y1="40" x2="390" y2="36" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="390,34 385,40 395,40" fill="#4338CA"/>
+
+            <!-- STEP 1: Text Input (y=600) -->
+            <g data-step="1">
+              <rect x="90" y="600" width="600" height="38" rx="8" fill="#F8FAFC" stroke="#4338CA" stroke-width="2"/>
+              <text x="110" y="624" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#4338CA">1. INPUT TEXT:</text>
+              <text x="230" y="624" font-family="'JetBrains Mono', monospace" font-size="14" fill="#1E1B2E">&#8220;Local trains are often&#8221;</text>
+            </g>
+
+            <!-- STEP 2: Token IDs (y=546) -->
+            <g data-step="2">
+              <rect x="90" y="546" width="600" height="36" rx="8" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+              <text x="110" y="569" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#4338CA">2. TOKEN IDs:</text>
+              <text x="230" y="569" font-family="'JetBrains Mono', monospace" font-size="14" fill="#1E1B2E">[8021]  [11279]  [389]  [1690] <tspan font-size="14" fill="#5B5870">(made up for illustration)</tspan></text>
+            </g>
+
+            <!-- STEP 3: Embedding Profile Cards (y=492) -->
+            <g data-step="3">
+              <rect x="90" y="492" width="600" height="36" rx="8" fill="#FFFFFF" stroke="#4338CA" stroke-width="2"/>
+              <text x="110" y="515" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#4338CA">3. EMBEDDINGS:</text>
+              <text x="230" y="515" font-family="'JetBrains Mono', monospace" font-size="14" fill="#1E1B2E">x&#8321;, x&#8322;, x&#8323;, x&#8324; &#8226; 768-dim Meaning Coordinates</text>
+            </g>
+
+            <!-- STEP 4: Position Tags (y=438) -->
+            <g data-step="4">
+              <rect x="90" y="438" width="600" height="36" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+              <text x="110" y="461" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#92400E">4. POSITIONS:</text>
+              <text x="230" y="461" font-family="'JetBrains Mono', monospace" font-size="14" fill="#1E1B2E">Attach Seat Numbers: pos 1, 2, 3, 4 (Wave Tags +)</text>
+            </g>
+
+            <!-- STEP 5: Masked Attention + LayerNorm + Bypass -->
+            <g data-step="5">
+              <!-- Attention LayerNorm Box (y=376, h=24) -->
+              <rect x="240" y="376" width="300" height="24" rx="5" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+              <text x="390" y="393" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">LayerNorm (tidy up before talking)</text>
+
+              <!-- Attention Main Box (y=310, h=46) -->
+              <rect x="170" y="310" width="440" height="46" rx="8" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+              <text x="390" y="331" font-family="Fraunces, serif" font-size="16" font-weight="600" fill="#4338CA" text-anchor="middle">5. Masked Self-Attention</text>
+              <text x="390" y="348" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">&#8220;often&#8221; queries earlier words &#8226; Causal mask blocks future</text>
+
+              <!-- Addition Node (+) at (390, 280) on trunk -->
+              <circle cx="390" cy="280" r="12" fill="#FFFFFF" stroke="#DC2626" stroke-width="2.5"/>
+              <text x="390" y="285" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="bold" fill="#DC2626" text-anchor="middle">+</text>
+
+              <!-- Attention Red-Pen Bypass Arc: Starts on data path at (390, 420), rejoins at (+) (378, 280) -->
+              <path d="M 390 420 L 95 420 C 75 420, 75 280, 376 280" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="6,4" stroke-linecap="round"/>
+              <polygon points="378,280 368,275 368,285" fill="#DC2626"/>
+              <text x="90" y="350" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#DC2626" text-anchor="middle">Attention Bypass</text>
+            </g>
+
+            <!-- STEP 6: Feed-Forward MLP + LayerNorm + Bypass -->
+            <g data-step="6">
+              <!-- MLP LayerNorm Box (y=236, h=24) -->
+              <rect x="240" y="236" width="300" height="24" rx="5" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+              <text x="390" y="253" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">LayerNorm (tidy up before thinking)</text>
+
+              <!-- MLP Main Box (y=170, h=46) -->
+              <rect x="170" y="170" width="440" height="46" rx="8" fill="#F8FAFC" stroke="#4338CA" stroke-width="2"/>
+              <text x="390" y="191" font-family="Fraunces, serif" font-size="16" font-weight="600" fill="#4338CA" text-anchor="middle">6. Feed-Forward MLP (Think Alone)</text>
+              <text x="390" y="208" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">Each word digests clues &#8226; Expands 4&#215;d, GELU bend, stores facts</text>
+
+              <!-- Addition Node (+) at (390, 144) on trunk -->
+              <circle cx="390" cy="144" r="12" fill="#FFFFFF" stroke="#DC2626" stroke-width="2.5"/>
+              <text x="390" y="149" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="bold" fill="#DC2626" text-anchor="middle">+</text>
+
+              <!-- MLP Red-Pen Bypass Arc: Starts on data path at (390, 252), rejoins at (+) (402, 144) -->
+              <path d="M 390 252 L 685 252 C 705 252, 705 144, 404 144" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="6,4" stroke-linecap="round"/>
+              <polygon points="402,144 412,139 412,149" fill="#DC2626"/>
+              <text x="690" y="200" font-family="'Inter', sans-serif" font-size="14" font-weight="bold" fill="#DC2626" text-anchor="middle">MLP Bypass</text>
+            </g>
+
+            <!-- STEP 7: Repeat Block x N (enclosing Steps 5 & 6) -->
+            <g data-step="7">
+              <!-- Dashed outer block with clear space above top (+) at y=144 -->
+              <rect x="55" y="118" width="670" height="290" rx="14" fill="none" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="8,6"/>
+              <!-- Badge attached cleanly to top-right corner of frame (x=595..725, y=106..132) -->
+              <rect x="595" y="106" width="130" height="26" rx="6" fill="#4338CA"/>
+              <text x="660" y="124" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">7. Repeat &#215; N</text>
+            </g>
+
+            <!-- STEP 8: Final LayerNorm & Linear Projection (y=40 to 98) -->
+            <g data-step="8">
+              <!-- Final LayerNorm Box (y=76, h=22) -->
+              <rect x="250" y="76" width="280" height="22" rx="5" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+              <text x="390" y="92" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">Final LayerNorm</text>
+
+              <!-- Projection Box (y=40, h=28, with 8px gap above Final LayerNorm) -->
+              <rect x="130" y="40" width="520" height="28" rx="6" fill="#F1F5F9" stroke="#1E1B2E" stroke-width="2"/>
+              <text x="390" y="59" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#1E1B2E" text-anchor="middle">8. Final Linear Projection: ~50,000 Vocab Scores</text>
+            </g>
+
+            <!-- STEP 9: Softmax Probabilities (y=8) -->
+            <g data-step="9">
+              <rect x="90" y="8" width="600" height="26" rx="6" fill="url(#step-bar-grad)"/>
+              <text x="390" y="26" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">9. SOFTMAX: late 40% &#8226; delayed 25% &#8226; cancelled 10% (made up for illustration)</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="stepper__panel" aria-live="polite">
+          <p class="stepper__count">Step 1 of 9</p>
+          <h3 class="stepper__title">1. Start with the Raw Text</h3>
+          <p class="stepper__text">
+            We have four words: &#8220;Local trains are often&#8221; and one single job: guess the fifth. Everything built above this box exists only to make that one guess good.
+          </p>
+        </div>
+
+        <div class="stepper__controls">
+          <button type="button" data-prev disabled>&larr; Back</button>
+          <button type="button" data-next>Next &rarr;</button>
+        </div>
+
+        <script type="application/json" class="stepper__data">
+          [
+            {
+              "title": "1. Start with the Raw Text",
+              "text": "We start with four input words: 'Local trains are often' and one job: predict word five. At the very bottom of the board, draw our text box."
+            },
+            {
+              "title": "2. Chop Text into Token IDs",
+              "text": "Computers cannot read words directly. The text is split into tokens and assigned numerical IDs: 8021, 11279, 389, and 1690 (made up for illustration). Like roll numbers, IDs identify tokens but don't hold meaning yet."
+            },
+            {
+              "title": "3. Give Each Token a Profile Card (Embeddings)",
+              "text": "Each token fetches a card of 768 numbers describing its coordinates on a map of meaning. 'Trains' lands near 'buses' and far from 'mangoes'. Nobody hand-writes these numbers; the machine learns them from reading text."
+            },
+            {
+              "title": "4. Add Seat Numbers (Position Encodings)",
+              "text": "Without position tags, 'Ram loves Sita' and 'Sita loves Ram' look identical to a bag-of-words model. We add frequency wave tags to each card so every token knows its exact seat in the sequence."
+            },
+            {
+              "title": "5. Masked Self-Attention with LayerNorm & Bypass",
+              "text": "A LayerNorm tidies up the numbers, then words talk to each other! 'Often' queries earlier words and blends their meaning. Future tokens are masked out. A red-pen residual bypass carries the original vector forward directly into the plus node so nothing is overwritten."
+            },
+            {
+              "title": "6. Think Alone: The MLP with Second Bypass",
+              "text": "After the discussion, another LayerNorm tidies up, and each word enters a private thinking step (the feed-forward network). It expands 4x wider to store facts, processes clues with a non-linear bend (GELU), and adds a second residual bypass."
+            },
+            {
+              "title": "7. Repeat the Block N Times",
+              "text": "Stack this identical block (both LayerNorms, Attention, MLP, both bypasses) N times (12 in GPT-2 small, ~100 in frontier models). Early layers resolve basic grammar; deeper layers synthesize nuanced abstract concepts."
+            },
+            {
+              "title": "8. Final LayerNorm & Scoring the Last Word",
+              "text": "After the last block, one final LayerNorm tidies up. We take only the vector for 'often'—which has absorbed clues from the entire sentence—and project it across the vocabulary to give every word a raw score (around 50,000 scores)."
+            },
+            {
+              "title": "9. Softmax Turns Scores into Probabilities",
+              "text": "Softmax converts raw scores into percentages that sum to 100%: 'late' (40%), 'delayed' (25%), 'cancelled' (10%), 'crowded' (8%). The model samples 'late', appends it to the sentence, and the entire cycle repeats."
+            }
+          ]
+        </script>
+      </figure>
+    </section>
+
+    <!-- SECTION 5: THE WHOLE THING IN PLAIN WORDS -->
+    <section id="plain-words" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Summary</span>
+      <h2>5. The whole thing in plain words &amp; honest costs</h2>
+
+      <p class="prose">
+        If someone asks you at dinner, <em>“so what actually is a transformer?”</em>, here is the answer you can give without needing a whiteboard:
+      </p>
+
+      <ol class="prose" style="line-height: 1.8;">
+        <li>It chops text into pieces (tokens) and gives each piece a card of numbers that stands for its meaning.</li>
+        <li>It stamps each card with its position, because otherwise it wouldn’t know word order.</li>
+        <li>Then it lets words <strong>talk to each other</strong>. Every word looks back at earlier words, decides which ones matter, and absorbs some of their meaning. That is attention.</li>
+        <li>Then each word <strong>thinks alone</strong> for a moment. That is the MLP.</li>
+        <li>It repeats steps 3 and 4 many times, always <em>adding</em> corrections onto the original rather than rewriting it from scratch.</li>
+        <li>At the top, it turns the final word’s card into a percentage chance for every possible next word.</li>
+        <li>It learned all of this by guessing hidden next words trillions of times, being nudged each time it made an error.</li>
+      </ol>
+
+      <div class="rangoli-separator" aria-hidden="true">
+        <img src="../../assets/img/transformer/rangoli-divider.svg" alt="" width="800" height="90">
+      </div>
+
+      <h3>The honest costs: \(O(n^2)\) attention</h3>
+      <p class="prose">
+        Attention is powerful, but it is not free. Every word compares itself with every earlier word. Imagine a wedding with 100 guests where everyone must personally greet everyone else: that is roughly 5,000 greetings. If you double the guest list to 200, it is not twice the greetings—it is <strong>four times as many</strong> (roughly 20,000 greetings).
+      </p>
+
+      <p class="prose">
+        When input text doubles in length, raw attention computation grows fourfold. Much of modern AI systems research (FlashAttention, sparse kernels, linear attention, and state-space architectures like Mamba) focuses on mitigating this quadratic wall.
+      </p>
+    </section>
+
+    <!-- SECTION 6: CHECK YOUR UNDERSTANDING -->
+    <section id="check-understanding" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Review</span>
+      <h2>6. Check your understanding</h2>
+      <p class="prose">
+        Test your grasp of the core concepts with these architectural questions. Click any question to reveal the one-line answer.
+      </p>
+
+      <details class="qa">
+        <summary>Why can&rsquo;t an RNN use a thousand processors on one sentence?</summary>
+        <div class="qa__content">
+          <p>Word 100 needs word 99’s notebook first, so the computation is inherently a sequential, single-lane road.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Without position tags, how would &ldquo;Ram loves Sita&rdquo; differ from &ldquo;Sita loves Ram&rdquo;?</summary>
+        <div class="qa__content">
+          <p>It wouldn’t: self-attention alone treats inputs as an unordered bag of words.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Why keep the signboard (key) separate from the stock (value)?</summary>
+        <div class="qa__content">
+          <p>What helps a word get found during queries isn’t necessarily the content vector it should hand over.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>What goes wrong if the attention dot-product scores get too big?</summary>
+        <div class="qa__content">
+          <p>One word grabs nearly 100% of the softmax weight and learning gradients vanish to near zero.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Why must the machine not see future words during training?</summary>
+        <div class="qa__content">
+          <p>Otherwise it cheats by copying the next word instead of learning to predict it.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>If the text doubles in length, how much more attention computation is needed?</summary>
+        <div class="qa__content">
+          <p>About four times as much, due to pairwise \(n \times n\) comparisons.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Why is &ldquo;add a correction&rdquo; easier than &ldquo;rewrite from scratch&rdquo; in deep stacks?</summary>
+        <div class="qa__content">
+          <p>The original input retains an uninterrupted express lane through every layer, preventing signal decay.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- SECTION 7: REPRODUCE IT -->
+    <section id="reproduce-it" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Code Verification</span>
+      <h2>7. Reproduce it (Run the experiments)</h2>
+      <p class="prose">
+        Every number cited in this lesson was computed with pure NumPy. You can reproduce the experiments locally or in Google Colab:
+      </p>
+
+      <!-- Run Block 1: RNN Memory -->
+      <div class="run" style="margin-bottom: var(--space-6);">
+        <div class="run__header">
+          <p class="run__label">Experiment 1: Does an RNN Forget?</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>import numpy as np
+
+def rnn_memory(spectral_radius, H=64, steps=100, seed=0):
+    rng = np.random.default_rng(seed)
+    W = rng.standard_normal((H, H)) / np.sqrt(H)
+    W *= spectral_radius / np.max(np.abs(np.linalg.eigvals(W)))  # set eigenvalue
+    h = rng.standard_normal(H)
+    J = np.eye(H)                                              # running Jacobians
+    out = {}
+    for t in range(1, steps + 1):
+        h = np.tanh(W @ h + 0.1 * rng.standard_normal(H))
+        J = (np.diag(1 - h**2) @ W) @ J                        # chain rule
+        if t in (10, 20, 50, 100):
+            out[t] = np.linalg.norm(J, 2)
+    return out
+
+for rho in (0.8, 1.0, 1.2):
+    print(f"rho={rho}:", {t: f"{v:.1e}" for t, v in rnn_memory(rho).items()})</code></pre>
+      </div>
+
+      <!-- Run Block 2: Attention Scaling -->
+      <div class="run" style="margin-bottom: var(--space-6);">
+        <div class="run__header">
+          <p class="run__label">Experiment 2: Why Divide by &radic;d_k?</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>import numpy as np
+
+def softmax(x):
+    e = np.exp(x - x.max())
+    return e / e.sum()
+
+def jac_norm(p):
+    return np.linalg.norm(np.diag(p) - np.outer(p, p))
+
+rng = np.random.default_rng(0)
+for d in (4, 16, 64, 256, 1024):
+    std, mu, ms, gu, gs = [], [], [], [], []
+    for _ in range(2000):
+        q, K = rng.standard_normal(d), rng.standard_normal((10, d))
+        s = K @ q
+        pu, ps = softmax(s), softmax(s / np.sqrt(d))
+        std.append(s.std()); mu.append(pu.max()); ms.append(ps.max())
+        gu.append(jac_norm(pu)); gs.append(jac_norm(ps))
+    print(f"d={d:4d} | spread={np.mean(std):5.2f} | unscaled_max={np.mean(mu):.2f} | scaled_max={np.mean(ms):.2f}")</code></pre>
+      </div>
+
+      <!-- Run Block 3: Worked 3-word attention -->
+      <div class="run" style="margin-bottom: var(--space-6);">
+        <div class="run__header">
+          <p class="run__label">Experiment 3: Worked 3-Word Attention (&ldquo;they&rdquo;)</p>
+          <button type="button" class="copy" data-copy>Copy</button>
+        </div>
+<pre><code>import numpy as np
+
+softmax = lambda x: np.exp(x - x.max()) / np.exp(x - x.max()).sum()
+
+q = np.array([1.0, 1.0])                           # question asked by "they"
+K = np.array([[0, 0.2], [2, 1], [0.5, 0.5]])       # keys: kept, mangoes, fridge
+V = np.array([[1, 0], [0, 2], [1, 1]])             # values: kept, mangoes, fridge
+
+weights = softmax(K @ q / np.sqrt(2))
+output = weights @ V
+
+print("Weights (kept, mangoes, fridge):", weights.round(2))  # [0.10, 0.72, 0.18]
+print("Blended Output Vector          :", output.round(2))   # [0.28, 1.62]</code></pre>
+      </div>
+    </section>
+
+    <!-- SECTION 8: REFERENCES -->
+    <section id="references" style="margin-bottom: var(--space-8);">
+      <span class="kicker">Bibliography</span>
+      <h2>8. References</h2>
+      <ul class="prose" style="line-height: 1.8;">
+        <li>Vaswani et al., <em>Attention Is All You Need</em> (NeurIPS 2017). <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">arXiv:1706.03762</a></li>
+        <li>Bahdanau, Cho, Bengio, <em>Neural Machine Translation by Jointly Learning to Align and Translate</em> (ICLR 2015). <a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">arXiv:1409.0473</a></li>
+        <li>Hochreiter &amp; Schmidhuber, <em>Long Short-Term Memory</em> (Neural Computation 1997).</li>
+        <li>Bengio, Simard, Frasconi, <em>Learning Long-Term Dependencies with Gradient Descent is Difficult</em> (IEEE TNN 1994).</li>
+        <li>Sutskever, Vinyals, Le, <em>Sequence to Sequence Learning with Neural Networks</em> (NeurIPS 2014).</li>
+        <li>Geva et al., <em>Transformer Feed-Forward Layers Are Key-Value Memories</em> (EMNLP 2021).</li>
+      </ul>
+    </section>
+
+    <!-- PREV / NEXT NAVIGATION STRIP -->
+    <nav class="prevnext" aria-label="Lesson progression">
+      <a class="prevnext__link" href="../../index.html">
+        <span class="prevnext__label">&larr; Home</span>
+        <span class="prevnext__title">From Zero Overview</span>
+      </a>
+      <a class="prevnext__link prevnext__link--next" href="../../lessons/harness/">
+        <span class="prevnext__label">Next Lesson &rarr;</span>
+        <span class="prevnext__title">What Is a Harness? Pi vs Hermes</span>
+      </a>
+    </nav>
+  </main>
+
+  <!-- Global Footer (Verbatim from design system, updating relative paths) -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__col">
+        <p class="site-footer__title">From Zero</p>
+        <p>Three first-principles lessons on AI &amp; systems architecture. Built with pure HTML, CSS, and vanilla JS. No tracking, no external CDN.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Accessibility &amp; Standards</p>
+        <p>Tested for WCAG AA compliance, keyboard navigation, and reduced motion. Designed for curious beginners everywhere.</p>
+      </div>
+      <div class="site-footer__col">
+        <p class="site-footer__title">Navigation</p>
+        <p>
+          <a href="../../index.html">Home</a> &bull;
+          <a href="../../lessons/transformer/">Transformer</a> &bull;
+          <a href="../../lessons/harness/">Harness</a> &bull;
+          <a href="../../lessons/roofline/">Roofline</a> &bull;
+          <a href="#main">Back to top &uarr;</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

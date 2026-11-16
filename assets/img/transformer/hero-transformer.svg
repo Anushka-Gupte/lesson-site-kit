@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Vertical architecture diagram of the decoder-only transformer: tokens flow upward through embeddings, N blocks of attention and MLP with residual bypasses, to next-word probabilities">
+  <defs>
+    <pattern id="hero-dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="2" fill="#4338CA" opacity="0.08"/>
+      <circle cx="0" cy="0" r="1.5" fill="#4338CA" opacity="0.05"/>
+      <circle cx="40" cy="0" r="1.5" fill="#4338CA" opacity="0.05"/>
+      <circle cx="0" cy="40" r="1.5" fill="#4338CA" opacity="0.05"/>
+      <circle cx="40" cy="40" r="1.5" fill="#4338CA" opacity="0.05"/>
+    </pattern>
+    <filter id="hero-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#14121F" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1600" height="900" fill="#FBF8F3"/>
+  <rect width="1600" height="900" fill="url(#hero-dots)"/>
+
+  <!-- Top Accent Bar -->
+  <rect x="0" y="0" width="1600" height="10" fill="#4338CA"/>
+
+  <!-- Outer Frame -->
+  <rect x="30" y="24" width="1540" height="852" rx="20" fill="none" stroke="#E7E1D6" stroke-width="2"/>
+
+  <!-- Header Titles -->
+  <text x="800" y="58" font-family="Fraunces, Georgia, serif" font-size="32" font-weight="600" fill="#4338CA" text-anchor="middle" letter-spacing="-0.01em">THE DECODER-ONLY TRANSFORMER</text>
+  <text x="800" y="85" font-family="'Inter', sans-serif" font-size="16" fill="#5B5870" text-anchor="middle">Single vertical column &#8226; All signals flow bottom to top &#8226; Everything exists to guess the next word</text>
+
+  <!-- ========================================================
+       TOP: OUTPUT STAGE (y=102 to y=250)
+       ======================================================== -->
+
+  <!-- Next-Word Probabilities (y=104, h=52) -->
+  <g transform="translate(460, 104)" filter="url(#hero-shadow)">
+    <rect x="0" y="0" width="680" height="52" rx="10" fill="#FFFFFF" stroke="#4338CA" stroke-width="2.5"/>
+    <rect x="0" y="0" width="680" height="20" rx="8" fill="#EEF2FF"/>
+    <text x="340" y="15" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#4338CA" text-anchor="middle" letter-spacing="0.06em">SOFTMAX NEXT-WORD PROBABILITIES (made up for illustration)</text>
+    <text x="60" y="41" font-family="'JetBrains Mono', monospace" font-size="17" font-weight="bold" fill="#4338CA">late 40%</text>
+    <text x="220" y="41" font-family="'JetBrains Mono', monospace" font-size="16" fill="#1E1B2E">delayed 25%</text>
+    <text x="390" y="41" font-family="'JetBrains Mono', monospace" font-size="16" fill="#1E1B2E">cancelled 10%</text>
+    <text x="560" y="41" font-family="'JetBrains Mono', monospace" font-size="16" fill="#5B5870">crowded 8% &#8230;</text>
+  </g>
+
+  <!-- Arrow: Linear -> Softmax -->
+  <line x1="800" y1="172" x2="800" y2="158" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,156 794,166 806,166" fill="#4338CA"/>
+
+  <!-- Linear Projection (y=172, h=42) -->
+  <g transform="translate(510, 172)">
+    <rect x="0" y="0" width="580" height="42" rx="8" fill="#FFFFFF" stroke="#1E1B2E" stroke-width="2"/>
+    <text x="290" y="27" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="600" fill="#1E1B2E" text-anchor="middle">Linear: Project last token to ~50,000 vocabulary scores</text>
+  </g>
+
+  <!-- Arrow: Final LayerNorm -> Linear -->
+  <line x1="800" y1="228" x2="800" y2="216" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,214 794,224 806,224" fill="#4338CA"/>
+
+  <!-- Final LayerNorm (y=228, h=32) -->
+  <g transform="translate(590, 228)">
+    <rect x="0" y="0" width="420" height="32" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.8"/>
+    <text x="210" y="21" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="#475569" text-anchor="middle">Final LayerNorm (tidy up before scoring)</text>
+  </g>
+
+  <!-- Arrow: Stack Block -> Final LayerNorm -->
+  <line x1="800" y1="272" x2="800" y2="262" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,260 794,270 806,270" fill="#4338CA"/>
+
+  <!-- ========================================================
+       CENTER: THE TRANSFORMER BLOCK (REPEATED x N) (y=272 to 572)
+       ======================================================== -->
+  <!-- ONE Dashed Outer Frame for the Block -->
+  <rect x="420" y="272" width="760" height="300" rx="16" fill="#FFFFFF" fill-opacity="0.8" stroke="#4338CA" stroke-width="2.5" stroke-dasharray="8,6" filter="url(#hero-shadow)"/>
+
+  <!-- Block Badge: Placed at top-right, strictly OUTSIDE the inner components -->
+  <g transform="translate(1045, 282)">
+    <rect x="0" y="0" width="125" height="32" rx="6" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+    <text x="62" y="22" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="bold" fill="#4338CA" text-anchor="middle">Repeat &#215; N</text>
+  </g>
+
+  <!-- Inside Block 1: MLP Addition Node (+) (cy=296) -->
+  <circle cx="800" cy="296" r="14" fill="#FFFFFF" stroke="#DC2626" stroke-width="2.5"/>
+  <text x="800" y="302" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="bold" fill="#DC2626" text-anchor="middle">+</text>
+
+  <!-- Arrow: MLP -> MLP (+) -->
+  <line x1="800" y1="322" x2="800" y2="312" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,310 794,320 806,320" fill="#4338CA"/>
+
+  <!-- MLP Sub-layer (y=322, h=52) -->
+  <g transform="translate(510, 322)">
+    <rect x="0" y="0" width="580" height="52" rx="10" fill="#F8FAFC" stroke="#4338CA" stroke-width="2"/>
+    <text x="290" y="24" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="#4338CA" text-anchor="middle">Feed-Forward Network (MLP)</text>
+    <text x="290" y="43" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870" text-anchor="middle">Each word thinks alone &#8226; Expands 4&#215;d, GELU non-linearity, contracts to d</text>
+  </g>
+
+  <!-- Arrow: LayerNorm -> MLP -->
+  <line x1="800" y1="388" x2="800" y2="376" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,374 794,384 806,384" fill="#4338CA"/>
+
+  <!-- MLP LayerNorm (y=388, h=28) -->
+  <g transform="translate(600, 388)">
+    <rect x="0" y="0" width="400" height="28" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.8"/>
+    <text x="200" y="19" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">LayerNorm (tidy up before thinking)</text>
+  </g>
+
+  <!-- Arrow: Attention (+) -> MLP LayerNorm -->
+  <line x1="800" y1="430" x2="800" y2="418" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,416 794,426 806,426" fill="#4338CA"/>
+
+  <!-- MLP Residual Bypass: Leaves stream below MLP LayerNorm and rejoins at MLP (+) -->
+  <!-- Starts on central data path at (800, 424) -->
+  <path d="M 800 424 L 460 424 C 440 424, 440 296, 784 296" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="6,4" stroke-linecap="round"/>
+  <polygon points="786,296 775,291 775,301" fill="#DC2626"/>
+  <text x="445" y="360" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#DC2626" text-anchor="end">MLP Bypass (x)</text>
+
+  <!-- Inside Block 2: Attention Addition Node (+) (cy=430) -->
+  <circle cx="800" cy="430" r="14" fill="#FFFFFF" stroke="#DC2626" stroke-width="2.5"/>
+  <text x="800" y="436" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="bold" fill="#DC2626" text-anchor="middle">+</text>
+
+  <!-- Arrow: Attention -> Attention (+) -->
+  <line x1="800" y1="456" x2="800" y2="446" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,444 794,454 806,454" fill="#4338CA"/>
+
+  <!-- Masked Self-Attention Sub-layer (y=456, h=58) -->
+  <g transform="translate(490, 456)">
+    <rect x="0" y="0" width="620" height="58" rx="10" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+    <text x="310" y="24" font-family="Fraunces, serif" font-size="17" font-weight="600" fill="#4338CA" text-anchor="middle">Masked Multi-Head Self-Attention</text>
+    <text x="310" y="47" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="bold" fill="#9A5205" text-anchor="middle">
+      softmax(Q K<tspan dy="-6" font-size="14">&#8868;</tspan><tspan dy="6" font-size="16"> / &#8730;d</tspan><tspan dy="4" font-size="14">k</tspan><tspan dy="-4" font-size="16">) V</tspan>
+      <tspan font-family="'Inter', sans-serif" font-size="14" font-weight="normal" fill="#5B5870"> &#8226; Words talk to earlier words</tspan>
+    </text>
+  </g>
+
+  <!-- Arrow: LayerNorm -> Attention -->
+  <line x1="800" y1="528" x2="800" y2="516" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,514 794,524 806,524" fill="#4338CA"/>
+
+  <!-- Attention LayerNorm (y=528, h=28) -->
+  <g transform="translate(600, 528)">
+    <rect x="0" y="0" width="400" height="28" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.8"/>
+    <text x="200" y="19" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">LayerNorm (tidy up before talking)</text>
+  </g>
+
+  <!-- Attention Residual Bypass: Starts on data path at (800, 564) and rejoins at Attention (+) (784, 430) -->
+  <path d="M 800 564 L 450 564 C 430 564, 430 430, 784 430" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="6,4" stroke-linecap="round"/>
+  <polygon points="786,430 775,425 775,435" fill="#DC2626"/>
+  <text x="435" y="497" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#DC2626" text-anchor="end">Attention Bypass (x)</text>
+
+  <!-- Arrow: Input Embeddings -> Block Entrance -->
+  <line x1="800" y1="595" x2="800" y2="574" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,572 794,582 806,582" fill="#4338CA"/>
+
+  <!-- ========================================================
+       BOTTOM: EMBEDDINGS, TOKENS, AND TEXT (y=595 to 840)
+       ======================================================== -->
+
+  <!-- Embeddings + Positions Merged at (+) (y=595 to 640) -->
+  <g transform="translate(460, 595)">
+    <!-- Main Token Embedding Box -->
+    <rect x="0" y="0" width="370" height="44" rx="8" fill="#FFFFFF" stroke="#4338CA" stroke-width="2"/>
+    <text x="185" y="28" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#1E1B2E" text-anchor="middle">Token Embeddings (x&#8321;&#8230;x&#8324;, 768-dim)</text>
+
+    <!-- Plus Node for Position Merging -->
+    <circle cx="400" cy="22" r="14" fill="#FFFFFF" stroke="#4338CA" stroke-width="2.5"/>
+    <text x="400" y="28" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="bold" fill="#4338CA" text-anchor="middle">+</text>
+
+    <line x1="370" y1="22" x2="386" y2="22" stroke="#4338CA" stroke-width="2"/>
+
+    <!-- Position Encodings Box -->
+    <rect x="440" y="0" width="240" height="44" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="560" y="28" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#92400E" text-anchor="middle">Position Tags (seats 1..4)</text>
+
+    <!-- Arrow from position box into (+) -->
+    <line x1="440" y1="22" x2="416" y2="22" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="414,22 422,18 422,26" fill="#D97706"/>
+  </g>
+
+  <!-- Arrow: Token IDs -> Embeddings -->
+  <line x1="800" y1="662" x2="800" y2="641" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,639 794,649 806,649" fill="#4338CA"/>
+
+  <!-- Token IDs (y=662, h=44) -->
+  <g transform="translate(460, 662)">
+    <rect x="0" y="0" width="680" height="44" rx="8" fill="#EEF2FF" stroke="#4338CA" stroke-width="2"/>
+    <text x="25" y="28" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#4338CA">TOKEN IDs:</text>
+    <text x="130" y="28" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#1E1B2E">[8021] &quot;Local&quot;</text>
+    <text x="280" y="28" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#1E1B2E">[11279] &quot;trains&quot;</text>
+    <text x="440" y="28" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#1E1B2E">[389] &quot;are&quot;</text>
+    <text x="560" y="28" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="bold" fill="#4338CA">[1690] &quot;often&quot;</text>
+  </g>
+
+  <!-- Arrow: Input Text -> Token IDs -->
+  <line x1="800" y1="730" x2="800" y2="708" stroke="#4338CA" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="800,706 794,716 806,716" fill="#4338CA"/>
+
+  <!-- Raw Input Text (y=730, h=48) -->
+  <g transform="translate(460, 730)" filter="url(#hero-shadow)">
+    <rect x="0" y="0" width="680" height="48" rx="10" fill="#FFFFFF" stroke="#4338CA" stroke-width="2.5"/>
+    <text x="25" y="31" font-family="'Inter', sans-serif" font-size="14" font-weight="700" fill="#4338CA">INPUT TEXT:</text>
+    <text x="145" y="31" font-family="Fraunces, serif" font-size="19" font-weight="600" fill="#1E1B2E">&#8220;Local trains are often &#8230;&#8221;</text>
+    <text x="530" y="31" font-family="'Inter', sans-serif" font-size="14" fill="#5B5870">(goal: guess next word)</text>
+  </g>
+
+  <!-- Bottom Explanatory Caption -->
+  <text x="800" y="815" font-family="'Inter', sans-serif" font-size="15" font-style="italic" fill="#5B5870" text-anchor="middle">
+    Architecture summary: One vertical column. Tokens flow bottom to top through embeddings, N identical attention + MLP blocks with red-pen bypasses, to next-word scores.
+  </text>
+</svg>
