@@ -1,0 +1,59 @@
+== phase2-done ==
+2026-11-16T23:12:55+05:30
+
+== agent branches: commits ahead of main ==
+agent/harness          0 commits
+agent/roofline         0 commits
+agent/shell            0 commits
+agent/transformer      0 commits
+
+== worktrees ==
+C:/Users/Anushka/Downloads/lesson-site-kit/lesson-site-kit  1c9107d [main]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-harness       f12fb31 [agent/harness]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-roofline      f9f496f [agent/roofline]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-shell         3527e4b [agent/shell]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-transformer   cf5da77 [agent/transformer]
+
+== ownership guard (did any agent leave its lane?) ==
+agent=harness branch=agent/harness: 0 files changed, 0 outside its lane
+agent=roofline branch=agent/roofline: 0 files changed, 0 outside its lane
+agent=shell branch=agent/shell: 0 files changed, 0 outside its lane
+agent=transformer branch=agent/transformer: 0 files changed, 0 outside its lane
+
+== history ==
+*   1c9107d (HEAD -> main) Merge branch 'agent/roofline'
+|\  
+| * f9f496f (agent/roofline) roofline: final
+* |   5d5a6e9 Merge branch 'agent/harness'
+|\ \  
+| * | f12fb31 (agent/harness) harness: fix stepper text box containment, contrast, and layout spacing
+| * | 54c3e96 harness: add HANDOFF.md and responsive mobile overflow containment
+| * | 8587d4a harness: add lesson page, interactive mini-harness, steppers and SVGs
+| |/  
+* / cf5da77 (agent/transformer) transformer: final
+|/  
+* 17793b3 phase 1 evidence
+*   cf9aa14 Merge shell agent: design system and home page
+|\  
+| * 3527e4b (agent/shell) shell: document simplified card thumbnails in handoff
+| * 732c62e shell: simplify card thumbnails to bold shape-and-icon art with single readable title
+| * 89fc29d shell: document SVG XML entity compliance in handoff
+| * ed1fa46 shell: fix XML entity in thumb-transformer.svg and sanitize comments
+| * d4a0f34 shell: add Phase 1 handoff documentation in docs/HANDOFF-shell.md
+| * f6ef368 shell: ensure card grid and run blocks flex cleanly down to 360px without overflow
+| * 04332b8 shell: create self-contained 404.html
+| * 79de18f shell: build home page with hero, three lesson cards, and how-to-use strip
+| * 473bfe7 shell: create design system gallery in docs/design-system.html
+| * 0b1ace2 shell: implement site.js with stepper, copy, theme toggle, and scrollspy
+| * cc75138 shell: implement design system tokens and component css
+| * a340913 shell: add brand assets, favicon, and lesson card thumbnails
+* | 6c0c6eb kit: svg validator and svg-is-xml rule
+* | 6da6c25 windows python fix
+|/  
+* d248398 phase 0: spec, rules, prompts, content
+
+== what exists on main ==
+html pages:  6
+svg images:  16
+css/js files: 8
+total lines (html+css+js): 7563
