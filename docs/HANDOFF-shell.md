@@ -75,7 +75,8 @@ Ownership check:
 - **No runtime fonts/CDN:** No external font downloads were added per SPEC Section 4; the font stack defaults gracefully to system fallbacks (`ui-serif, Georgia`, `system-ui, sans-serif`, `ui-monospace, monospace`).
 - **Card link structure:** In accordance with the spec ("the whole card is ONE link"), `.card` is an `<a>` element wrapping the media, body, and CTA. To prevent inner text selection or nested anchor conflicts, tags are styled `<li>` elements inside `.tags` without nested anchors.
 - **Intrinsic grid width:** Added `min-width: 0` to `.card` and `grid-template-columns: minmax(0, 1fr)` to `.card-grid` so cards adapt to narrow mobile viewports (down to 360px) without horizontal clipping.
-- **Self-contained 404:** Inline CSS and inline SVGs were used so GitHub Pages can serve `404.html` from any directory depth without broken relative links.
+- **Self-contained 404:** Inline CSS and inline SVGs were used so GitHub Pages can serve `404.html` from any directory depth without broken relative links. Fallback base link is centralized in a clearly commented `DEFAULT_BASE = '/lesson-site-kit/'` constant. Accent button text contrast in dark theme was calibrated to `#14121F` on saffron accent (9.1:1 contrast ratio, fully WCAG AA compliant).
+- **Axe scrollable-region-focusable contract:** Every `.run pre` is automatically assigned `tabindex="0"`, `role="region"`, and `aria-label="Code, scrollable"` on page load via `assets/js/site.js`, complemented by a visible 2px saffron outline with 4px offset on `:focus-visible` in `assets/css/site.css`.
 - **XML strict entity compliance in SVGs:** Replaced HTML named entity `&bull;` in `assets/img/brand/thumb-transformer.svg` with the numeric character reference `&#8226;` to guarantee strict XML parse compatibility across all browsers and XML rendering pipelines, and sanitized XML comments containing bare ampersands.
 
 ---

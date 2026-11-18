@@ -168,9 +168,24 @@
   }
 
   /* ==========================================================================
-     3. Runnable Code Copy Button ([data-copy])
+     3. Runnable Code Blocks (keyboard focusable scroll & copy button)
      ========================================================================== */
-  function initCopyButtons() {
+  function initRunBlocks() {
+    // Axe rule: scrollable-region-focusable
+    // Ensure all scrollable code blocks in .run are keyboard-focusable with an accessible name
+    const runPres = document.querySelectorAll('.run pre');
+    runPres.forEach(pre => {
+      if (!pre.hasAttribute('tabindex')) {
+        pre.setAttribute('tabindex', '0');
+      }
+      if (!pre.hasAttribute('aria-label')) {
+        pre.setAttribute('aria-label', 'Code, scrollable');
+      }
+      if (!pre.hasAttribute('role')) {
+        pre.setAttribute('role', 'region');
+      }
+    });
+
     const copyButtons = document.querySelectorAll('[data-copy]');
 
     copyButtons.forEach(button => {
@@ -287,7 +302,7 @@
   function init() {
     initTheme();
     initSteppers();
-    initCopyButtons();
+    initRunBlocks();
     initScrollspy();
   }
 
