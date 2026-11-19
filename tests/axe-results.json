@@ -16,54 +16,47 @@
     },
     "dark": {
       "passes": 35,
-      "violations": [
-        {
-          "id": "color-contrast",
-          "impact": "serious",
-          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<a class=\"btn\" href=\"/\" id=\"home-cta\">Return to Home →</a>",
-              "target": [
-                "#home-cta"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.03 (foreground color: #ffffff, background color: #f4a62a, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
-            }
-          ]
-        }
-      ]
+      "violations": []
     }
   },
   "Transformer Lesson": {
     "light": {
       "passes": 50,
-      "violations": []
+      "violations": [
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "description": "Ensure landmarks are unique",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/landmark-unique?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<pre tabindex=\"0\" aria-label=\"Code, scrollable\" role=\"region\">",
+              "target": [
+                ".run:nth-child(4) > pre"
+              ],
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        }
+      ]
     },
     "dark": {
       "passes": 50,
       "violations": [
         {
-          "id": "color-contrast",
-          "impact": "serious",
-          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "description": "Ensure landmarks are unique",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/landmark-unique?application=axeAPI",
           "nodes": [
             {
-              "html": "<td style=\"color: var(--indigo); font-weight: bold; background: var(--indigo-tint);\">80%</td>",
+              "html": "<pre tabindex=\"0\" aria-label=\"Code, scrollable\" role=\"region\">",
               "target": [
-                "td:nth-child(7)"
+                ".run:nth-child(4) > pre"
               ],
-              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.37 (foreground color: #8b83ff, background color: #2e2a4c, font size: 12.0pt (16px), font weight: bold). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "html": "<button type=\"button\" class=\"attention-demo__token is-active\" data-demo-mode=\"they\" aria-pressed=\"true\">they</button>",
-              "target": [
-                "button[data-demo-mode=\"they\"]"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.09 (foreground color: #ffffff, background color: #8b83ff, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
             }
           ]
         }
@@ -75,18 +68,18 @@
       "passes": 49,
       "violations": [
         {
-          "id": "color-contrast",
-          "impact": "serious",
-          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "description": "Ensure landmarks are unique",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/landmark-unique?application=axeAPI",
           "nodes": [
             {
-              "html": "<span class=\"mini-fs__status status--fail\" data-fs-calc=\"\">Buggy</span>",
+              "html": "<pre tabindex=\"0\" aria-label=\"Code, scrollable\" role=\"region\">",
               "target": [
-                ".status--fail"
+                "#mini-harness-demo > .run > pre"
               ],
-              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.81 (foreground color: #dc2626, background color: #fadede, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
             }
           ]
         }
@@ -96,25 +89,18 @@
       "passes": 49,
       "violations": [
         {
-          "id": "color-contrast",
-          "impact": "serious",
-          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "description": "Ensure landmarks are unique",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/landmark-unique?application=axeAPI",
           "nodes": [
             {
-              "html": "<button type=\"button\" class=\"mini-btn-action mini-btn-action--primary\" data-step-btn=\"\">Step Next Turn →</button>",
+              "html": "<pre tabindex=\"0\" aria-label=\"Code, scrollable\" role=\"region\">",
               "target": [
-                ".mini-btn-action--primary"
+                "#mini-harness-demo > .run > pre"
               ],
-              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.86 (foreground color: #ffffff, background color: #4fd1c5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
-            },
-            {
-              "html": "<span class=\"mini-fs__status status--fail\" data-fs-calc=\"\">Buggy</span>",
-              "target": [
-                ".status--fail"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.14 (foreground color: #dc2626, background color: #3a1c2b, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
             }
           ]
         }
@@ -123,84 +109,42 @@
   },
   "Roofline Lesson": {
     "light": {
-      "passes": 53,
+      "passes": 54,
       "violations": [
         {
-          "id": "scrollable-region-focusable",
-          "impact": "serious",
-          "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari",
-          "help": "Scrollable region must have keyboard access",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/scrollable-region-focusable?application=axeAPI",
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "description": "Ensure landmarks are unique",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/landmark-unique?application=axeAPI",
           "nodes": [
             {
-              "html": "<pre>",
+              "html": "<pre tabindex=\"0\" aria-label=\"Code, scrollable\" role=\"region\">",
               "target": [
                 ".run:nth-child(8) > pre"
               ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
-            },
-            {
-              "html": "<pre>",
-              "target": [
-                ".run:nth-child(15) > pre"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
-            },
-            {
-              "html": "<pre>",
-              "target": [
-                ".run:nth-child(6) > pre"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
-            },
-            {
-              "html": "<pre>",
-              "target": [
-                ".run:nth-child(9) > pre"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
             }
           ]
         }
       ]
     },
     "dark": {
-      "passes": 53,
+      "passes": 54,
       "violations": [
         {
-          "id": "scrollable-region-focusable",
-          "impact": "serious",
-          "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari",
-          "help": "Scrollable region must have keyboard access",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/scrollable-region-focusable?application=axeAPI",
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "description": "Ensure landmarks are unique",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/landmark-unique?application=axeAPI",
           "nodes": [
             {
-              "html": "<pre>",
+              "html": "<pre tabindex=\"0\" aria-label=\"Code, scrollable\" role=\"region\">",
               "target": [
                 ".run:nth-child(8) > pre"
               ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
-            },
-            {
-              "html": "<pre>",
-              "target": [
-                ".run:nth-child(15) > pre"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
-            },
-            {
-              "html": "<pre>",
-              "target": [
-                ".run:nth-child(6) > pre"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
-            },
-            {
-              "html": "<pre>",
-              "target": [
-                ".run:nth-child(9) > pre"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
             }
           ]
         }

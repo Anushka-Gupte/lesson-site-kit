@@ -23,7 +23,7 @@
     "name": "Transformer Lesson",
     "url": "http://127.0.0.1:3105/lessons/transformer/index.html",
     "scores": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "bestPractices": 100,
       "seo": 100
@@ -34,7 +34,7 @@
     "url": "http://127.0.0.1:3105/lessons/harness/index.html",
     "scores": {
       "performance": 100,
-      "accessibility": 96,
+      "accessibility": 100,
       "bestPractices": 100,
       "seo": 100
     }
