@@ -147,12 +147,39 @@ No files outside `lessons/transformer/**` and `assets/img/transformer/**` were m
 
 6. **Responsiveness & Typography Audit**:
    - All text sizes across all SVG diagrams and inline SVG steps are strictly &ge; 14px.
-   - Verified SVG semantic structure and XML validity using `python scripts/check_svg.py` &rarr; `10 svg files checked, 0 broken`.
+   - Verified SVG semantic structure and XML validity using `python scripts/check_svg.py` &rarr; `16 svg files checked, 0 broken`.
    - Layout tested for fluid scaling down to 360px and wide viewports (1280px) in both light and dark themes with zero horizontal overflow.
 
 ---
 
-## 5. Verification Details
+## 5. QA Contrast Findings & Resolution (Dark Mode Indigo Tint)
+
+1. **Highlighted Table Cell (`td:nth-child(7)`, "80%")**:
+   - **Root Cause**: `td:nth-child(7)` previously used inline `style="color: var(--indigo); background: var(--indigo-tint);"` which resulted in dark mode `--indigo` (`#8B83FF`) on `--indigo-tint` (`rgba(139, 131, 255, 0.15)`) over `--surface` (`#1D1A2C`), yielding a contrast ratio of **4.39:1** (failing WCAG AA `< 4.5:1`).
+   - **Fix**: Removed inline styles and scoped `.table td:nth-child(7)` / `.table td.table-cell--highlight` in `lesson.css`. In dark mode (`@media (prefers-color-scheme: dark)` and `:root[data-theme="dark"]`), text color is set to the SPEC dark-theme token `--ink` (`#F3EFE8`).
+   - **Measured Contrast Ratios**:
+     - *Dark Mode (Before)*: `#8B83FF` on `--indigo-tint` over `--surface` (`#1D1A2C`) = **4.39:1** (FAIL).
+     - *Dark Mode (After)*: `--ink` (`#F3EFE8`) on `--indigo-tint` over `--surface` (`#1D1A2C`) = **11.86:1** (PASS).
+     - *Dark Mode (After)*: `--ink` (`#F3EFE8`) on `--indigo-tint` over `--bg` (`#14121F`) = **13.12:1** (PASS).
+     - *Light Mode*: `--indigo` (`#4338CA`) on `--indigo-tint` over `--surface` (`#FFFFFF`) = **6.72:1** (PASS).
+
+2. **Interactive Button (`button[data-demo-mode="they"]`)**:
+   - **Root Cause**: Active button on indigo tint in dark mode failed 4.5:1 text contrast if using `--indigo` (4.39:1) or white text on raw `--indigo` (3.09:1).
+   - **Fix**: Scoped `.attention-demo__token.is-active`, `button[data-demo-mode="they"].is-active`, and `button[data-demo-mode].is-active` with `background: var(--indigo-tint)`, `border: 1px solid var(--indigo)`. In dark mode, text color is explicitly set to SPEC token `--ink` (`#F3EFE8`).
+   - **Measured Contrast Ratios**:
+     - *Dark Mode (Before)*: `#8B83FF` on `--indigo-tint` over `--surface` (`#1D1A2C`) = **4.39:1** (FAIL).
+     - *Dark Mode (Before)*: `#FFFFFF` on raw `--indigo` (`#8B83FF`) = **3.09:1** (FAIL).
+     - *Dark Mode (After)*: `--ink` (`#F3EFE8`) on `--indigo-tint` over `--bg` (`#14121F`) = **13.12:1** (PASS).
+     - *Dark Mode (After)*: `--ink` (`#F3EFE8`) on `--indigo-tint` over `--surface` (`#1D1A2C`) = **11.86:1** (PASS).
+     - *Light Mode*: `--indigo` (`#4338CA`) on `--indigo-tint` over `--bg` (`#FBF8F3`) = **6.35:1** (PASS), over `--surface` (`#FFFFFF`) = **6.72:1** (PASS).
+
+3. **Decorative Rangoli Divider**:
+   - Preserved `alt=""` and ensured `aria-hidden="true"` is present on both the container `<div>` and the child `<img>` tag in `index.html`.
+   - Updated `assets/img/transformer/rangoli-divider.svg` to remove `role="img"` and `aria-label`, leaving it as `aria-hidden="true"`, ensuring no screen-reader announcements or descriptive alt text for decorative imagery.
+
+---
+
+## 6. Verification Details
 
 - **What was checked**:
   - `python scripts/check_svg.py`: 10/10 SVG files valid XML with 0 broken lines.

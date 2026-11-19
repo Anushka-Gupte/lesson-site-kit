@@ -4,6 +4,28 @@
   /* Accent tokens already defined in site.css as --accent: var(--indigo) */
 }
 
+/* Highlighted cell in attention weights table (7th column: "80%") */
+.lesson--transformer .table td:nth-child(7),
+.lesson--transformer .table td.table-cell--highlight {
+  background: var(--indigo-tint);
+  color: var(--indigo);
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lesson--transformer .table td:nth-child(7),
+  :root:not([data-theme="light"]) .lesson--transformer .table td.table-cell--highlight {
+    background: var(--indigo-tint);
+    color: var(--ink);
+  }
+}
+
+:root[data-theme="dark"] .lesson--transformer .table td:nth-child(7),
+:root[data-theme="dark"] .lesson--transformer .table td.table-cell--highlight {
+  background: var(--indigo-tint);
+  color: var(--ink);
+}
+
 /* Stepper stage customization for 9-step decoder build */
 .lesson--transformer .stepper__stage {
   min-height: 440px;
@@ -81,11 +103,31 @@
   outline: none;
 }
 
-.attention-demo__token.is-active {
-  background: var(--indigo);
-  color: #FFFFFF;
+.attention-demo__token.is-active,
+button[data-demo-mode="they"].is-active,
+button[data-demo-mode].is-active {
+  background: var(--indigo-tint);
+  border: 1px solid var(--indigo);
+  color: var(--indigo);
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(67, 56, 202, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .attention-demo__token.is-active,
+  :root:not([data-theme="light"]) button[data-demo-mode="they"].is-active,
+  :root:not([data-theme="light"]) button[data-demo-mode].is-active {
+    background: var(--indigo-tint);
+    border-color: var(--indigo);
+    color: var(--ink);
+  }
+}
+
+:root[data-theme="dark"] .attention-demo__token.is-active,
+:root[data-theme="dark"] button[data-demo-mode="they"].is-active,
+:root[data-theme="dark"] button[data-demo-mode].is-active {
+  background: var(--indigo-tint);
+  border-color: var(--indigo);
+  color: var(--ink);
 }
 
 .attention-demo__bars {
