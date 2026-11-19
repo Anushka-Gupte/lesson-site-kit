@@ -1,0 +1,72 @@
+== final ==
+2026-11-19T23:33:06+05:30
+
+== agent branches: commits ahead of main ==
+agent/harness          0 commits
+agent/qa               0 commits
+agent/roofline         0 commits
+agent/shell            0 commits
+agent/transformer      0 commits
+
+== worktrees ==
+C:/Users/Anushka/Downloads/lesson-site-kit/lesson-site-kit  c6199d6 [main]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-harness       c17368d [agent/harness]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-qa            364673a [agent/qa]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-roofline      f9f496f [agent/roofline]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-shell         bd78ab3 [agent/shell]
+C:/Users/Anushka/Downloads/lesson-site-kit/wt-transformer   197df30 [agent/transformer]
+
+== ownership guard (did any agent leave its lane?) ==
+agent=harness branch=agent/harness: 0 files changed, 0 outside its lane
+agent=qa branch=agent/qa: 0 files changed, 0 outside its lane
+agent=roofline branch=agent/roofline: 0 files changed, 0 outside its lane
+agent=shell branch=agent/shell: 0 files changed, 0 outside its lane
+agent=transformer branch=agent/transformer: 0 files changed, 0 outside its lane
+
+== history ==
+* c6199d6 (HEAD -> main, origin/main) phase 4 evidence
+* 364673a (agent/qa) qa: update QA-REPORT and test data with post-fix re-audit scores
+*   10bcfc8 Merge branch 'main' into agent/qa
+|\  
+| * cc59ebf docs: real content filenames
+| *   642a1f2 Merge branch 'agent/shell'
+| |\  
+| | * bd78ab3 (agent/shell) shell: resolve QA findings for 404 contrast, fallback link, and scrollable pre focus
+| * |   26f2897 Merge branch 'agent/harness'
+| |\ \  
+| | * | c17368d (agent/harness) harness: fix UI badge and primary action button contrast ratios to pass WCAG AA (>= 4.5:1)
+| | |/  
+| * |   9140795 Merge branch 'agent/transformer'
+| |\ \  
+| | * | 197df30 (agent/transformer) transfomer: QA fixes
+| | |/  
+* | | 6e8f2c1 Merge branch 'main' into agent/qa
+|\| | 
+| * | 5225c1c spec: decorative images use empty alt
+| |/  
+* | de742fc qa: add comprehensive README, QA-REPORT, and HANDOFF
+* | d3adb5d qa: add axe, lighthouse, responsive tests and generated audit data
+* | 46679dc qa: add github pages deployment workflow
+* | 08bbccd qa: add content number verification script
+* | b681e00 qa: add link, image, and alt-text crawler script
+|/  
+* c2b6470 phase 2 evidence
+*   1c9107d Merge branch 'agent/roofline'
+|\  
+| * f9f496f (agent/roofline) roofline: final
+* |   5d5a6e9 Merge branch 'agent/harness'
+|\ \  
+| * | f12fb31 harness: fix stepper text box containment, contrast, and layout spacing
+| * | 54c3e96 harness: add HANDOFF.md and responsive mobile overflow containment
+| * | 8587d4a harness: add lesson page, interactive mini-harness, steppers and SVGs
+| |/  
+* / cf5da77 transformer: final
+|/  
+* 17793b3 phase 1 evidence
+*   cf9aa14 Merge shell agent: design system and home page
+
+== what exists on main ==
+html pages:  6
+svg images:  16
+css/js files: 12
+total lines (html+css+js): 8302
