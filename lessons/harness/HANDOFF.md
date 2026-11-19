@@ -99,6 +99,20 @@ Ownership check:
 - **The Brake Test caveat preserved:** Highlighted the surprising measurement where `rm -rf ~/victim` executed in Hermes one-shot mode (`-z`), emphasizing the core lesson: *"a brake you have not tested is only a hope."*
 - **Mobile overflow isolation:** Added `overflow-x: auto`, `min-width: 0`, and `max-width: 100%` on code containers and pre blocks so code scrolls cleanly inside its container rather than expanding the page layout at 360px.
 - **Box Containment & Contrast in Stepper SVGs:** Redesigned Stepper 1 and Stepper 2 SVGs so that every single text label has wide bounding boxes with generous padding (15px to 50px margins), preventing text from spilling outside boxes. Repositioned the `BRAKES: allowed()` box cleanly above the rear wheel arc, and positioned the bottom chassis banner below the wheels with theme-adaptive CSS variables (`var(--surface)`, `var(--teal)`, `var(--ink)`) ensuring high contrast in both light and dark themes.
+- **WCAG AA Contrast Fixes on UI Badges & Primary Actions (>= 4.5:1):**
+  - `.status--fail` ("Buggy") & `.status--deleted`:
+    - Light Mode: Text `#B91C1C` on `rgba(185, 28, 28, 0.12)` over surface `#FFFFFF` &rarr; **5.29:1** (previously 3.81:1).
+    - Dark Mode: Text `#FCA5A5` on `rgba(239, 68, 68, 0.16)` over surface `#1D1A2C` &rarr; **7.52:1** (previously 3.15:1).
+  - `.mini-btn-action--primary` ("Step Next Turn ->"):
+    - Light Mode: Text `#FFFFFF` on dark teal `#0F766E` &rarr; **5.47:1**.
+    - Dark Mode: Text `#14121F` on bright teal `#4FD1C5` &rarr; **9.91:1** (previously 1.87:1 with white text).
+    - Dark Mode Hover: Text `#14121F` on `#38BDF8` &rarr; **8.63:1**.
+  - `.brake-toggle-btn.is-off`:
+    - Light Mode: Text `#B91C1C` on `rgba(185, 28, 28, 0.08)` over `#FBF8F3` &rarr; **5.34:1** (previously 3.92:1).
+    - Dark Mode: Text `#FCA5A5` on `rgba(239, 68, 68, 0.16)` over `#14121F` &rarr; **8.28:1** (previously 3.59:1).
+  - `.status--pass` & `.status--intact`:
+    - Light Mode: Text `#0F766E` on `rgba(15, 118, 110, 0.10)` &rarr; **4.75:1** (previously 4.42:1).
+    - Dark Mode: Text `#4FD1C5` on `rgba(79, 209, 197, 0.15)` &rarr; **6.76:1**.
 - **Strict XML entity adherence:** Used numeric entities (`&#8226;`, `&#8594;`, `&#10005;`) and UTF-8 characters across all `.svg` files to prevent XML parse failures.
 
 ---
