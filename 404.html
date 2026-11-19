@@ -15,6 +15,7 @@
       --muted: #5B5870;
       --border: #E7E1D6;
       --saffron: #9A5205;
+      --saffron-ink: #FFFFFF; /* 5.86:1 contrast against #9A5205 in light theme (passes WCAG AA) */
       --saffron-tint: rgba(154, 82, 5, 0.10);
       --font-display: Fraunces, ui-serif, Georgia, serif;
       --font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -32,6 +33,7 @@
         --muted: #B3AFC4;
         --border: #2E2A44;
         --saffron: #F4A62A;
+        --saffron-ink: #14121F; /* 9.1:1 contrast against #F4A62A in dark theme (passes WCAG AA) */
         --saffron-tint: rgba(244, 166, 42, 0.15);
         --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
       }
@@ -161,7 +163,7 @@
       gap: 8px;
       padding: 12px 24px;
       background-color: var(--saffron);
-      color: #FFFFFF;
+      color: var(--saffron-ink);
       font-weight: 600;
       font-size: 1rem;
       border-radius: var(--radius-sm);
@@ -196,7 +198,7 @@
 
   <header>
     <div class="header-inner">
-      <a class="brand" href="/" id="brand-link" aria-label="From Zero home">
+      <a class="brand" href="/lesson-site-kit/" id="brand-link" aria-label="From Zero home">
         <!-- Inline Brand Mark -->
         <svg viewBox="0 0 64 64" width="32" height="32" role="img" aria-hidden="true">
           <rect width="64" height="64" rx="16" fill="#1E1B2E"/>
@@ -227,7 +229,7 @@
         The address you requested seems to have taken an unexpected detour through the ghats. No compute was wasted and no memory was leaked. Let’s get you back on the main road.
       </p>
 
-      <a class="btn" href="/" id="home-cta">Return to Home &rarr;</a>
+      <a class="btn" href="/lesson-site-kit/" id="home-cta">Return to Home &rarr;</a>
     </div>
   </main>
 
@@ -236,12 +238,16 @@
   </footer>
 
   <script>
-    // GitHub Pages sub-path resolution fallback
+    // GitHub Pages sub-path resolution fallback.
+    // Set DEFAULT_BASE to the repo path name with leading & trailing slashes (e.g. "/lesson-site-kit/").
+    // If hosting on a custom domain (root path), change this single constant to "/".
+    var DEFAULT_BASE = '/lesson-site-kit/';
+
     (function() {
       try {
         var path = window.location.pathname;
         var parts = path.split('/').filter(Boolean);
-        var base = '/';
+        var base = DEFAULT_BASE;
         if (parts.length > 0 && !parts[0].includes('.')) {
           // If served from a project subdirectory (e.g. /lesson-site-kit/)
           base = '/' + parts[0] + '/';

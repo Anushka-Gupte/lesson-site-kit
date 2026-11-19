@@ -30,6 +30,7 @@
   /* Active Accent (Default: Saffron spark) */
   --accent: var(--saffron);
   --accent-tint: var(--saffron-tint);
+  --accent-ink: #FFFFFF;
 
   /* Typography Stacks */
   --font-display: Fraunces, ui-serif, Georgia, serif;
@@ -88,6 +89,7 @@
 
     --caution: #F87171;
     --caution-tint: rgba(248, 113, 113, 0.15);
+    --accent-ink: #14121F;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
@@ -113,6 +115,7 @@
 
   --caution: #F87171;
   --caution-tint: rgba(248, 113, 113, 0.15);
+  --accent-ink: #14121F;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
@@ -137,6 +140,7 @@
 
   --caution: #B91C1C;
   --caution-tint: rgba(185, 28, 28, 0.10);
+  --accent-ink: #FFFFFF;
 
   --shadow-sm: 0 1px 2px rgba(20, 18, 31, 0.06);
   --shadow-card: 0 1px 2px rgba(20, 18, 31, 0.06), 0 8px 24px rgba(20, 18, 31, 0.08);
@@ -674,7 +678,7 @@ p {
 }
 .btn--primary {
   background-color: var(--accent);
-  color: #FFFFFF;
+  color: var(--accent-ink);
 }
 .btn--primary:hover {
   filter: brightness(1.08);
@@ -902,6 +906,12 @@ p {
   overflow-x: auto;
   padding: var(--space-2) 0;
   margin: 0;
+}
+
+.run pre:focus-visible {
+  outline: 2px solid #F4A62A;
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .run code {
